@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../index.xhtml">
+
+            <ui:define name="content">
+                <div align="center">
+                    <h:form id="formPrincipal">
+
+                        <p:growl id="messages" showDetail="true" />
+
+                        <p:dataTable var="tecnicos" value="#{tecnicoBean.tecnicos}"
+                                     sortMode="multiple" rows="5" paginator="true"
+                                     id="tabelaTecnicos" style="text-align: center">
+
+                            <f:facet name="header">Lista de Tecnicos Cadastrados</f:facet>
+
+                            <p:column headerText="Matricula">
+                                <h:outputText value="#{tecnicos.matricula}"/>
+                            </p:column>
+
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{tecnicos.nome}"/>
+                            </p:column>
+
+                            <p:column headerText="Email">
+                                <h:outputText value="#{tecnicos.email}"/>
+                            </p:column>
+
+                            <p:column headerText="Operações" >
+                                <center>
+                                    <p:commandButton
+                                        ajax="false"
+                                        icon="ui-icon-pencil"
+                                        action="#{tecnicoBean.editar()}" >
+
+                                        <f:setPropertyActionListener
+                                            target="#{tecnicoBean.tecnico}"
+                                            value="#{tecnicos}"/>
+                                    </p:commandButton>
+
+                                    <p:commandButton ajax="false" 
+                                                     icon="ui-icon-trash"
+                                                     actionListener="#{tecnicoBean.excluir()}" >
+
+                                        <f:setPropertyActionListener
+                                            target="#{tecnicoBean.tecnico}"
+                                            value="#{tecnicos}"/>
+
+                                    </p:commandButton>
+
+                                </center>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+                </div>
+
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

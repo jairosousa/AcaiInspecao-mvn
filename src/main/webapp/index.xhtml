@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset-utf-8" />
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false" />
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Expire" content="0"/>
+        <link rel="shortcut-icon" type="image/x-icon" href="#{request.contextPath}/resources/images/acaipde.png"/>
+        <h:outputStylesheet library="css" name="main.css"/>
+        <title>Açai Paidégua</title>
+    </h:head>
+    <h:body>
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" size="100" header="Açai inspeção web" style="text-align: center" >
+                <h:graphicImage library="images" name="acaipde.png" height="50" width="50"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="75" header="Copyright 2015 Todos os direios reservados" style="text-align: center">
+                <h:graphicImage library="images" name="acaipde.png" height="20" width="20"/>
+                <a href="https://portalnew.ufra.edu.br/">Açai Paidégua</a>
+                All rights reserved.
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="175" resizable="true" closable="true" collapsible="true" header="Menu">
+                <ui:include src="/templates/menu.xhtml" />
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" >
+                <div id="content">
+                    <div style="padding-bottom: 10px">
+
+                        <h:form >
+                            <h:outputText
+                                id="bemVindo" style="font-family: sans-serif;"
+                                value="Seja bem vindo(a) ao sistema de Fiscalização do Açaí PDE, #{tecnicoBean.tecnicoLogado.email} !"/>
+
+
+                            <h:outputLink style="margin-left: 10px" value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                                <h:outputText value="Sair"/>
+                            </h:outputLink>                       
+
+                        </h:form>
+
+                    </div>
+                    <ui:insert name="content" />
+                </div>
+            </p:layoutUnit>
+
+
+        </p:layout>
+    </h:body>
+</html>
+

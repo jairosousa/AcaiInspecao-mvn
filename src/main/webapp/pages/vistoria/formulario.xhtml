@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../index.xhtml">
+
+
+            <ui:define name="content">
+                <h:form id="formularioVistoria">
+                    <p:growl
+                        id="growl"
+                        showDetail="true"
+                        sticky="false"/>
+
+                    <div align="center">
+
+                        <p:toolbar>
+                            <f:facet name="left">
+                                Vistoria
+                            </f:facet>
+
+                            <f:facet name="right">
+                                <p:commandButton value="Salvar" action="#{vistoriaBean.salvar()}" update="growl" icon="ui-icon-disk"/>
+                                <p:commandButton value="Cancelar" action="#{vistoriaBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                <p:commandButton value="Inspeção" action="#{vistoriaBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                <span class="ui-separator">
+                                    <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                </span>
+                                <p:commandButton value="Voltar" action="#{vistoriaBean.cancelar()}" update="growl" icon="ui-icon-extlink"/>
+                            </f:facet>
+
+                        </p:toolbar>
+
+                        <h:inputHidden value="#{vistoriaBean.vistoria.id}"/>
+
+                        <h:panelGrid columns="6" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
+
+                            <h:outputLabel for="mask" value="Data vistoria"/>
+                            <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
+                                        id="maskVis" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                            </p:calendar>
+
+                            <h:outputLabel for="mask" value="Data solicitação"/>
+                            <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
+                                        id="masksol" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                            </p:calendar>
+
+                            <h:outputText value="Estabelecimento"/>
+                            <p:selectOneMenu value="#{vistoriaBean.vistoria.estabelecimento}"
+                                             converter="estabelecimentoConverter" >
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItems value="#{estabelecimentoBean.estabelecimentos}" var="estabelecimentos"
+                                               itemLabel="#{estabelecimentos.nomeFantasia}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Tecnico"/>
+                            <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico1}"
+                                             converter="tecnicoConverter">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
+                                               itemLabel="#{tecnicos.nome}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Tecnico"/>
+                            <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
+                                             converter="tecnicoConverter">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
+                                               itemLabel="#{tecnicos.nome}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Prazo"/>
+                            <p:inputText id="prazo" value="#{vistoriaBean.vistoria.prazo}"
+                                         label="prazo" />
+
+                            <p:outputLabel for="apto" value="Apto" />
+                            <p:selectOneRadio id="apto" value="#{vistoriaBean.vistoria.apto}">
+                                <f:selectItem itemLabel="Sim" itemValue="true"/>
+                                <f:selectItem itemLabel="Não" itemValue="false" />
+                            </p:selectOneRadio>
+
+                            <h:outputText value="Observação"/>
+                            <p:inputTextarea id="obs" value="#{vistoriaBean.vistoria.observacao}"
+                                             label="obs" />
+
+                        </h:panelGrid>
+
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

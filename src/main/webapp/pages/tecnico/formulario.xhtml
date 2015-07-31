@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../index.xhtml">
+
+            <ui:define name="content">
+                <h:form id="formularioTecnico">
+                    <p:growl
+                        id="growl"
+                        showDetail="true"
+                        sticky="false"/>
+
+                    <div align="center">
+                        <p:panel id="panel" header="Técnico">
+
+                            <h:inputHidden value="#{tecnicoBean.tecnico.id}"/>
+
+
+                            <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
+                                
+                                <h:outputText value="Matricula"/>
+                                <p:inputText id="matricula" value="#{tecnicoBean.tecnico.matricula}"
+                                             rendered="true" label="Matricula">
+                                    <f:validateLength maximum="10" minimum="2"/>
+                                </p:inputText>
+                                
+                                <h:outputText value="Nome"/>
+                                <p:inputText id="nome" value="#{tecnicoBean.tecnico.nome}"
+                                             rendered="true" label="Nome">
+                                    <f:validateLength maximum="50" minimum="2"/>
+                                </p:inputText>
+                                
+                                <h:outputText value="Email"/>
+                                <p:inputText id="email" value="#{tecnicoBean.tecnico.email}"
+                                             label="email"/>
+                                
+                                <h:outputText value="Senha"/>
+                                <p:password id="senha" value="#{tecnicoBean.tecnico.senha}"
+                                            rendered="true" label="senha" feedback="true"/>
+                                
+                                <h:outputText value="Confirme a senha"/>
+                                <p:password id="confirmesenha" value="#{tecnicoBean.tecnico.confirmaSenha}"
+                                             label="confirme"/>
+
+                                <div align="center">
+                                    <p:menuButton value="Opções">
+                                        <p:menuitem value="Salvar" action="#{tecnicoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
+                                        <p:menuitem value="Cancelar" action="#{tecnicoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                        <p:separator/>
+                                        <p:menuitem value="Voltar Pánina Inicial" url="./../../index.xhtml" icon="ui-icon-extlink"/>
+                                    </p:menuButton>  
+                                </div>
+                            </h:panelGrid>
+                        </p:panel>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

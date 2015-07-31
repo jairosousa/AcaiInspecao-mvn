@@ -1,0 +1,72 @@
+/* 
+    Created on : 14/06/2015, 16:43:59
+    Author     : Jairo
+*/
+
+body {
+    background-color: #660033 !important;
+}
+
+.container {
+    background-color: #dddddd !important;
+    width: 1030px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.titulo{
+    font-size: 1.4em;
+    font-style: italic;
+    font-family: Palatino;
+    text-align: center;
+}
+.mensagem{
+    font-size: 1.4em;
+    font-style: italic;
+    font-family: Palatino;
+    text-align: center;
+}
+
+.tituloRodape{
+    font-size: 0.85em;
+    font-style: normal;
+    font-family: Palatino;
+    text-align: center;
+}
+#cabecalho{
+    padding: 20px;
+    height: 30px;
+    margin-bottom: 10px;
+    background: #dddddd;
+    border: 1px solid darkgray;
+}
+
+#barraEsquerda{
+    border: thin solid lightgray;
+    padding: 5px;
+    width: 150px;
+    background: #eeeeee;
+}
+
+#conteudo{
+    padding: 5px;
+    border: thin solid lightgray;
+    background: #fefeet;
+    position: absolute;
+    right: 8px;
+    left: 180px;
+    height: 400px;
+    top: 90px;
+}
+#rodape{
+    padding: 20px;
+    height: 30px;
+    margin-bottom: 10px;
+    background: #dddddd;
+    border: 1px solid darkgray;
+    margin-bottom: 10px;
+    text-align: center;
+    bottom:0px;
+    left:10px;
+}
+

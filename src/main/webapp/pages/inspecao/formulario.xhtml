@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../index.xhtml">
+
+            <ui:define name="content">
+                <h:form id="formularioInspecao">
+                    <p:growl
+                        id="growl"
+                        showDetail="true"
+                        sticky="false"/>
+
+                    <div align="center">
+                        <p:toolbar>
+                            <f:facet name="left">
+                                Inspeção
+                            </f:facet>
+                            <f:facet name="right">
+                                <p:commandButton value="Salvar" action="#{inspecaoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
+                                <p:commandButton value="Cancelar" action="#{inspecaoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                <span class="ui-separator">
+                                    <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                </span>
+                                <p:commandButton value="Voltar" action="#{inspecaoBean.cancelar()}" update="growl" icon="ui-icon-extlink"/>
+                            </f:facet>
+                        </p:toolbar>
+
+                        <h:inputHidden value="#{inspecaoBean.inspecao.id}"/>
+
+                        <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
+
+                            <h:outputLabel for="mask" value="Data inspeção"/>
+                            <p:calendar value="#{inspecaoBean.inspecao.dataInsp}"
+                                        id="masksol" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                            </p:calendar>
+
+                            <h:outputText value="Local da vistoria"/>
+                            <p:selectOneMenu value="#{inspecaoBean.inspecao.vistoria}"
+                                             converter="vistoriaConverter">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItems value="#{vistoriaBean.vistorias}" var="vistorias"
+                                               itemLabel="#{vistorias.estabelecimento.nomeFantasia}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Equipamentos"/>
+                            <p:selectOneMenu value="#{inspecaoBean.inspecao.equipamento}"
+                                             converter="equipamentoConverter">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItems value="#{equipamentoBean.equipamentos}" var="equipamentos"
+                                               itemLabel="#{equipamentos.nome}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../index.xhtml">
+
+            <ui:define name="content">
+                <h:form id="formularioEquipamento">
+                    <p:growl
+                        id="growl"
+                        showDetail="true"
+                        sticky="false"/>
+
+                    <div align="center">
+
+                        <p:toolbar>
+                            <f:facet name="left">
+                               Equipamento
+                            </f:facet>
+
+                            <f:facet name="right">
+                                <p:commandButton value="Salvar" action="#{equipamentoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
+                                <p:commandButton value="Cancelar" action="#{equipamentoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                <span class="ui-separator">
+                                    <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                </span>
+                                <p:commandButton value="Voltar" action="#{equipamentoBean.cancelar()}" update="growl" icon="ui-icon-extlink"/>
+                            </f:facet>
+
+                        </p:toolbar>  
+
+
+                        <h:inputHidden value="#{equipamentoBean.equipamento.id}"/>
+
+                        <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
+
+
+
+                            <h:outputText value="Nome"/>
+                            <p:inputText id="nome" size="50"
+                                         value="#{equipamentoBean.equipamento.nome}"
+                                         rendered="true" label="Nome">
+                                <f:validateLength maximum="100" minimum="2"/>
+                            </p:inputText>
+
+                            <h:outputText value="Descrição"/>
+                            <p:inputTextarea id="descricao"
+                                             value="#{equipamentoBean.equipamento.descricao}" 
+                                             rows="2" cols="33" />
+
+                            <p:outputLabel for="status" value="Status" />
+                            <p:selectOneRadio id="status" value="#{equipamentoBean.equipamento.status}">
+                                <f:selectItem itemLabel="Obrigatorio" itemValue="Obrigatorio"/>
+                                <f:selectItem itemLabel="Não obrigatorio" itemValue="Não obrigatorio" />
+                            </p:selectOneRadio>
+
+                            <p:outputLabel for="material" value="Material" />
+                            <p:selectOneMenu id="material" value="#{equipamentoBean.equipamento.material}">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="Aço Inox" itemValue="Aço Inox" />
+                                <f:selectItem itemLabel="Aluminio" itemValue="Aluminio" />
+                                <f:selectItem itemLabel="Plastico" itemValue="Plastico" />
+                                <f:selectItem itemLabel="Madeira" itemValue="Madeira" />
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,59 @@
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 97% !important;
+}
+.ui-panelmenu .ui-panelmenu-header a{
+    color: black;
+}
+
+.ui-panelgrid {  
+    border: none !important; 
+
+}
+
+h1{
+    color: aliceblue;
+}
+header {
+    font-family: verdana, sans-serif;
+    color: black;
+    background-color:#660033;
+    font-size: 15px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    width: 1100px;
+}
+
+.conteudo {
+    float: left;
+    width: 75%;
+}
+
+.menu {
+    float: left;
+    width: 15%;
+    padding: 0 0.5%;
+}
+
+footer {
+    display: block;
+    width: 1150px;
+    padding: 0px 0;
+    font-family: verdana, sans-serif;
+    color: gray;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bolder;
+    position: absolute;
+    bottom: 0;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+body {
+    background-color: #ddd;
+}
+

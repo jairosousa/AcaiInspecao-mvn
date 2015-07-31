@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../index.xhtml">
+
+            <ui:define name="content">
+                <h:form id="listaVistoria">
+                    <p:growl
+                        id="growl"
+                        showDetail="true"
+                        sticky="false"/>
+
+
+                    <p:dataTable var="vistorias" value="#{vistoriaBean.vistorias}"
+                                 rows="5" paginator="true" id="visto"
+                                 sortMode="multiple" style="text-align: center">
+
+                        <f:facet name="header">
+                            Vistorias
+                        </f:facet>
+
+                        <p:column style="width: 16px">
+                            <p:rowToggler/>
+                        </p:column>
+
+                        <p:column headerText="Estabelecimento">
+                            <h:outputText value="#{vistorias.estabelecimento.nomeFantasia}"/>
+                        </p:column>
+
+                        <p:column headerText="Contato">
+                            <h:outputText value="#{vistorias.estabelecimento.nomeContato}"/>
+                        </p:column>
+
+                        <p:column headerText="Status">
+                            <h:outputText value="#{vistorias.estabelecimento.status}"/>
+                        </p:column>
+
+                        <p:column headerText="Data Vistoria">
+                            <h:outputText value="#{vistorias.dataVistoria}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Data Solicitação">
+                            <h:outputText value="#{vistorias.dataSolicitacao}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Endereço">
+                            <h:outputText value="#{vistorias.estabelecimento.logradouro}"/>
+                        </p:column>
+
+                        <p:column headerText="Operações" >
+                            <div align="center">
+                                <p:commandButton
+                                    ajax="false"
+                                    icon="ui-icon-pencil"
+                                    action="#{vistoriaBean.editar()}">
+                                    <f:setPropertyActionListener
+                                        target="#{vistoriaBean.vistoria}"
+                                        value="#{vistorias}"/>
+                                </p:commandButton>
+
+                                <p:commandButton
+                                    ajax="false"
+                                    icon="ui-icon-trash"
+                                    action="#{vistoriaBean.excluir()}">
+                                    <f:setPropertyActionListener
+                                        target="#{vistoriaBean.vistoria}"
+                                        value="#{vistorias}"/>
+                                </p:commandButton>
+
+                            </div>
+                        </p:column>
+
+                        <p:rowExpansion>
+
+                            <p:panelGrid columns="2">
+
+                                <p:outputLabel value="Tecnico" />
+                                <h:outputText value="#{vistorias.tecnico1.nome}"/>
+
+                                <p:outputLabel value="Tecnico" />
+                                <h:outputText value="#{vistorias.tecnico2.nome}"/>
+
+                                <p:outputLabel value="Apto" />
+                                <h:outputText value="#{vistorias.apto?'Sim':'Não'}"/>
+
+                                <p:outputLabel value="Observação" />
+                                <h:outputText value="#{vistorias.observacao}"/>
+
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
