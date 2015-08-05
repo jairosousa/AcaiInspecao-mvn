@@ -12,11 +12,18 @@ import br.com.ufra.rn.EstabelecimentoRN;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.GeocodeResult;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -26,11 +33,19 @@ import org.primefaces.event.SelectEvent;
 @RequestScoped
 public class EstabelecimentoBean implements Serializable {
 
+    private MapModel geoModel;
+
+    private String centerGeoMap = "-1.2965754,-48.4652863";
+
+    private LatLng center;
+
     private Estabelecimento estabelecimento;
     private EstabelecimentoRN rn = new EstabelecimentoRN();
     private List<Estabelecimento> estabelecimentos;
 
-    public EstabelecimentoBean() {
+    @PostConstruct
+    public void init() {
+        geoModel = new DefaultMapModel();
         estabelecimento = new Estabelecimento();
     }
 
@@ -44,6 +59,34 @@ public class EstabelecimentoBean implements Serializable {
 
     public List<Estabelecimento> getEstabelecimentos() {
         return estabelecimentos = rn.obterTodos();
+    }
+
+    public MapModel getGeoModel() {
+        return geoModel;
+    }
+
+    public String getCenterGeoMap() {
+        return centerGeoMap;
+    }
+
+    public void onGeocode(GeocodeEvent event) {
+        List<GeocodeResult> results = event.getResults();
+
+        if (results != null && !results.isEmpty()) {
+            this.center = results.get(0).getLatLng();
+            centerGeoMap = this.center.getLat() + "," + this.center.getLng();
+
+            for (int i = 0; i < results.size(); i++) {
+                GeocodeResult result = results.get(i);
+                geoModel.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
+            }
+
+        }
+        this.estabelecimento.setLatitude(String.valueOf(center.getLat()));
+        this.estabelecimento.setLongitude(String.valueOf(center.getLng()));
+
+        System.out.println("Latitude: " + String.valueOf(center.getLat()));
+        System.out.println("Longitude: " + String.valueOf(center.getLng()));
     }
 
     public void obterCoordenadas() {

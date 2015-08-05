@@ -13,7 +13,7 @@ public class TesteCoordenadas {
     
     public static void main(String[] args) {
         
-        String end = "Travessa L seis, 223 Icoaraci";
+        String end = "Av Alcindo Cacela, 500";
         
         GoogleGeocodingService geocodingService = new GoogleGeocodingService();
         
