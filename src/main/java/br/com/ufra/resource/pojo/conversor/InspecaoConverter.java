@@ -24,11 +24,12 @@ public class InspecaoConverter {
             InspecaoPOJO resposta = new InspecaoPOJO();
 
             resposta.setId(inspecao.getId());
+            resposta.setVistoria(VistoriaConverter.toVistoriaPOJO(inspecao.getVistoria()));
             resposta.setApto(inspecao.getApto());
             resposta.setDataInsp(inspecao.getDataInsp());
             resposta.setEquipamentoPOJO(EquipamentoConverter.toEquipamentoPOJO(inspecao.getEquipamento()));
             resposta.setObservacao(inspecao.getObservacao());
-
+                
             return resposta;
 
         } else {
@@ -41,6 +42,7 @@ public class InspecaoConverter {
             Inspecao resposta = new Inspecao();
 
             resposta.setId(inspecaoPOJO.getId());
+            resposta.setVistoria(VistoriaConverter.fromVistoriaPOJO(inspecaoPOJO.getVistoria()));
             resposta.setApto(inspecaoPOJO.getApto());
             resposta.setDataInsp(inspecaoPOJO.getDataInsp());
             resposta.setEquipamento(EquipamentoConverter.fromEquipamentoPOJO(inspecaoPOJO.getEquipamentoPOJO()));

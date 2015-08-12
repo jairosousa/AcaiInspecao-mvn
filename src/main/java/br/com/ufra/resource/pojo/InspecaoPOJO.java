@@ -5,7 +5,6 @@
  */
 package br.com.ufra.resource.pojo;
 
-import br.com.ufra.entidade.Equipamento;
 import java.util.Date;
 
 /**
@@ -18,6 +17,7 @@ public class InspecaoPOJO {
     private Date dataInsp;
     private boolean apto;
     private String observacao;
+    private VistoriaPOJO vistoria;
     private EquipamentoPOJO equipamentoPOJO;
 
     public Integer getId() {
@@ -59,6 +59,15 @@ public class InspecaoPOJO {
     public void setEquipamentoPOJO(EquipamentoPOJO equipamentoPOJO) {
         this.equipamentoPOJO = equipamentoPOJO;
     }
+
+    public VistoriaPOJO getVistoria() {
+        return vistoria;
+    }
+
+    public void setVistoria(VistoriaPOJO vistoria) {
+        this.vistoria = vistoria;
+    }
+        
     
       
     

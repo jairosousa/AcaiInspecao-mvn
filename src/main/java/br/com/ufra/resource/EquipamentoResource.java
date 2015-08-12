@@ -39,13 +39,13 @@ public class EquipamentoResource extends Application {
             if (!equipamentos.isEmpty()) {
                 return gson.toJson(EquipamentoConverter.toEquipamentosPOJO(equipamentos));
             } else {
-                mensagem.setMensagemServClient("A lista está vazia!");
+                mensagem.setMensagemServToClient("A lista está vazia!");
                 json = gson.toJson(mensagem);
                 System.out.println(json);
                 return json;
             }
         } catch (Exception e) {
-            mensagem.setMensagemServClient("Erro ao obter todos: " + e.getMessage());
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
             json = gson.toJson(mensagem);
 
             System.out.println(json);

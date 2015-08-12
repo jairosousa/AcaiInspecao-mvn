@@ -15,7 +15,7 @@ public class EquipamentoPOJO {
     private String nome;
     private String descricao;
     private String status;
-    private String Material;
+    private String material;
    
 
     public Integer getId() {
@@ -51,12 +51,15 @@ public class EquipamentoPOJO {
     }
 
     public String getMaterial() {
-        return Material;
+        return material;
     }
 
     public void setMaterial(String material) {
-        this.Material = material;
+        this.material = material;
     }
+    
+    
+
     
     
 }

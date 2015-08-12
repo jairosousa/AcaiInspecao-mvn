@@ -13,13 +13,8 @@ import br.com.ufra.util.Mensagem;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
@@ -51,13 +46,13 @@ public class EstabelecimentoResource extends Application{
                 System.out.println("consultando a lista"+json);
                 return gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
             } else {
-                mensagem.setMensagemServClient("A lista está vazia!");
+                mensagem.setMensagemServToClient("A lista está vazia!");
                 json = gson.toJson(mensagem);
                 System.out.println(json);
                 return json;
             }
         } catch (Exception e) {
-            mensagem.setMensagemServClient("Erro ao obter todos: " + e.getMessage());
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
             json = gson.toJson(mensagem);
 
             System.out.println(json);

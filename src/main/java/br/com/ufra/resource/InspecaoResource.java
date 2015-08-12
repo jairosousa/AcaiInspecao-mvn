@@ -52,13 +52,13 @@ public class InspecaoResource extends Application {
                 System.out.println("inspecao json" + json);
                 return json;
             } else {
-                mensagem.setMensagemServClient("Elemento não encontrado");
+                mensagem.setMensagemServToClient("Elemento não encontrado");
                 json = gson.toJson(mensagem);
                 System.out.println(json);
                 return json;
             }
         } catch (Exception e) {
-            mensagem.setMensagemServClient("Erro ao obter por id: " + e.getMessage());
+            mensagem.setMensagemServToClient("Erro ao obter por id: " + e.getMessage());
             json = gson.toJson(mensagem);
 
             System.out.println(json);
@@ -79,13 +79,13 @@ public class InspecaoResource extends Application {
             if (!inspecoes.isEmpty()) {
                 return gson.toJson(InspecaoConverter.toInspecoesPOJO(inspecoes));
             } else {
-                mensagem.setMensagemServClient("A lista está vazia!");
+                mensagem.setMensagemServToClient("A lista está vazia!");
                 json = gson.toJson(mensagem);
                 System.out.println(json);
                 return json;
             }
         } catch (Exception e) {
-            mensagem.setMensagemServClient("Erro ao obter todos: " + e.getMessage());
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
             json = gson.toJson(mensagem);
 
             System.out.println(json);
@@ -101,14 +101,14 @@ public class InspecaoResource extends Application {
     public String save(Inspecao entity) {
         try {
             dao.criar(entity);
-            mensagem.setMensagemServClient(Mensagem.getMensagemOperacao());
+            mensagem.setMensagemServToClient(Mensagem.getMensagemOperacao());
             json = gson.toJson(mensagem);
 
             System.out.println("json " + json);
 
             return json;
         } catch (Exception e) {
-            mensagem.setMensagemServClient("Erro ao salvar: " + e.getMessage());
+            mensagem.setMensagemServToClient("Erro ao salvar: " + e.getMessage());
             json = gson.toJson(mensagem);
 
             System.out.println(json);
@@ -127,14 +127,14 @@ public class InspecaoResource extends Application {
         try {
             inspecao = dao.obter(Inspecao.class, id);
             dao.excluir(inspecao);
-            mensagem.setMensagemServClient(Mensagem.getMensagemOperacao());
+            mensagem.setMensagemServToClient(Mensagem.getMensagemOperacao());
             json = gson.toJson(mensagem);
 
             System.out.println(json);
 
             return json;
         } catch (Exception e) {
-            mensagem.setMensagemServClient("Erro ao excluir: " + e.getMessage());
+            mensagem.setMensagemServToClient("Erro ao excluir: " + e.getMessage());
             json = gson.toJson(mensagem);
 
             System.out.println(json);
@@ -151,14 +151,14 @@ public class InspecaoResource extends Application {
         try {
             inspecao = dao.obter(Inspecao.class, id);
             dao.atualizar(inspecao);
-            mensagem.setMensagemServClient(Mensagem.getMensagemOperacao());
+            mensagem.setMensagemServToClient(Mensagem.getMensagemOperacao());
             json = gson.toJson(mensagem);
 
             System.out.println(json);
 
             return json;
         } catch (Exception e) {
-            mensagem.setMensagemServClient("Erro ao atualizar: " + e.getMessage());
+            mensagem.setMensagemServToClient("Erro ao atualizar: " + e.getMessage());
             json = gson.toJson(mensagem);
 
             System.out.println(json);

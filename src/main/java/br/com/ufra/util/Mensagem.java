@@ -6,7 +6,7 @@ public class Mensagem {
     private static final Mensagem uniqueInstance = new Mensagem();
     private static String erroAoLogar;
     private static String mensagemOperacao;
-    private String mensagemServClient;
+    private String mensagemServToClient;
     
     private Mensagem(){
         
@@ -32,13 +32,15 @@ public class Mensagem {
         Mensagem.mensagemOperacao = mensagemOperacao;
     }
 
-    public String getMensagemServClient() {
-        return mensagemServClient;
+    public String getMensagemServToClient() {
+        return mensagemServToClient;
     }
 
-    public void setMensagemServClient(String mensagemServClient) {
-        this.mensagemServClient = mensagemServClient;
+    public void setMensagemServToClient(String mensagemServToClient) {
+        this.mensagemServToClient = mensagemServToClient;
     }
+
+
 
     
     
