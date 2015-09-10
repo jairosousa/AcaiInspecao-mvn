@@ -5,32 +5,24 @@
  */
 package br.com.ufra.resource.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
-
-/**
- *
- * @author geovane
- */
-public class EstabelecimentoPOJO {
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
+public class EstabelecimentoPOJO implements Serializable{
 
     private Integer id;
-    private String razaoSocial;
     private String nomeFantasia;
     private String nomeContato;
-    private String cnpj;
-    private String rg;
-    private String cpf;
     private String cep;
     private String logradouro;
     private String numero;
     private String complemeto;
     private String bairro;
-    private String email;
     private String telefone;
-    private Date dataCadastro;
-    private Date dataLicenca;
-    private Date dataVencimento;
+    private long dataCadastro;
+    private long dataLicenca;
+    private long dataVencimento;
     private String status;
     private BigDecimal latitude;
     private BigDecimal longitude;
@@ -41,14 +33,6 @@ public class EstabelecimentoPOJO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
-
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
     }
 
     public String getNomeFantasia() {
@@ -65,30 +49,6 @@ public class EstabelecimentoPOJO {
 
     public void setNomeContato(String nomeContato) {
         this.nomeContato = nomeContato;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getCep() {
@@ -131,14 +91,6 @@ public class EstabelecimentoPOJO {
         this.bairro = bairro;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -147,27 +99,27 @@ public class EstabelecimentoPOJO {
         this.telefone = telefone;
     }
 
-    public Date getDataCadastro() {
+    public long getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(long dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public Date getDataLicenca() {
+    public long getDataLicenca() {
         return dataLicenca;
     }
 
-    public void setDataLicenca(Date dataLicenca) {
+    public void setDataLicenca(long dataLicenca) {
         this.dataLicenca = dataLicenca;
     }
 
-    public Date getDataVencimento() {
+    public long getDataVencimento() {
         return dataVencimento;
     }
 
-    public void setDataVencimento(Date dataVencimento) {
+    public void setDataVencimento(long dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
 
@@ -194,5 +146,9 @@ public class EstabelecimentoPOJO {
     public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
+
+   
+
+   
 
 }

@@ -8,6 +8,8 @@ package br.com.ufra.dao;
 import br.com.ufra.dao.service.GenericDAO;
 import br.com.ufra.dao.service.TecnicoDAO;
 import br.com.ufra.entidade.Tecnico;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -19,13 +21,16 @@ public class TecnicoDAOImpl extends GenericDAOImpl<Tecnico> implements TecnicoDA
     
     private EntityManager em;
     private final GenericDAO<Tecnico> dao = FabricaDAO.criarGenericDAO();
-    
+    private List<Tecnico> tecnicos;
+     
     public TecnicoDAOImpl(EntityManager em) {
         this.em = em;
     }
 
     public TecnicoDAOImpl() {
     }
+    
+
 
     @Override
     public Tecnico obterEmail(String email) {
@@ -49,6 +54,49 @@ public class TecnicoDAOImpl extends GenericDAOImpl<Tecnico> implements TecnicoDA
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public List<Tecnico> getTecnicosPerMatricula(String mat1, String mat2) {
+        try {
+              tecnicos = new ArrayList<>();
+        tecnicos.add(getTecnico1(mat1));
+        tecnicos.add(getTecnico1(mat2));
+         if (tecnicos.size() ==2 ){
+             return tecnicos;
+         } else {             
+             return null;
+         }
+        } catch (Exception e) {
+            System.out.println("erro: "+e.getCause());
+            return null;
+        }
+    }
+
+
+    private Tecnico getTecnico1(String mat) {
+     String query = "SELECT t FROM Tecnico t WHERE t.matricula = :mat";
+        Query q = super.getEntityManager().createQuery(query);
+        q.setParameter("mat", mat);
+        try {
+            return (Tecnico) q.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Tecnico nulo");
+            return null;
+        }    
+    }
+
+  
+    private Tecnico getTecnico2(String mat) {
+     String query = "SELECT t FROM Tecnico t WHERE t.matricula = :mat";
+        Query q = super.getEntityManager().createQuery(query);
+        q.setParameter("mat", mat);
+        try {
+            return (Tecnico) q.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Tecnico nulo");
+            return null;
+        }    
     }
 
 }

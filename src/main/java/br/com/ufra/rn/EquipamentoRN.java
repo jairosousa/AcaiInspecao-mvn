@@ -50,7 +50,7 @@ public class EquipamentoRN {
         if (equipamento.getNome().equals("")) {
             return false;
         } else {
-            if (equipamento.getId() == null) {
+            if (equipamento.getId() == null || equipamento.getId() == 0) {
                 return dao.criar(equipamento);
             } else {
                 return dao.atualizar(equipamento);

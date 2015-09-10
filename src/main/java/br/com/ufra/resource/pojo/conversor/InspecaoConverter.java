@@ -4,6 +4,7 @@ package br.com.ufra.resource.pojo.conversor;
 import br.com.ufra.entidade.Inspecao;
 import br.com.ufra.resource.pojo.InspecaoPOJO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,11 +25,11 @@ public class InspecaoConverter {
             InspecaoPOJO resposta = new InspecaoPOJO();
 
             resposta.setId(inspecao.getId());
-            resposta.setVistoria(VistoriaConverter.toVistoriaPOJO(inspecao.getVistoria()));
-            resposta.setApto(inspecao.getApto());
-            resposta.setDataInsp(inspecao.getDataInsp());
+            resposta.setVistoriaPOJO(VistoriaConverter.toVistoriaPOJO(inspecao.getVistoria()));
+            resposta.setAptoPOJO(inspecao.getApto());
+            resposta.setDataInspPOJO(inspecao.getDataInsp().getTime());
             resposta.setEquipamentoPOJO(EquipamentoConverter.toEquipamentoPOJO(inspecao.getEquipamento()));
-            resposta.setObservacao(inspecao.getObservacao());
+            resposta.setObservacaoPOJO(inspecao.getObservacao());
                 
             return resposta;
 
@@ -42,11 +43,11 @@ public class InspecaoConverter {
             Inspecao resposta = new Inspecao();
 
             resposta.setId(inspecaoPOJO.getId());
-            resposta.setVistoria(VistoriaConverter.fromVistoriaPOJO(inspecaoPOJO.getVistoria()));
-            resposta.setApto(inspecaoPOJO.getApto());
-            resposta.setDataInsp(inspecaoPOJO.getDataInsp());
+            resposta.setVistoria(VistoriaConverter.fromVistoriaPOJO(inspecaoPOJO.getVistoriaPOJO()));
+            resposta.setApto(inspecaoPOJO.isAptoPOJO());
+            resposta.setDataInsp(new Date(inspecaoPOJO.getDataInspPOJO()));
             resposta.setEquipamento(EquipamentoConverter.fromEquipamentoPOJO(inspecaoPOJO.getEquipamentoPOJO()));
-            resposta.setObservacao(inspecaoPOJO.getObservacao());
+            resposta.setObservacao(inspecaoPOJO.getObservacaoPOJO());
 
             return resposta;
 

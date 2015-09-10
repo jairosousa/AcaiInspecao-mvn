@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class VistoriaRN {
     
-    private GenericDAOImpl<Vistoria> dao = new GenericDAOImpl<Vistoria>();
+    private GenericDAOImpl<Vistoria> dao = new GenericDAOImpl<>();
     
     public Vistoria obter(Integer id) {
         if (id == null) {
@@ -30,19 +30,21 @@ public class VistoriaRN {
     }
     
     public boolean salvar(Vistoria vistoria) {
-        if (vistoria.getDataVistoria().equals(null)) {
+        if (vistoria.getDataVistoria() == null) {
+            System.out.println("nao criada "+vistoria.getId());
             return false;
         } else {
-            if (vistoria.getId() == null) {
+            if (vistoria.getId() == null || vistoria.getId() == 0) {
                 return dao.criar(vistoria);
             } else {
+                System.out.println("atualizar");
                 return dao.atualizar(vistoria);
             }
         }
     }
 
     public boolean excluir(Vistoria vistoria) {
-        if (vistoria.getDataVistoria().equals(null)) {
+        if (vistoria.getDataVistoria() == null) {
             return false;
         } else {
             return dao.excluir(vistoria);

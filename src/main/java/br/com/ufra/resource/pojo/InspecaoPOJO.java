@@ -5,20 +5,19 @@
  */
 package br.com.ufra.resource.pojo;
 
-import java.util.Date;
+import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author geovane
- */
-public class InspecaoPOJO {
+
+@XmlRootElement
+public class InspecaoPOJO implements Serializable{
 
     private Integer id;
-    private Date dataInsp;
-    private boolean apto;
-    private String observacao;
-    private VistoriaPOJO vistoria;
-    private EquipamentoPOJO equipamentoPOJO;
+    private long dataInspPOJO;
+    private boolean aptoPOJO;
+    private String observacaoPOJO;
+    private VistoriaPOJO vistoriaPOJO;
+    private EquipamentoPOJO equipamentoPOJO;     
 
     public Integer getId() {
         return id;
@@ -28,28 +27,36 @@ public class InspecaoPOJO {
         this.id = id;
     }
 
-    public Date getDataInsp() {
-        return dataInsp;
+    public long getDataInspPOJO() {
+        return dataInspPOJO;
     }
 
-    public void setDataInsp(Date dataInsp) {
-        this.dataInsp = dataInsp;
+    public void setDataInspPOJO(long dataInspPOJO) {
+        this.dataInspPOJO = dataInspPOJO;
     }
 
-    public boolean getApto() {
-        return apto;
+    public boolean isAptoPOJO() {
+        return aptoPOJO;
     }
 
-    public void setApto(boolean apto) {
-        this.apto = apto;
+    public void setAptoPOJO(boolean aptoPOJO) {
+        this.aptoPOJO = aptoPOJO;
     }
 
-    public String getObservacao() {
-        return observacao;
+    public String getObservacaoPOJO() {
+        return observacaoPOJO;
     }
 
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
+    public void setObservacaoPOJO(String observacaoPOJO) {
+        this.observacaoPOJO = observacaoPOJO;
+    }
+
+    public VistoriaPOJO getVistoriaPOJO() {
+        return vistoriaPOJO;
+    }
+
+    public void setVistoriaPOJO(VistoriaPOJO vistoriaPOJO) {
+        this.vistoriaPOJO = vistoriaPOJO;
     }
 
     public EquipamentoPOJO getEquipamentoPOJO() {
@@ -60,16 +67,6 @@ public class InspecaoPOJO {
         this.equipamentoPOJO = equipamentoPOJO;
     }
 
-    public VistoriaPOJO getVistoria() {
-        return vistoria;
-    }
-
-    public void setVistoria(VistoriaPOJO vistoria) {
-        this.vistoria = vistoria;
-    }
-        
     
-      
     
-
 }

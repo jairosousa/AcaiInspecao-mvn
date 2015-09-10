@@ -6,6 +6,7 @@
 package br.com.ufra.dao.service;
 
 import br.com.ufra.entidade.Tecnico;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,7 @@ public interface TecnicoDAO extends GenericDAO<Tecnico>{
     
     public Tecnico obterEmail(String email);
     public boolean existe(String email);
+    public List<Tecnico> getTecnicosPerMatricula(String mat1, String mat2);
+
+    
 }

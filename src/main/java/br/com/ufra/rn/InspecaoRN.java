@@ -6,7 +6,9 @@
 package br.com.ufra.rn;
 
 import br.com.ufra.dao.GenericDAOImpl;
+import br.com.ufra.dao.InspecaoDAOImpl;
 import br.com.ufra.entidade.Inspecao;
+import br.com.ufra.entidade.Vistoria;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ import java.util.List;
  */
 public class InspecaoRN {
     
-    private GenericDAOImpl<Inspecao> dao = new GenericDAOImpl<Inspecao>();
+    private InspecaoDAOImpl dao = new InspecaoDAOImpl();
     
     public Inspecao obter(Integer id) {
         if (id == null) {
@@ -30,10 +32,10 @@ public class InspecaoRN {
     }
     
     public boolean salvar(Inspecao inspecao) {
-        if (inspecao.getDataInsp().equals(null)) {
+        if (inspecao.getDataInsp() == null) {
             return false;
         } else {
-            if (inspecao.getId() == null) {
+            if (inspecao.getId() == null || inspecao.getId() == 0) {
                 return dao.criar(inspecao);
             } else {
                 return dao.atualizar(inspecao);
@@ -41,8 +43,13 @@ public class InspecaoRN {
         }
     }
     
+       public boolean salvarInspecaoApartirInspecoes(Vistoria vistoria, List<Inspecao> inspecoes){
+           
+          return dao.salvarInspecaoApartirInspecoes(vistoria, inspecoes);
+    }
+    
     public boolean excluir(Inspecao inspecao) {
-        if (inspecao.getDataInsp().equals(null)) {
+        if (inspecao.getDataInsp() == null) {
             return false;
         } else {
             return dao.excluir(inspecao);

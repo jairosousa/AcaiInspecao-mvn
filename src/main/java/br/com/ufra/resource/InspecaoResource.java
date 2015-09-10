@@ -1,9 +1,15 @@
 package br.com.ufra.resource;
 
-import br.com.ufra.dao.GenericDAOImpl;
 import br.com.ufra.entidade.Inspecao;
+import br.com.ufra.entidade.Tecnico;
+import br.com.ufra.entidade.Vistoria;
 import br.com.ufra.resource.pojo.InspecaoPOJO;
 import br.com.ufra.resource.pojo.conversor.InspecaoConverter;
+import br.com.ufra.resource.pojo.conversor.VistoriaConverter;
+import br.com.ufra.resource.pojo.lista.InspecaoListaPOJO;
+import br.com.ufra.rn.InspecaoRN;
+import br.com.ufra.rn.TecnicoRN;
+import br.com.ufra.rn.VistoriaRN;
 import br.com.ufra.util.Mensagem;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -22,14 +28,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/inspecao")
 public class InspecaoResource extends Application {
 
-    GenericDAOImpl<Inspecao> dao = new GenericDAOImpl();
+    InspecaoRN rnInspecao = new InspecaoRN();
+    VistoriaRN rnVistoria = new VistoriaRN();
+    TecnicoRN rnTecnico = new TecnicoRN();
+    Tecnico tecnico1, tecnico2;
     Inspecao inspecao;
-    InspecaoPOJO inspecaoPOJO; 
+    InspecaoPOJO inspecaoPOJO;
     Gson gson = new Gson();
     Mensagem mensagem = Mensagem.getInstance();
     String json;
     List<InspecaoPOJO> listPOJO = new ArrayList<>();
     List<Inspecao> inspecoes = new ArrayList<>();
+    Vistoria vistoria;
     //String listPOJO ;
 
     public InspecaoResource() {
@@ -39,13 +49,13 @@ public class InspecaoResource extends Application {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String obterId(@PathParam("id") Long id) {
-            System.out.println("id"+id);
-            inspecao = new Inspecao();
-            inspecao = dao.obter(Inspecao.class, id);
-            System.out.println("ob"+inspecao.getId());
+    public String obterId(@PathParam("id") Integer id) {
+        System.out.println("id" + id);
+        inspecao = new Inspecao();
+        inspecao = rnInspecao.obter(id);
+        System.out.println("ob" + inspecao.getId());
         try {
-            
+
             if (inspecao != null) {
                 inspecaoPOJO = InspecaoConverter.toInspecaoPOJO(inspecao);
                 json = gson.toJson(inspecaoPOJO);
@@ -75,7 +85,7 @@ public class InspecaoResource extends Application {
 //        System.out.println(listPOJO.size());
 //        System.out.println("json" + gson.toJson(listPOJO));
         try {
-            inspecoes = dao.obterTodos(Inspecao.class);
+            inspecoes = rnInspecao.obterTodos();
             if (!inspecoes.isEmpty()) {
                 return gson.toJson(InspecaoConverter.toInspecoesPOJO(inspecoes));
             } else {
@@ -95,26 +105,34 @@ public class InspecaoResource extends Application {
 
     }
 
+    @Path("/salvar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String save(Inspecao entity) {
+    public String salvar(InspecaoListaPOJO inspecaoListaPOJO) {
         try {
-            dao.criar(entity);
-            mensagem.setMensagemServToClient(Mensagem.getMensagemOperacao());
-            json = gson.toJson(mensagem);
+            vistoria = VistoriaConverter.fromVistoriaPOJO(inspecaoListaPOJO.getInspecoesPOJO().get(0).getVistoriaPOJO());
+            inspecoes = InspecaoConverter.fromInspecoesPOJO(inspecaoListaPOJO.getInspecoesPOJO());
+            tecnico1 = rnTecnico.obter(vistoria.getTecnico1().getId());
+            tecnico2 = rnTecnico.obter(vistoria.getTecnico2().getId());
+            vistoria.setId(null);
+            vistoria.setTecnico1(tecnico1);
+            vistoria.setTecnico2(tecnico2);
+              
+          if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria, inspecoes)){
+        
+            mensagem.setMensagemServToClient("Operação realizada com sucesso !");            
+          System.out.println("json "+gson.toJson(mensagem));            
+          return gson.toJson(mensagem);                
+          } else {
+              mensagem.setMensagemServToClient("Erro, não foi possível concluir a operação. Tente novamente!");
+               return gson.toJson(mensagem);
+            }
 
-            System.out.println("json " + json);
-
-            return json;
         } catch (Exception e) {
-            mensagem.setMensagemServToClient("Erro ao salvar: " + e.getMessage());
-            json = gson.toJson(mensagem);
-
-            System.out.println(json);
-
-            return json;
-
+            System.out.println("Erro " + e.toString());
+            mensagem.setMensagemServToClient(e.getMessage());
+            return gson.toJson(mensagem);
         }
 
     }
@@ -123,10 +141,10 @@ public class InspecaoResource extends Application {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public String delete(@PathParam("id") Long id) {
+    public String delete(@PathParam("id") Integer id) {
         try {
-            inspecao = dao.obter(Inspecao.class, id);
-            dao.excluir(inspecao);
+            inspecao = rnInspecao.obter(id);
+            rnInspecao.excluir(inspecao);
             mensagem.setMensagemServToClient(Mensagem.getMensagemOperacao());
             json = gson.toJson(mensagem);
 
@@ -147,10 +165,10 @@ public class InspecaoResource extends Application {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public String atualizar(@PathParam("id") Long id) {
+    public String atualizar(@PathParam("id") Integer id) {
         try {
-            inspecao = dao.obter(Inspecao.class, id);
-            dao.atualizar(inspecao);
+            inspecao = rnInspecao.obter(id);
+            rnInspecao.salvar(inspecao);
             mensagem.setMensagemServToClient(Mensagem.getMensagemOperacao());
             json = gson.toJson(mensagem);
 

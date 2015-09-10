@@ -5,11 +5,11 @@
  */
 package br.com.ufra.resource.pojo;
 
-/**
- *
- * @author geovane
- */
-public class BairroPOJO {
+import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class BairroPOJO implements Serializable{
     private Integer id;
     private String nome;
 

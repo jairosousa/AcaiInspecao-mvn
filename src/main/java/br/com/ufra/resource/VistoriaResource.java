@@ -5,6 +5,7 @@ import br.com.ufra.dao.GenericDAOImpl;
 import br.com.ufra.entidade.Vistoria;
 import br.com.ufra.resource.pojo.VistoriaPOJO;
 import br.com.ufra.resource.pojo.conversor.VistoriaConverter;
+import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.VistoriaRN;
 import br.com.ufra.util.Mensagem;
 import com.google.gson.Gson;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 public class VistoriaResource extends Application{
     GenericDAOImpl<Vistoria> dao = new GenericDAOImpl();
     VistoriaRN rnVistoria = new VistoriaRN();
+    InspecaoRN rnInspecao = new InspecaoRN();
     Vistoria vistoria;
     VistoriaPOJO vistoriaPOJO; 
     Gson gson = new Gson();
@@ -37,19 +39,27 @@ public class VistoriaResource extends Application{
     @Path("/salvar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String salvar(Vistoria vistoria) {
+    @Produces("application/json")
+    public String salvar(VistoriaPOJO vistoriaPOJO) {
         try {
-
-            rnVistoria.salvar(vistoria);
-            System.out.println("msg "+Mensagem.getMensagemOperacao());
-            mensagem.setMensagemServToClient(Mensagem.getMensagemOperacao());            
+            System.out.println("pojo "+vistoriaPOJO.getDataVistoria());
+            vistoria = new Vistoria();
+            vistoria = VistoriaConverter.fromVistoriaPOJO(vistoriaPOJO);
+            System.out.println("inspecoes: "+vistoria.getInspecaoList().size());
+           
+            if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria , vistoria.getInspecaoList())){
+            mensagem.setMensagemServToClient("Sucesso, a vistoria foi salva !");            
             System.out.println("json "+gson.toJson(mensagem));            
-            return gson.toJson(mensagem);
+            return gson.toJson(mensagem);                
+            } else {
+                mensagem.setMensagemServToClient("Erro, não foi possível salvar a vistoria !");
+               return gson.toJson(mensagem);
+            }
         } catch (Exception e) {
             mensagem.setMensagemServToClient(e.getMessage());   
             return gson.toJson(mensagem);
         }
+        
     }
 
     
@@ -77,4 +87,6 @@ public class VistoriaResource extends Application{
         }
 
     }
+    
+ 
 }

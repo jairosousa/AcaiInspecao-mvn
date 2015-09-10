@@ -8,6 +8,7 @@ package br.com.ufra.resource.pojo.conversor;
 import br.com.ufra.entidade.Estabelecimento;
 import br.com.ufra.resource.pojo.EstabelecimentoPOJO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,22 +33,31 @@ public class EstabelecimentoConverter {
             EstabelecimentoPOJO resposta = new EstabelecimentoPOJO();
 
             resposta.setId(estabelecimento.getId());
-            resposta.setRazaoSocial(estabelecimento.getRazaoSocial());
             resposta.setNomeFantasia(estabelecimento.getNomeFantasia());
-            resposta.setCnpj(estabelecimento.getCnpj());
             resposta.setNomeContato(estabelecimento.getNomeContato());
-            resposta.setRg(estabelecimento.getRg());
-            resposta.setCpf(estabelecimento.getCpf());
-            resposta.setEmail(estabelecimento.getEmail());
             resposta.setTelefone(estabelecimento.getTelefone());
             resposta.setCep(estabelecimento.getCep());
             resposta.setLogradouro(estabelecimento.getLogradouro());
             resposta.setNumero(estabelecimento.getNumero());
             resposta.setComplemeto(estabelecimento.getComplemento());
             resposta.setBairro(estabelecimento.getBairro());
-            resposta.setDataCadastro(estabelecimento.getDataCadastro());
-            resposta.setDataLicenca(estabelecimento.getDataLicenca());
-            resposta.setDataVencimento(estabelecimento.getDataVencimento());
+            if (estabelecimento.getDataCadastro() == null) {
+                resposta.setDataCadastro(0);
+            } else {
+                resposta.setDataCadastro(estabelecimento.getDataCadastro().getTime());
+            }
+            if (estabelecimento.getDataLicenca() == null) {
+                resposta.setDataLicenca(0);
+            } else {
+
+                resposta.setDataLicenca(estabelecimento.getDataLicenca().getTime());
+            }
+            if (estabelecimento.getDataVencimento() == null) {
+                resposta.setDataVencimento(0);
+            } else {
+                resposta.setDataVencimento(estabelecimento.getDataVencimento().getTime());
+
+            }
             resposta.setStatus(estabelecimento.getStatus());
             resposta.setLatitude(null);
             resposta.setLongitude(null);
@@ -64,22 +74,28 @@ public class EstabelecimentoConverter {
             Estabelecimento resposta = new Estabelecimento();
 
             resposta.setId(estabelecimentoPOJO.getId());
-            resposta.setRazaoSocial(estabelecimentoPOJO.getRazaoSocial());
             resposta.setNomeFantasia(estabelecimentoPOJO.getNomeFantasia());
-            resposta.setCnpj(estabelecimentoPOJO.getCnpj());
             resposta.setNomeContato(estabelecimentoPOJO.getNomeContato());
-            resposta.setRg(estabelecimentoPOJO.getRg());
-            resposta.setCpf(estabelecimentoPOJO.getCpf());
-            resposta.setEmail(estabelecimentoPOJO.getEmail());
             resposta.setTelefone(estabelecimentoPOJO.getTelefone());
             resposta.setCep(estabelecimentoPOJO.getCep());
             resposta.setLogradouro(estabelecimentoPOJO.getLogradouro());
             resposta.setNumero(estabelecimentoPOJO.getNumero());
             resposta.setComplemento(estabelecimentoPOJO.getComplemeto());
             resposta.setBairro(estabelecimentoPOJO.getBairro());
-            resposta.setDataCadastro(estabelecimentoPOJO.getDataCadastro());
-            resposta.setDataLicenca(estabelecimentoPOJO.getDataLicenca());
-            resposta.setDataVencimento(estabelecimentoPOJO.getDataVencimento());
+
+            resposta.setDataCadastro(new Date(estabelecimentoPOJO.getDataCadastro()));
+            if (estabelecimentoPOJO.getDataLicenca() == 0) {
+                resposta.setDataLicenca(null);
+            } else {
+                resposta.setDataLicenca(new Date(estabelecimentoPOJO.getDataLicenca()));
+            }
+            if (estabelecimentoPOJO.getDataVencimento() == 0) {
+                resposta.setDataVencimento(null);
+            } else {
+                resposta.setDataVencimento(new Date(estabelecimentoPOJO.getDataVencimento()));
+
+            }
+
             resposta.setStatus(estabelecimentoPOJO.getStatus());
             resposta.setLatitude(null);
             resposta.setLongitude(null);

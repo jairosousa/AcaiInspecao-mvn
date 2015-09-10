@@ -55,7 +55,7 @@ public class EstabelecimentoRN {
         if (estabelecimento.getNomeContato().equals("")) {
             return false;
         } else {
-            if (estabelecimento.getId() == null) {
+            if (estabelecimento.getId() == null || estabelecimento.getId() == 0) {
                 return dao.criar(estabelecimento);
             } else {
                 return dao.atualizar(estabelecimento);

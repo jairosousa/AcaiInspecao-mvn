@@ -20,7 +20,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
 @Path("/estabelecimento")
-public class EstabelecimentoResource extends Application{
+public class EstabelecimentoResource extends Application {
     
     GenericDAOImpl<Estabelecimento> dao = new GenericDAOImpl();
     Estabelecimento estabelecimento;
@@ -39,9 +39,10 @@ public class EstabelecimentoResource extends Application{
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
     public String obterTodos() {
-        try {
+       try {
             estabelecimentos = dao.obterTodos(Estabelecimento.class);
             if (!estabelecimentos.isEmpty()) {
+
                json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
                 System.out.println("consultando a lista"+json);
                 return gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));

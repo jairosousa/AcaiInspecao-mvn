@@ -74,6 +74,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             if (em.isOpen()) {
                 this.desfazerTransacao();
             }
+            System.out.println("erro: "+e.getMessage());
             return false;
         }
 

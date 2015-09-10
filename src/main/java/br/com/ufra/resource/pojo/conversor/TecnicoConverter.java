@@ -31,10 +31,7 @@ public class TecnicoConverter {
             TecnicoPOJO resposta = new TecnicoPOJO();
 
             resposta.setId(tecnico.getId());
-            resposta.setEmail(tecnico.getEmail());
             resposta.setMatricula(tecnico.getMatricula());
-            resposta.setNome(tecnico.getNome());
-            resposta.setSenha(tecnico.getNome());
             
             return resposta;
 
@@ -48,10 +45,8 @@ public class TecnicoConverter {
             Tecnico resposta = new Tecnico();
 
             resposta.setId(tecnicoPOJO.getId());
-            resposta.setEmail(tecnicoPOJO.getEmail());
             resposta.setMatricula(tecnicoPOJO.getMatricula());
-            resposta.setNome(tecnicoPOJO.getNome());
-            resposta.setSenha(tecnicoPOJO.getNome());
+            
             return resposta;
 
         } else {
