@@ -16,7 +16,7 @@ public interface TecnicoDAO extends GenericDAO<Tecnico>{
     
     public Tecnico obterEmail(String email);
     public boolean existe(String email);
-    public List<Tecnico> getTecnicosPerMatricula(String mat1, String mat2);
+    public List<Tecnico> obterTecnicosPorMatricula(String mat1, String mat2);
 
     
 }

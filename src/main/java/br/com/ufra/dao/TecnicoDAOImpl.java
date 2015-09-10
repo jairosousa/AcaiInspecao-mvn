@@ -57,7 +57,7 @@ public class TecnicoDAOImpl extends GenericDAOImpl<Tecnico> implements TecnicoDA
     }
 
     @Override
-    public List<Tecnico> getTecnicosPerMatricula(String mat1, String mat2) {
+    public List<Tecnico> obterTecnicosPorMatricula(String mat1, String mat2) {
         try {
               tecnicos = new ArrayList<>();
         tecnicos.add(getTecnico1(mat1));

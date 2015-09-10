@@ -49,7 +49,7 @@ public class TecnicoResource extends Application{
             System.out.println("mat2: " + mat2);
 
             tecnicos = new ArrayList<>();
-            tecnicos = rnTecnico.getTecnicoPerMatricula(mat1, mat2);
+            tecnicos = rnTecnico.obterTecnicosPorMatricula(mat1, mat2);
              
             if (tecnicos.size() == 2){
                return gson.toJson(TecnicoConverter.toTecnicosPOJO(tecnicos));
