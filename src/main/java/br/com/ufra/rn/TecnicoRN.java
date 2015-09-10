@@ -81,4 +81,8 @@ public class TecnicoRN {
     public boolean existe(String email) {
         return dao.existe(email);
     }
+    
+    public List<Tecnico> obterTecnicosPorMatricula(String mat1, String mat2){
+        return dao.obterTecnicosPorMatricula(mat1, mat2);
+    }
 }
