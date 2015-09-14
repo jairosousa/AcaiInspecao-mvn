@@ -52,12 +52,14 @@ public class EstabelecimentoRN {
     }
 
     public boolean salvar(Estabelecimento estabelecimento) {
+            System.out.println(estabelecimento.getNomeContato());
         if (estabelecimento.getNomeContato().equals("")) {
             return false;
         } else {
             if (estabelecimento.getId() == null || estabelecimento.getId() == 0) {
                 return dao.criar(estabelecimento);
             } else {
+                System.out.println("atualizar e"+ estabelecimento.getCep());
                 return dao.atualizar(estabelecimento);
             }
         }

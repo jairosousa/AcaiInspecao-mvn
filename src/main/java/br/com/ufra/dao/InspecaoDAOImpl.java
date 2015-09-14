@@ -13,6 +13,7 @@ public class InspecaoDAOImpl extends GenericDAOImpl<Inspecao> implements Inspeca
     public boolean salvarInspecaoApartirInspecoes(Vistoria vistoria, List<Inspecao> inspecoes) {
         try {
             this.iniciarTransacao();
+            
             getEntityManager().persist(vistoria);            
             inspecoes.stream().forEach((inspecao) ->{
                 inspecao.setId(null);

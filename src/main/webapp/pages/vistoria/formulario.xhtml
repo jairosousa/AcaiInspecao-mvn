@@ -8,6 +8,7 @@
 
     <body>
 
+       
         <ui:composition template="./../../index.xhtml">
 
 
@@ -75,28 +76,35 @@
 
                                 <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
                                     <h:outputLabel for="mask" value="Data inspeção"/>
-                                    <p:calendar value="#{inspecaoBean.inspecao.dataInsp}"
+                                    <p:calendar value="#{vistoriaBean.dataInspecao}"
                                                 id="maskinsp" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                        <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
                                     </p:calendar>
 
                                     <h:outputText value="Equipamentos"/>
-                                    <p:selectOneMenu value="#{inspecaoBean.inspecao.equipamento}"
+                                    <p:selectOneMenu value="#{vistoriaBean.equipamento}"
                                                      converter="equipamentoConverter">
                                         <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                        <f:selectItems value="#{equipamentoBean.equipamentos}" var="equipamentos"
+                                        <f:selectItems value="#{vistoriaBean.equipamentos}" var="equipamentos"
                                                        itemLabel="#{equipamentos.nome}"/>
                                     </p:selectOneMenu>
+                                     
+                                    <p:outputLabel for="apto" value="Apto" />
+                                    <p:selectOneRadio id="equipApto" value ="#{vistoriaBean.inspApto}">
+                                    <f:selectItem itemLabel ="Sim" itemValue="true"/>
+                                    <f:selectItem itemLabel="Não" itemValue="false"/>
+                                    </p:selectOneRadio>
+                                    
+                                    <h:outputText value="Observação"/>
+                                    <p:inputTextarea id="obsVis" value="#{vistoriaBean.obs}" label="obs" />
 
                                     <h:panelGroup>
-                                        <p:commandButton value="Adicionar" action="#{inspecaoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
-                                        <p:commandButton value="Cancelar" action="#{inspecaoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                        <p:commandButton value="Adicionar" action="#{vistoriaBean.adicionarinspecao()}" update="inspTable" icon="ui-icon-disk"/>
                                     </h:panelGroup>
                                 </h:panelGrid>
 
-                                <p:dataTable var="equipamentos" value="#{inspecaoBean.inspecaos}"
+                                <p:dataTable var="equipamentos" value="#{vistoriaBean.inspecaos}"
                                              sortMode="multiple" rows="5" paginator="true"
-                                             id="estab" style="text-align: center">
+                                             id="inspTable" style="text-align: center">
                                     <p:column headerText="Nome">
                                         <h:outputText value="#{equipamentos.equipamento.nome}"/>
                                     </p:column>
@@ -117,20 +125,12 @@
                                         <div align="center">
                                             <p:commandButton
                                                 ajax="false"
-                                                icon="ui-icon-pencil"
-                                                action="#{equipamentoBean.editar()}">
-                                                <f:setPropertyActionListener
-                                                    target="#{equipamentoBean.equipamento}"
-                                                    value="#{equipamentos}"/>
+                                                icon="ui-icon-pencil">
                                             </p:commandButton>
 
                                             <p:commandButton
                                                 ajax="false"
-                                                icon="ui-icon-trash"
-                                                action="#{equipamentoBean.excluir()}">
-                                                <f:setPropertyActionListener
-                                                    target="#{equipamentoBean.equipamento}"
-                                                    value="#{equipamentos}"/>
+                                                icon="ui-icon-trash">
                                             </p:commandButton>
                                         </div>
                                     </p:column>

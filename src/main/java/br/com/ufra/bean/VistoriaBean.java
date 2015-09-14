@@ -5,10 +5,14 @@
  */
 package br.com.ufra.bean;
 
+import br.com.ufra.entidade.Equipamento;
 import br.com.ufra.entidade.Inspecao;
 import br.com.ufra.entidade.Vistoria;
+import br.com.ufra.rn.EquipamentoRN;
 import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.VistoriaRN;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
@@ -24,16 +28,88 @@ import org.primefaces.event.FlowEvent;
  * @author Jairo
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class VistoriaBean {
 
     private Vistoria vistoria = new Vistoria();
-    private VistoriaRN rn = new VistoriaRN();
-    private InspecaoRN rnInp = new InspecaoRN();
-    private List<Vistoria> vistorias;
+    private Inspecao inspecao  = new Inspecao(); 
+    private Equipamento equipamento = new Equipamento();
+    private VistoriaRN rnVistoria = new VistoriaRN();
+    private InspecaoRN rnInspecao = new InspecaoRN();
+    private EquipamentoRN rnEquipamento = new EquipamentoRN();
+    private List<Vistoria> vistorias ;
+    private List<Inspecao> inspecoes = new ArrayList<>();
+    private List<Equipamento> equipamentos = new ArrayList<>();
     private boolean skip;
+    private boolean inspApto;
+    private String obs;
+    private Date dataInspecao;
 
+    public Date getDataInspecao() {
+        return dataInspecao;
+    }
 
+    public void setDataInspecao(Date dataInspecao) {
+        this.dataInspecao = dataInspecao;
+    }
+    
+    
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+    
+    
+
+    public boolean isInspApto() {
+        return inspApto;
+    }
+
+    public void setInspApto(boolean inspApto) {
+        this.inspApto = inspApto;
+    }
+
+    
+    
+    public Equipamento getEquipamento() {
+        return equipamento;
+    }
+
+    public void setEquipamento(Equipamento equipamento) {
+        this.equipamento = equipamento;
+    }
+    
+    
+    public Inspecao getInspecao() {
+        return inspecao;
+    }
+
+    public void setInspecao(Inspecao inspecao) {
+        this.inspecao = inspecao;
+    }
+
+    public List<Inspecao> getInspecoes() {
+        return inspecoes;
+    }
+
+    public void setInspecoes(List<Inspecao> inspecoes) {
+        this.inspecoes = inspecoes;
+    }
+
+    public List<Equipamento> getEquipamentos() {
+        return rnEquipamento.obterTodos();
+    }
+
+    public void setEquipamentos(List<Equipamento> equipamentos) {
+        this.equipamentos = equipamentos;
+    }
+    
+    
+    
     public Vistoria getVistoria() {
         return vistoria;
     }
@@ -43,11 +119,11 @@ public class VistoriaBean {
     }
 
     public List<Vistoria> getVistorias() {
-        return vistorias = rn.obterTodos();
+        return vistorias = rnVistoria.obterTodos();
     }
 
     public List<Inspecao> getInspecaos() {
-        return rnInp.obterTodos();
+        return inspecoes;
     }
 
     public boolean isSkip() {
@@ -59,11 +135,18 @@ public class VistoriaBean {
     }
 
     public void adicionarinspecao() {
-
+         inspecao = new Inspecao();
+        inspecao.setVistoria(vistoria);
+        inspecao.setEquipamento(equipamento);
+        inspecao.setApto(inspApto);
+        inspecao.setObservacao(obs);
+        inspecao.setDataInsp(dataInspecao);
+        inspecoes.add(inspecao);
+        
     }
 
     public String salvar() {
-        if (rn.salvar(vistoria)) {
+        if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria, inspecoes)) {
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
             FacesContext.getCurrentInstance().addMessage(null, fm);
@@ -78,7 +161,7 @@ public class VistoriaBean {
     }
 
     public String excluir() {
-        if (rn.excluir(vistoria)) {
+        if (rnVistoria.excluir(vistoria)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro foi excluído com exito");
             FacesContext.getCurrentInstance().addMessage(null, fm);
             return "lista.xhtml";

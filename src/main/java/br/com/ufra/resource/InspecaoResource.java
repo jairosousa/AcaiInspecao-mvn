@@ -1,5 +1,6 @@
 package br.com.ufra.resource;
 
+import br.com.ufra.entidade.Estabelecimento;
 import br.com.ufra.entidade.Inspecao;
 import br.com.ufra.entidade.Tecnico;
 import br.com.ufra.entidade.Vistoria;
@@ -7,6 +8,7 @@ import br.com.ufra.resource.pojo.InspecaoPOJO;
 import br.com.ufra.resource.pojo.conversor.InspecaoConverter;
 import br.com.ufra.resource.pojo.conversor.VistoriaConverter;
 import br.com.ufra.resource.pojo.lista.InspecaoListaPOJO;
+import br.com.ufra.rn.EstabelecimentoRN;
 import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.TecnicoRN;
 import br.com.ufra.rn.VistoriaRN;
@@ -31,6 +33,9 @@ public class InspecaoResource extends Application {
     InspecaoRN rnInspecao = new InspecaoRN();
     VistoriaRN rnVistoria = new VistoriaRN();
     TecnicoRN rnTecnico = new TecnicoRN();
+    EstabelecimentoRN rnEstabelecimento = new EstabelecimentoRN();
+    
+    Estabelecimento estabelecimento;
     Tecnico tecnico1, tecnico2;
     Inspecao inspecao;
     InspecaoPOJO inspecaoPOJO;
@@ -115,10 +120,11 @@ public class InspecaoResource extends Application {
             inspecoes = InspecaoConverter.fromInspecoesPOJO(inspecaoListaPOJO.getInspecoesPOJO());
             tecnico1 = rnTecnico.obter(vistoria.getTecnico1().getId());
             tecnico2 = rnTecnico.obter(vistoria.getTecnico2().getId());
+            rnEstabelecimento.salvar(vistoria.getEstabelecimento());
             vistoria.setId(null);
             vistoria.setTecnico1(tecnico1);
             vistoria.setTecnico2(tecnico2);
-              
+            
           if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria, inspecoes)){
         
             mensagem.setMensagemServToClient("Operação realizada com sucesso !");            
@@ -131,7 +137,7 @@ public class InspecaoResource extends Application {
 
         } catch (Exception e) {
             System.out.println("Erro " + e.toString());
-            mensagem.setMensagemServToClient(e.getMessage());
+            mensagem.setMensagemServToClient(e.toString());
             return gson.toJson(mensagem);
         }
 

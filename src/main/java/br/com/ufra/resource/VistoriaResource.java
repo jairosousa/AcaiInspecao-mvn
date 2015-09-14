@@ -36,33 +36,6 @@ public class VistoriaResource extends Application{
         
     }
     
-    @Path("/salvar")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces("application/json")
-    public String salvar(VistoriaPOJO vistoriaPOJO) {
-        try {
-            System.out.println("pojo "+vistoriaPOJO.getDataVistoria());
-            vistoria = new Vistoria();
-            vistoria = VistoriaConverter.fromVistoriaPOJO(vistoriaPOJO);
-            System.out.println("inspecoes: "+vistoria.getInspecaoList().size());
-           
-            if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria , vistoria.getInspecaoList())){
-            mensagem.setMensagemServToClient("Sucesso, a vistoria foi salva !");            
-            System.out.println("json "+gson.toJson(mensagem));            
-            return gson.toJson(mensagem);                
-            } else {
-                mensagem.setMensagemServToClient("Erro, não foi possível salvar a vistoria !");
-               return gson.toJson(mensagem);
-            }
-        } catch (Exception e) {
-            mensagem.setMensagemServToClient(e.getMessage());   
-            return gson.toJson(mensagem);
-        }
-        
-    }
-
-    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
