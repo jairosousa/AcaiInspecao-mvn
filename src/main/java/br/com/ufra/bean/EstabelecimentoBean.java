@@ -112,7 +112,7 @@ public class EstabelecimentoBean implements Serializable {
     }
 
     public String salvar() {
-        obterCoordenadas();
+       
         if (rn.salvar(this.estabelecimento)) {
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");

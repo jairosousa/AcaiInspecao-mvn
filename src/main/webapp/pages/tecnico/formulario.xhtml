@@ -17,48 +17,55 @@
                         showDetail="true"
                         sticky="false"/>
 
+                    <p:toolbar>
+                        <f:facet name="left">
+                            Tecnicos
+                        </f:facet>
+
+                        <f:facet name="right">
+                            <p:menuButton value="Opções">
+                                <p:menuitem value="Salvar" action="#{tecnicoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
+                                <p:menuitem value="Cancelar" action="#{tecnicoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                <p:separator/>
+                                <p:menuitem value="Voltar Pánina Inicial" url="./../../index.xhtml" icon="ui-icon-extlink"/>
+                            </p:menuButton> 
+
+                        </f:facet>
+
+                    </p:toolbar><br />
+
                     <div align="center">
-                        <p:panel id="panel" header="Técnico">
 
-                            <h:inputHidden value="#{tecnicoBean.tecnico.id}"/>
+                        <h:inputHidden value="#{tecnicoBean.tecnico.id}"/>
 
 
-                            <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
-                                
-                                <h:outputText value="Matricula"/>
-                                <p:inputText id="matricula" value="#{tecnicoBean.tecnico.matricula}"
-                                             rendered="true" label="Matricula">
-                                    <f:validateLength maximum="10" minimum="2"/>
-                                </p:inputText>
-                                
-                                <h:outputText value="Nome"/>
-                                <p:inputText id="nome" value="#{tecnicoBean.tecnico.nome}"
-                                             rendered="true" label="Nome">
-                                    <f:validateLength maximum="50" minimum="2"/>
-                                </p:inputText>
-                                
-                                <h:outputText value="Email"/>
-                                <p:inputText id="email" value="#{tecnicoBean.tecnico.email}"
-                                             label="email"/>
-                                
-                                <h:outputText value="Senha"/>
-                                <p:password id="senha" value="#{tecnicoBean.tecnico.senha}"
-                                            rendered="true" label="senha" feedback="true"/>
-                                
-                                <h:outputText value="Confirme a senha"/>
-                                <p:password id="confirmesenha" value="#{tecnicoBean.tecnico.confirmaSenha}"
-                                             label="confirme"/>
+                        <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
 
-                                <div align="center">
-                                    <p:menuButton value="Opções">
-                                        <p:menuitem value="Salvar" action="#{tecnicoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
-                                        <p:menuitem value="Cancelar" action="#{tecnicoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
-                                        <p:separator/>
-                                        <p:menuitem value="Voltar Pánina Inicial" url="./../../index.xhtml" icon="ui-icon-extlink"/>
-                                    </p:menuButton>  
-                                </div>
-                            </h:panelGrid>
-                        </p:panel>
+                            <h:outputText value="Matricula"/>
+                            <p:inputText id="matricula" value="#{tecnicoBean.tecnico.matricula}"
+                                         rendered="true" label="Matricula">
+                                <f:validateLength maximum="10" minimum="2"/>
+                            </p:inputText>
+
+                            <h:outputText value="Nome"/>
+                            <p:inputText id="nome" value="#{tecnicoBean.tecnico.nome}"
+                                         rendered="true" label="Nome">
+                                <f:validateLength maximum="50" minimum="2"/>
+                            </p:inputText>
+
+                            <h:outputText value="Email"/>
+                            <p:inputText id="email" value="#{tecnicoBean.tecnico.email}"
+                                         label="email"/>
+
+                            <h:outputText value="Senha"/>
+                            <p:password id="senha" value="#{tecnicoBean.tecnico.senha}"
+                                        rendered="true" label="senha" feedback="true"/>
+
+                            <h:outputText value="Confirme a senha"/>
+                            <p:password id="confirmesenha" value="#{tecnicoBean.tecnico.confirmeSenha}"
+                                        label="confirme"/>
+
+                        </h:panelGrid>
                     </div>
                 </h:form>
             </ui:define>

@@ -14,13 +14,21 @@
                 <div align="center">
                     <h:form id="formPrincipal">
 
-                        <p:growl id="messages" showDetail="true" />
+                        <p:growl id="growl" showDetail="true" />
+
+                        <p:toolbar>
+                            <f:facet name="left">
+                                Tecnicos
+                            </f:facet>
+
+                            <f:facet name="right">
+                                <p:commandButton value="Novo" action="#{tecnicoBean.incluir()}" update="growl" icon="ui-icon-disk"/>
+                            </f:facet>
+                        </p:toolbar>
 
                         <p:dataTable var="tecnicos" value="#{tecnicoBean.tecnicos}"
                                      sortMode="multiple" rows="5" paginator="true"
                                      id="tabelaTecnicos" style="text-align: center">
-
-                            <f:facet name="header">Lista de Tecnicos Cadastrados</f:facet>
 
                             <p:column headerText="Matricula">
                                 <h:outputText value="#{tecnicos.matricula}"/>
@@ -48,7 +56,7 @@
 
                                     <p:commandButton ajax="false" 
                                                      icon="ui-icon-trash"
-                                                     actionListener="#{tecnicoBean.excluir()}" >
+                                                     action="#{tecnicoBean.excluir()}" >
 
                                         <f:setPropertyActionListener
                                             target="#{tecnicoBean.tecnico}"

@@ -16,15 +16,19 @@
                         id="growl"
                         showDetail="true"
                         sticky="false"/>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            Vistorias
+                        </f:facet>
 
+                        <f:facet name="right">
+                            <p:commandButton value="Novo" action="#{vistoriaBean.incluir()}" update="growl" icon="ui-icon-disk"/>
+                        </f:facet>
+                    </p:toolbar>
 
                     <p:dataTable var="vistorias" value="#{vistoriaBean.vistorias}"
                                  rows="5" paginator="true" id="visto"
                                  sortMode="multiple" style="text-align: center">
-
-                        <f:facet name="header">
-                            Vistorias
-                        </f:facet>
 
                         <p:column style="width: 16px">
                             <p:rowToggler/>

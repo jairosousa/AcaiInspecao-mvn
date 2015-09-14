@@ -11,22 +11,28 @@ import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.VistoriaRN;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
  * @author Jairo
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class VistoriaBean {
 
     private Vistoria vistoria = new Vistoria();
     private VistoriaRN rn = new VistoriaRN();
     private InspecaoRN rnInp = new InspecaoRN();
     private List<Vistoria> vistorias;
+    private boolean skip;
+
 
     public Vistoria getVistoria() {
         return vistoria;
@@ -39,12 +45,21 @@ public class VistoriaBean {
     public List<Vistoria> getVistorias() {
         return vistorias = rn.obterTodos();
     }
+
     public List<Inspecao> getInspecaos() {
-        return  rnInp.obterTodos();
+        return rnInp.obterTodos();
     }
-    
-    public void adicionarinspecao(){
-        
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public void adicionarinspecao() {
+
     }
 
     public String salvar() {
@@ -52,6 +67,7 @@ public class VistoriaBean {
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
             FacesContext.getCurrentInstance().addMessage(null, fm);
+            vistoria = new Vistoria();
             return "lista.xhtml";
         } else {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "Erro no Cadastro!");
@@ -73,12 +89,21 @@ public class VistoriaBean {
         }
     }
 
+    public String onFlowProcess(FlowEvent event) {
+        if (skip) {
+            skip = false;   //reset in case user goes back
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
+    }
+
     public String editar() {
         return "formulario.xhtml";
     }
 
     public String incluir() {
-        return "./inpeção/formulario.xhtml";
+        return "formulario.xhtml";
     }
 
     public String cancelar() {

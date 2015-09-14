@@ -6,6 +6,7 @@
 package br.com.ufra.entidade;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -58,6 +59,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Estabelecimento.findByLatitude", query = "SELECT e FROM Estabelecimento e WHERE e.latitude = :latitude"),
     @NamedQuery(name = "Estabelecimento.findByLongitude", query = "SELECT e FROM Estabelecimento e WHERE e.longitude = :longitude")})
 public class Estabelecimento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -146,6 +148,7 @@ public class Estabelecimento implements Serializable {
     private List<Vistoria> vistoriaList;
 
     public Estabelecimento() {
+
     }
 
     public Estabelecimento(Integer id) {
@@ -292,7 +295,8 @@ public class Estabelecimento implements Serializable {
     }
 
     public Date getDataCadastro() {
-        return dataCadastro;
+        Calendar cal = Calendar.getInstance();
+        return dataCadastro = cal.getTime();
     }
 
     public void setDataCadastro(Date dataCadastro) {
@@ -372,5 +376,5 @@ public class Estabelecimento implements Serializable {
     public String toString() {
         return "br.com.ufra.entidade.Estabelecimento[ id=" + id + " ]";
     }
-    
+
 }

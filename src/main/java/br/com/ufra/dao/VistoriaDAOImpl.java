@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 
-package br.com.ufra.resource;
+package br.com.ufra.dao;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import br.com.ufra.dao.service.VistoriaDAO;
+import br.com.ufra.entidade.Vistoria;
 
 /**
  *
  * @author Jairo Sousa
  * @since 09/2015
  */
-@ApplicationPath("/resources")
-public class RESTApp extends Application{
+public class VistoriaDAOImpl extends GenericDAOImpl<Vistoria> implements VistoriaDAO {
 
+   
 }

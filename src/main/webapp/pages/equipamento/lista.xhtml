@@ -21,13 +21,19 @@ and open the template in the editor.
                     showDetail="true"
                     sticky="false"/>
 
+                <p:toolbar>
+                    <f:facet name="left">
+                        Estabelecimentos
+                    </f:facet>
+
+                    <f:facet name="right">
+                        <p:commandButton value="Novo" action="#{equipamentoBean.incluir()}" update="growl" icon="ui-icon-disk"/>
+                    </f:facet>
+                </p:toolbar>
+
                 <p:dataTable var="equipamentos" value="#{equipamentoBean.equipamentos}"
                              sortMode="multiple" rows="5" paginator="true"
                              id="estab" style="text-align: center">
-
-                    <f:facet name="header">
-                        Estabelecimentos
-                    </f:facet>
 
                     <p:column headerText="Nome">
                         <h:outputText value="#{equipamentos.nome}"/>

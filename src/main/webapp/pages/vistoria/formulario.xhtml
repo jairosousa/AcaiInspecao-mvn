@@ -17,81 +17,178 @@
                         id="growl"
                         showDetail="true"
                         sticky="false"/>
+                    <h:inputHidden value="#{vistoriaBean.vistoria.id}"/>
+                    <p:wizard >
 
-                    <div align="center">
+                        <p:tab id="vistoria" title="Vistoria">
+                            <p:panel header="Detalhes da Vistoria">
+                                <div align="center">
+                                    <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
 
-                        <p:toolbar>
-                            <f:facet name="left">
-                                Vistoria
-                            </f:facet>
+                                        <h:outputText value="Estabelecimento"/>
+                                        <p:selectOneMenu value="#{vistoriaBean.vistoria.estabelecimento}"
+                                                         converter="estabelecimentoConverter" >
+                                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                            <f:selectItems value="#{estabelecimentoBean.estabelecimentos}" var="estabelecimentos"
+                                                           itemLabel="#{estabelecimentos.nomeFantasia}"/>
+                                        </p:selectOneMenu>
 
-                            <f:facet name="right">
-                                <p:commandButton value="Salvar" action="#{vistoriaBean.salvar()}" update="growl" icon="ui-icon-disk"/>
-                                <p:commandButton value="Cancelar" action="#{vistoriaBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
-                                <p:commandButton value="Inspeção" action="#{vistoriaBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
-                                <span class="ui-separator">
-                                    <span class="ui-icon ui-icon-grip-dotted-vertical" />
-                                </span>
-                                <p:commandButton value="Voltar" action="#{vistoriaBean.cancelar()}" update="growl" icon="ui-icon-extlink"/>
-                            </f:facet>
+                                        <h:outputText value="Tecnico"/>
+                                        <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico1}"
+                                                         converter="tecnicoConverter">
+                                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                            <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
+                                                           itemLabel="#{tecnicos.nome}"/>
+                                        </p:selectOneMenu>
+                                        <h:outputText value="Tecnico"/>
+                                        <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
+                                                         converter="tecnicoConverter">
+                                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                            <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
+                                                           itemLabel="#{tecnicos.nome}"/>
+                                        </p:selectOneMenu>
 
-                        </p:toolbar>
+                                        <h:outputLabel for="mask" value="Data vistoria"/>
+                                        <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
+                                                    id="maskVis" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                            <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                                        </p:calendar>
 
-                        <h:inputHidden value="#{vistoriaBean.vistoria.id}"/>
+                                        <h:outputLabel for="mask" value="Data solicitação"/>
+                                        <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
+                                                    id="masksol" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                            <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                                        </p:calendar>
 
-                        <h:panelGrid columns="6" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
+                                    </h:panelGrid>
+                                </div>
+                            </p:panel>
 
-                            <h:outputLabel for="mask" value="Data vistoria"/>
-                            <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
-                                        id="maskVis" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                            </p:calendar>
+                            <div align="center">
+                                <h:outputLabel value="Finalizar"/>
+                                <h:selectBooleanCheckbox value="#{vistoriaBean.skip}" />
+                            </div>
+                        </p:tab>
 
-                            <h:outputLabel for="mask" value="Data solicitação"/>
-                            <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
-                                        id="masksol" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                            </p:calendar>
+                        <p:tab id="inpecao" title="Inspeção">
+                            <p:panel header="Detalhes da inspeção">
 
-                            <h:outputText value="Estabelecimento"/>
-                            <p:selectOneMenu value="#{vistoriaBean.vistoria.estabelecimento}"
-                                             converter="estabelecimentoConverter" >
-                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                <f:selectItems value="#{estabelecimentoBean.estabelecimentos}" var="estabelecimentos"
-                                               itemLabel="#{estabelecimentos.nomeFantasia}"/>
-                            </p:selectOneMenu>
-                            <h:outputText value="Tecnico"/>
-                            <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico1}"
-                                             converter="tecnicoConverter">
-                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
-                                               itemLabel="#{tecnicos.nome}"/>
-                            </p:selectOneMenu>
-                            <h:outputText value="Tecnico"/>
-                            <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
-                                             converter="tecnicoConverter">
-                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
-                                               itemLabel="#{tecnicos.nome}"/>
-                            </p:selectOneMenu>
+                                <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
+                                    <h:outputLabel for="mask" value="Data inspeção"/>
+                                    <p:calendar value="#{inspecaoBean.inspecao.dataInsp}"
+                                                id="maskinsp" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                        <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                                    </p:calendar>
 
-                            <h:outputText value="Prazo"/>
-                            <p:inputText id="prazo" value="#{vistoriaBean.vistoria.prazo}"
-                                         label="prazo" />
+                                    <h:outputText value="Equipamentos"/>
+                                    <p:selectOneMenu value="#{inspecaoBean.inspecao.equipamento}"
+                                                     converter="equipamentoConverter">
+                                        <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                        <f:selectItems value="#{equipamentoBean.equipamentos}" var="equipamentos"
+                                                       itemLabel="#{equipamentos.nome}"/>
+                                    </p:selectOneMenu>
 
-                            <p:outputLabel for="apto" value="Apto" />
-                            <p:selectOneRadio id="apto" value="#{vistoriaBean.vistoria.apto}">
-                                <f:selectItem itemLabel="Sim" itemValue="true"/>
-                                <f:selectItem itemLabel="Não" itemValue="false" />
-                            </p:selectOneRadio>
+                                    <h:panelGroup>
+                                        <p:commandButton value="Adicionar" action="#{inspecaoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
+                                        <p:commandButton value="Cancelar" action="#{inspecaoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                                    </h:panelGroup>
+                                </h:panelGrid>
 
-                            <h:outputText value="Observação"/>
-                            <p:inputTextarea id="obs" value="#{vistoriaBean.vistoria.observacao}"
-                                             label="obs" />
+                                <p:dataTable var="equipamentos" value="#{inspecaoBean.inspecaos}"
+                                             sortMode="multiple" rows="5" paginator="true"
+                                             id="estab" style="text-align: center">
+                                    <p:column headerText="Nome">
+                                        <h:outputText value="#{equipamentos.equipamento.nome}"/>
+                                    </p:column>
 
-                        </h:panelGrid>
+                                    <p:column headerText="Descrição">
+                                        <h:outputText value="#{equipamentos.equipamento.descricao}"/>
+                                    </p:column>
 
-                    </div>
+                                    <p:column headerText="Status">
+                                        <h:outputText value="#{equipamentos.equipamento.status}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Material">
+                                        <h:outputText value="#{equipamentos.equipamento.material}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Operações" >
+                                        <div align="center">
+                                            <p:commandButton
+                                                ajax="false"
+                                                icon="ui-icon-pencil"
+                                                action="#{equipamentoBean.editar()}">
+                                                <f:setPropertyActionListener
+                                                    target="#{equipamentoBean.equipamento}"
+                                                    value="#{equipamentos}"/>
+                                            </p:commandButton>
+
+                                            <p:commandButton
+                                                ajax="false"
+                                                icon="ui-icon-trash"
+                                                action="#{equipamentoBean.excluir()}">
+                                                <f:setPropertyActionListener
+                                                    target="#{equipamentoBean.equipamento}"
+                                                    value="#{equipamentos}"/>
+                                            </p:commandButton>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>
+
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="confirma" title="Confirmação">
+                            <p:panel header="Confirmação">
+
+                                <h:panelGrid id="confirmacao" columns="3" columnClasses="grid,grid,grid">
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+
+                                        <h:outputText value="Estabelecimento"/>
+                                        <h:outputText value="#{vistoriaBean.vistoria.estabelecimento.nomeFantasia}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Tecnico"/>
+                                        <h:outputText value="#{vistoriaBean.vistoria.tecnico1.nome}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Tecnico"/>
+                                        <h:outputText value="#{vistoriaBean.vistoria.tecnico2.nome}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Data Vistoria"/>
+                                        <h:outputText value="#{vistoriaBean.vistoria.dataVistoria}" styleClass="outputLabel">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+
+                                        <h:outputText value="Data Solicitação"/>
+                                        <h:outputText value="#{vistoriaBean.vistoria.dataSolicitacao}" styleClass="outputLabel">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+
+
+                                        <p:outputLabel for="apto" value="Apto" />
+                                        <p:selectOneRadio id="apto" value="#{vistoriaBean.vistoria.apto}">
+                                            <f:selectItem itemLabel="Sim" itemValue="true"/>
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+
+                                        <h:outputText value="Prazo"/>
+                                        <p:inputText id="prazo" value="#{vistoriaBean.vistoria.prazo}"
+                                                     label="prazo" />
+
+                                        <h:outputText value="Observação"/>
+                                        <p:inputTextarea id="obs" value="#{vistoriaBean.vistoria.observacao}" 
+                                                         label="obs" />
+
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel><br />
+                            <div align="right">
+                                <p:commandButton value="Salvar" action="#{vistoriaBean.salvar()}" ajax="false"/>
+                            </div>
+                        </p:tab>
+
+                    </p:wizard>
+
                 </h:form>
             </ui:define>
 

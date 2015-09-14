@@ -35,12 +35,10 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
 
     @Override
     public Date atualizaDataVencimento(Estabelecimento estabelecimento) {
-
-        Calendar c = Calendar.getInstance();
-        c.setTime(estabelecimento.getDataLicenca());
-        c.add(Calendar.DAY_OF_MONTH, 365);
-        return (c.getTime());
-
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(estabelecimento.getDataLicenca());
+        cal.add(Calendar.DAY_OF_MONTH, 365);
+        return (cal.getTime());
     }
 
     @Override

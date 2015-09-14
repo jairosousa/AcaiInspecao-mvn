@@ -6,6 +6,7 @@
 package br.com.ufra.entidade;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -44,6 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vistoria.findByPrazo", query = "SELECT v FROM Vistoria v WHERE v.prazo = :prazo"),
     @NamedQuery(name = "Vistoria.findByApto", query = "SELECT v FROM Vistoria v WHERE v.apto = :apto")})
 public class Vistoria implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,7 +109,8 @@ public class Vistoria implements Serializable {
     }
 
     public Date getDataVistoria() {
-        return dataVistoria;
+        Calendar cal = Calendar.getInstance();
+        return dataVistoria = cal.getTime();
     }
 
     public void setDataVistoria(Date dataVistoria) {
@@ -195,5 +198,5 @@ public class Vistoria implements Serializable {
     public String toString() {
         return "br.com.ufra.entidade.Vistoria[ id=" + id + " ]";
     }
-    
+
 }

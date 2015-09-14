@@ -121,27 +121,6 @@
             <version>4.5</version>
         </dependency>
 
-        
-        <!--Json 
-        <dependency>
-            <groupId>javax.json</groupId>
-            <artifactId>javax.json-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.json</artifactId>
-            <version>1.0.4</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>rt</artifactId>
-            <version>2.2.10</version>
-        </dependency>
-        -->
-        <!-- Jersey -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
@@ -158,17 +137,17 @@
             <version>1.14</version>
         </dependency>
         <dependency>
-	<groupId>com.sun.jersey</groupId>
-	<artifactId>jersey-json</artifactId>
-	<version>1.14</version>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>1.14</version>
         
-</dependency>
+        </dependency>
 
-           <dependency>
-         <groupId>javax.ws.rs</groupId>
-         <artifactId>jsr311-api</artifactId>
-         <version>1.1.1</version>
-     </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>1.1.1</version>
+        </dependency>
         
     </dependencies>
 

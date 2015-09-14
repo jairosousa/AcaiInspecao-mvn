@@ -11,19 +11,26 @@
         <ui:composition template="./../../index.xhtml">
 
             <ui:define name="content">
+
+
                 <h:form id="listaEstabelecimento">
                     <p:growl
                         id="growl"
                         showDetail="true"
                         sticky="false"/>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            Estabelecimentos
+                        </f:facet>
+
+                        <f:facet name="right">
+                            <p:commandButton value="Novo" action="#{estabelecimentoBean.incluir()}" update="growl" icon="ui-icon-disk"/>
+                        </f:facet>
+                    </p:toolbar>
 
                     <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
                                  rows="5" paginator="true" id="estab"
                                  sortMode="multiple" style="text-align: center">
-
-                        <f:facet name="header">
-                            Estabelecimentos
-                        </f:facet>
 
                         <p:column style="width: 16px">
                             <p:rowToggler/>
@@ -103,8 +110,8 @@
 
                                 <p:outputLabel value="Latitude"/>
                                 <h:outputText value="#{estabelecimentos.latitude}"/>
-                                 <p:outputLabel/>
-                                 <p:outputLabel/>
+                                <p:outputLabel/>
+                                <p:outputLabel/>
                                 <p:outputLabel value="Longitude"/>
                                 <h:outputText value="#{estabelecimentos.longitude}"/>
 
