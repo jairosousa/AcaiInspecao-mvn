@@ -13,6 +13,7 @@ import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.VistoriaRN;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
@@ -144,8 +145,27 @@ public class VistoriaBean {
         inspecoes.add(inspecao);
         
     }
+    
+    private boolean definirStatusEstabelecimentoEVistoriaApt(List<Inspecao> inspecoesRealizadas){
+        Inspecao inspecaoRealizada;
+        Iterator<Inspecao> iterator = inspecoesRealizadas.iterator();
+        int contInspecaoApt = 0;
+       while (iterator.hasNext() && iterator.next().getApto() == true){
+           System.out.println("aa");
+           contInspecaoApt ++;
+       }
+        System.out.println("context inspecao apt: "+contInspecaoApt);
+        if (contInspecaoApt == inspecoesRealizadas.size()){
+            vistoria.getEstabelecimento().setStatus("regular");
+            return true;
+        }else{
+             vistoria.getEstabelecimento().setStatus("pendente");
+            return false;
+        }
+    }
 
     public String salvar() {
+        definirStatusEstabelecimentoEVistoriaApt(inspecoes);
         if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria, inspecoes)) {
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
