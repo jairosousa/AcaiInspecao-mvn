@@ -76,9 +76,18 @@
                             </p:inputText>
 
                             <h:outputLabel value="Email" for="email"/>
-                            <p:inputText id="email" size="50"
-                                         value="#{estabelecimentoBean.estabelecimento.email}"
-                                         label="email" />
+
+                            <h:panelGroup>
+                                <p:inputText id="email"
+                                             label="E-Mail"
+                                             value="#{estabelecimentoBean.estabelecimento.email}"
+                                             size="50" maxlength="50" required="true"
+                                             validatorMessage="E-mail invalido">
+                                    <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                                </p:inputText>
+                                <h:message for="email"/>
+                            </h:panelGroup>
+
 
                             <h:outputLabel value="CPF" for="cpf"/>
                             <p:inputMask id="cpf"

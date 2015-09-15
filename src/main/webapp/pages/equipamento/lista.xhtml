@@ -65,7 +65,9 @@ and open the template in the editor.
                             <p:commandButton
                                 ajax="false"
                                 icon="ui-icon-trash"
-                                action="#{equipamentoBean.excluir()}">
+                                action="#{equipamentoBean.excluir()}"
+                                onclick="if (!confirm('Confirma a exclusão do equipamento #{equipamentos.nome}?'))
+                                               return false;">
                                 <f:setPropertyActionListener
                                     target="#{equipamentoBean.equipamento}"
                                     value="#{equipamentos}"/>

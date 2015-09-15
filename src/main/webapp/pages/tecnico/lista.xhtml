@@ -56,7 +56,9 @@
 
                                     <p:commandButton ajax="false" 
                                                      icon="ui-icon-trash"
-                                                     action="#{tecnicoBean.excluir()}" >
+                                                     action="#{tecnicoBean.excluir()}" 
+                                                     onclick="if (!confirm('Confirma a exclusão do tecnico #{tecnicos.nome}?'))
+                                                            return false;">
 
                                         <f:setPropertyActionListener
                                             target="#{tecnicoBean.tecnico}"
