@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.map.GeocodeEvent;
@@ -30,7 +31,7 @@ import org.primefaces.model.map.Marker;
  * @author Jairo
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class EstabelecimentoBean implements Serializable {
 
     private MapModel geoModel;
@@ -82,11 +83,11 @@ public class EstabelecimentoBean implements Serializable {
             }
 
         }
-        this.estabelecimento.setLatitude(String.valueOf(center.getLat()));
-        this.estabelecimento.setLongitude(String.valueOf(center.getLng()));
-
-        System.out.println("Latitude: " + String.valueOf(center.getLat()));
-        System.out.println("Longitude: " + String.valueOf(center.getLng()));
+//        this.estabelecimento.setLatitude(String.valueOf(center.getLat()));
+//        this.estabelecimento.setLongitude(String.valueOf(center.getLng()));
+//
+//        System.out.println("Latitude: " + String.valueOf(center.getLat()));
+//        System.out.println("Longitude: " + String.valueOf(center.getLng()));
     }
 
     public void obterCoordenadas() {
@@ -112,7 +113,7 @@ public class EstabelecimentoBean implements Serializable {
     }
 
     public String salvar() {
-       
+
         if (rn.salvar(this.estabelecimento)) {
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
