@@ -50,7 +50,7 @@ public class GoogleGeocodingService {
 
         URL url;
 
-
+        System.out.println(endereco);
         try {
 
             url = new URL("http://maps.googleapis.com/maps/api/geocode/json?address=" + endereco + "&sensor=false");

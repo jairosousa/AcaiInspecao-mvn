@@ -9,13 +9,20 @@
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
+    <script type="text/javascript">
+
+        function geocode() {
+            PF('geoMap').geocode(document.getElementById('logradouro').value);
+        }
+    </script>
+
     <h:body>
 
         <ui:composition template="./../../index.xhtml">
 
             <ui:define name="content">
 
-                <h:form id="formularioEstabelecimento">
+                <h:form id="formularioEstabelecimento" prependId="false">
 
                     <p:toolbar>
                         <f:facet name="left">
@@ -35,173 +42,174 @@
                         sticky="false"/>
                     <h:inputHidden value="#{estabelecimentoBean.estabelecimento.id}"/>
 
-                    <h:panelGrid columns="2" columnClasses="grid,grig">
 
-                        <p:fieldset legend="Dados do Estabelecimento" toggleable="true">
+                    <p:fieldset legend="Dados do Estabelecimento" toggleable="true">
 
+                        <h:panelGrid columns="2" >
 
-                            <h:panelGrid columns="2" width="100%">
+                            <p:outputLabel value="Razão Social" for="razaosocial"/>
+                            <p:inputText id="razaosocial" size="50"
+                                         value="#{estabelecimentoBean.estabelecimento.razaoSocial}"
+                                         rendered="true" label="Razão Social">
+                                <f:validateLength maximum="100" minimum="2"/>
+                            </p:inputText>
 
-                                <p:outputLabel value="Razão Social" for="razaosocial"/>
-                                <p:inputText id="razaosocial" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.razaoSocial}"
-                                             rendered="true" label="Razão Social">
-                                    <f:validateLength maximum="100" minimum="2"/>
+                            <h:outputLabel value="Nome Fantasia" for="nomefantasia"/>
+                            <p:inputText id="nomefantasia" size="50"
+                                         value="#{estabelecimentoBean.estabelecimento.nomeFantasia}"
+                                         rendered="true" label="Nome">
+                                <f:validateLength maximum="100" minimum="2"/>
+                            </p:inputText>
+
+                            <p:outputLabel value="CNPJ" for="cnpj"/>
+                            <p:inputMask id="cnpj" value="#{estabelecimentoBean.estabelecimento.cnpj}"
+                                         mask="99.999.999/9999-99"/>
+                        </h:panelGrid>
+                    </p:fieldset><br/>
+
+                    <p:fieldset legend="Dados do Contato" toggleable="true">
+
+                        <h:panelGrid columns="2" >
+
+                            <p:outputLabel value="Nome" for="nomecontato"/>
+                            <p:inputText id="nomecontato" size="50"
+                                         value="#{estabelecimentoBean.estabelecimento.nomeContato}"
+                                         rendered="true" label="Contato">
+                                <f:validateLength maximum="50" minimum="2"/>
+                            </p:inputText>
+
+                            <h:outputLabel value="Email" for="email"/>
+
+                            <h:panelGroup>
+                                <p:inputText id="email"
+                                             label="E-Mail"
+                                             value="#{estabelecimentoBean.estabelecimento.email}"
+                                             size="50" maxlength="50" required="true"
+                                             validatorMessage="E-mail invalido">
+                                    <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
                                 </p:inputText>
-
-                                <h:outputLabel value="Nome Fantasia" for="nomefantasia"/>
-                                <p:inputText id="nomefantasia" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.nomeFantasia}"
-                                             rendered="true" label="Nome">
-                                    <f:validateLength maximum="100" minimum="2"/>
-                                </p:inputText>
-
-                                <p:outputLabel value="CNPJ" for="cnpj"/>
-                                <p:inputMask id="cnpj" value="#{estabelecimentoBean.estabelecimento.cnpj}"
-                                             mask="99.999.999/9999-99"/>
-                            </h:panelGrid>
-                        </p:fieldset><br/>
-
-                        <p:fieldset legend="Dados do Contato" toggleable="true">
-
-                            <h:panelGrid columns="2" width="100%">
-
-                                <p:outputLabel value="Nome" for="nomecontato"/>
-                                <p:inputText id="nomecontato" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.nomeContato}"
-                                             rendered="true" label="Contato">
-                                    <f:validateLength maximum="50" minimum="2"/>
-                                </p:inputText>
-
-                                <h:outputLabel value="Email" for="email"/>
-
-                                <h:panelGroup>
-                                    <p:inputText id="email"
-                                                 label="E-Mail"
-                                                 value="#{estabelecimentoBean.estabelecimento.email}"
-                                                 size="50" maxlength="50" required="true"
-                                                 validatorMessage="E-mail invalido">
-                                        <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
-                                    </p:inputText>
-                                    <h:message for="email"/>
-                                </h:panelGroup>
+                                <h:message for="email"/>
+                            </h:panelGroup>
 
 
-                                <h:outputLabel value="CPF" for="cpf"/>
-                                <p:inputMask id="cpf"
-                                             value="#{estabelecimentoBean.estabelecimento.cpf}"
-                                             label="cpf" mask="999.999.999-99" rendered="true"
-                                             requiredMessage="É necessário informar o cpf"/>
+                            <h:outputLabel value="CPF" for="cpf"/>
+                            <p:inputMask id="cpf"
+                                         value="#{estabelecimentoBean.estabelecimento.cpf}"
+                                         label="cpf" mask="999.999.999-99" rendered="true"
+                                         requiredMessage="É necessário informar o cpf"/>
 
-                                <h:outputLabel value="RG" for="rg"/>
-                                <p:inputText id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
-                                             label="rg">
-                                    <f:validateLength maximum="11" minimum="2"/>
-                                </p:inputText>
+                            <h:outputLabel value="RG" for="rg"/>
+                            <p:inputText id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
+                                         label="rg">
+                                <f:validateLength maximum="11" minimum="2"/>
+                            </p:inputText>
 
-                                <h:outputLabel value="Telefone" for="telefone"/>
-                                <p:inputMask id="telefone" value="#{estabelecimentoBean.estabelecimento.telefone}"
-                                             label="telefone" mask="(99) 9999-9999"/>
+                            <h:outputLabel value="Telefone" for="telefone"/>
+                            <p:inputMask id="telefone" value="#{estabelecimentoBean.estabelecimento.telefone}"
+                                         label="telefone" mask="(99) 9999-9999"/>
 
-                            </h:panelGrid>
-                        </p:fieldset><br/>
+                        </h:panelGrid>
+                    </p:fieldset><br/>
 
+                    <p:fieldset legend="Endereço" toggleable="true">
 
+                        <h:panelGrid columns="2" >
 
-                        <p:fieldset legend="Endereço" toggleable="true">
+                            <p:outputLabel value="Logradouro" for="logradouro"/>
+                            <p:inputText 
+                                id="logradouro" value="#{estabelecimentoBean.estabelecimento.logradouro}"
+                                size="50" label="logradouro">
+                            </p:inputText>
 
-                            <h:panelGrid columns="2" width="100%">
+                            <p:outputLabel value="Complemento" for="complemento"/>
+                            <p:inputText id="complemento" size="50"
+                                         value="#{estabelecimentoBean.estabelecimento.complemento}"
+                                         label="complemento" />
 
-                                <p:outputLabel value="Logradouro" for="logradouro"/>
-                                <p:inputText 
-                                    id="logradouro" value="#{estabelecimentoBean.estabelecimento.logradouro}"
-                                    size="50" label="logradouro"/>
+                        </h:panelGrid>
 
-                                <p:outputLabel value="Complemento" for="complemento"/>
-                                <p:inputText id="complemento" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.complemento}"
-                                             label="complemento" />
+                        <h:panelGrid columns="2" >
 
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2" width="103%">
-
-                                <p:outputLabel for="cep" value="CEP" />
-                                <p:inputMask id="cep" 
-                                             value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
-
-
-                                <h:outputLabel value="Número" for="numero"/>
-                                <p:inputText 
-                                    id="numero" value="#{estabelecimentoBean.estabelecimento.numero}"
-                                    label="numero" />
-
-                                <h:outputLabel value="Bairro" for="bairro"/>
-                                <p:inputText 
-                                    id="bairro" value="#{estabelecimentoBean.estabelecimento.bairro}"
-                                    label="bairro" />
-
-                                <h:outputLabel value="Cidade" for="cidade"/>
-                                <p:inputText 
-                                    id="cidade" value="#{estabelecimentoBean.estabelecimento.cidade}"
-                                    label="cidade" />
-                                <h:outputLabel value="UF" for="uf"/>
-                                <p:inputText 
-                                    id="uf" value="#{estabelecimentoBean.estabelecimento.uf}"
-                                    label="uf" />
+                            <p:outputLabel for="cep" value="CEP" />
+                            <p:inputMask id="cep" 
+                                         value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
 
 
-                                <h:outputLabel value="Latitude"/>
-                                <p:inputText id="latitude" readonly="true"
-                                             value="#{estabelecimentoBean.estabelecimento.latitude}"/>
+                            <h:outputLabel value="Número" for="numero"/>
+                            <p:inputText 
+                                id="numero" value="#{estabelecimentoBean.estabelecimento.numero}"
+                                label="numero" />
 
-                                <h:outputLabel value="Longitude"/>
-                                <p:inputText id="longitude" readonly="true"
-                                             value="#{estabelecimentoBean.estabelecimento.longitude}"/>
+                            <h:outputLabel value="Bairro" for="bairro"/>
+                            <p:inputText 
+                                id="bairro" value="#{estabelecimentoBean.estabelecimento.bairro}"
+                                label="bairro" />
 
-                            </h:panelGrid>
+                            <h:outputLabel value="Cidade" for="cidade"/>
+                            <p:inputText 
+                                id="cidade" value="#{estabelecimentoBean.estabelecimento.cidade}"
+                                label="cidade" />
+                            <h:outputLabel value="UF" for="uf"/>
+                            <p:inputText 
+                                id="uf" value="#{estabelecimentoBean.estabelecimento.uf}"
+                                label="uf" />
 
-                        </p:fieldset>
-                        <br/>
-                        <p:fieldset legend="Dados de Acesso" toggleable="true">
+                            <h:commandButton value="Obter Coordenadas" 
+                                             action="#{estabelecimentoBean.obterCoordenadas()}">
+                                <f:ajax execute="@form" render="@form" />
+                            </h:commandButton>
+                            <h:outputLabel/>
+                            <h:outputLabel value="Latitude"/>
+                            <p:inputText id="latitude" readonly="true"
+                                         value="#{estabelecimentoBean.estabelecimento.latitude}"/>
 
-                            <h:panelGrid columns="2" width="100%">
+                            <h:outputLabel value="Longitude"/>
+                            <p:inputText id="longitude" readonly="true"
+                                         value="#{estabelecimentoBean.estabelecimento.longitude}"/>
 
-                                <h:outputLabel for="mask" value="Data Cadastro"/>
-                                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
-                                            id="maskCad" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                                </p:calendar>
+                        </h:panelGrid>
 
-                                <h:outputLabel for="mask" value="Data Licença"/>
-                                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
-                                            id="maskLic" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                                </p:calendar>
+                    </p:fieldset>
+                    <br/>
+                    <p:fieldset legend="Dados de Acesso" toggleable="true">
 
-                                <h:commandButton value="Data Vencimento" 
-                                                 action="#{estabelecimentoBean.atualizaDataVencimento()}">
-                                    <f:ajax execute="@form" render="@form" />
-                                </h:commandButton>
-                                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
-                                            id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
-                                </p:calendar>
+                        <h:panelGrid columns="2">
 
-                                <p:outputLabel for="status" value="Status" />
-                                <p:selectOneMenu id="status" value="#{estabelecimentoBean.estabelecimento.status}">
-                                    <f:selectItem itemLabel="Aguardando vistoria" itemValue="Aguardando vistoria" />
-                                    <f:selectItem itemLabel="Pendênte" itemValue="Pendênte" />
-                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
-                                    <f:selectItem itemLabel="Vencida" itemValue="Vencida" />
-                                    <f:selectItem itemLabel="Suspensa" itemValue="Suspença" />
-                                </p:selectOneMenu>
+                            <h:outputLabel for="mask" value="Data Cadastro"/>
+                            <p:calendar value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
+                                        id="maskCad" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                            </p:calendar>
 
-                            </h:panelGrid>
-                        </p:fieldset><br/>
+                            <h:outputLabel for="mask" value="Data Licença"/>
+                            <p:calendar value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
+                                        id="maskLic" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="maskVenc" />
+                            </p:calendar>
+                            
+                            <h:outputLabel for="mask" value="Data Vencimento"/>
+                            <p:calendar value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
+                                        id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
+                            </p:calendar>
 
-                    </h:panelGrid>
-                    <p:commandButton value="Mapa" icon="iu-icon-search" onclick="codeAddress()" type="button"/><br />
-                    <div id="map_canvas" style="height:60%;top:30px"></div>
+                            <p:outputLabel for="status" value="Status" />
+                            <p:selectOneMenu id="status" value="#{estabelecimentoBean.estabelecimento.status}">
+                                <f:selectItem itemLabel="Aguardando vistoria" itemValue="Aguardando vistoria" />
+                                <f:selectItem itemLabel="Pendênte" itemValue="Pendênte" />
+                                <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                <f:selectItem itemLabel="Vencida" itemValue="Vencida" />
+                                <f:selectItem itemLabel="Suspensa" itemValue="Suspença" />
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                    </p:fieldset><br/>
+
+                    <p:commandButton value="Mapa" icon="ui-icon-search" onclick="geocode()" type="button"/><br />
+
+                    <p:gmap id="geoGmap" widgetVar="geoMap" center="#{estabelecimentoBean.centerGeoMap}" zoom="16" type="ROADMAP" model="#{estabelecimentoBean.geoModel}" style="width:95%;height:400px">
+                        <p:ajax event="geocode" listener="#{estabelecimentoBean.onGeocode}" update="@this" />
+                    </p:gmap>
                 </h:form>
 
                 <h:form prependId="false">

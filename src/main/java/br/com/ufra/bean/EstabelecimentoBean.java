@@ -104,8 +104,8 @@ public class EstabelecimentoBean implements Serializable {
         this.estabelecimento.setLatitude(geocodingService.getLatitude());
         this.estabelecimento.setLongitude(geocodingService.getLongitude());
 
-        System.out.println("Latitude" + estabelecimento.getLatitude());
-        System.out.println("Longitude" + estabelecimento.getLongitude());
+        System.out.println("Latitude: " + estabelecimento.getLatitude());
+        System.out.println("Longitude: " + estabelecimento.getLongitude());
     }
 
     public void consultarCEP() {
