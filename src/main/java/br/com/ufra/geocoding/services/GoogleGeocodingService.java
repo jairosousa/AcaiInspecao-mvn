@@ -62,15 +62,13 @@ public class GoogleGeocodingService {
             jsonReader.close();
 
             String status = jsonObject.getJsonString("status").toString();
-
-            if (status.equals("OK")) {
-
+                System.out.println("status"+status);
                 //Obtem o Array de Resultados provenientes da consulta ao servico da Google
                 JsonArray arrayResults = jsonObject.getJsonArray("results");
-
                 //Converte o Array de resultados em uma lista de objetos do tipo JsonObject
                 List<JsonObject> results = arrayResults.getValuesAs(JsonObject.class);
 
+            if (!results.isEmpty()) {
                 //Acessa a raiz de conteudo, dentro do Array de resultados
                 JsonObject result = results.get(0);
 
@@ -85,11 +83,16 @@ public class GoogleGeocodingService {
                 //Obtem o valor do atributo Lng(Longitude) existente no objeto Location
                 //Atribui o valor de Lng ao atributo Longitude do objeto coordenadaTO
                 this.longitude = (location.getJsonNumber("lng").toString());
+                
+            }else {
+                System.out.println("Endereço não encontrado");
             }
 
         } catch (MalformedURLException e) {
+            System.out.println("Erro: "+e.toString());
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("Erro: "+e.toString());
             e.printStackTrace();
         }
 
