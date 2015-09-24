@@ -22,7 +22,7 @@
 
             <ui:define name="content">
 
-                <h:form id="formularioEstabelecimento" prependId="false">
+                <h:form id="formularioEstabelecimento">
 
                     <p:toolbar>
                         <f:facet name="left">
@@ -99,7 +99,7 @@
                                          requiredMessage="É necessário informar o cpf"/>
 
                             <h:outputLabel value="RG" for="rg"/>
-                            <p:inputText id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
+                            <p:inputText type="number" id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
                                          label="rg">
                                 <f:validateLength maximum="11" minimum="2"/>
                             </p:inputText>
@@ -154,11 +154,6 @@
                                 id="uf" value="#{estabelecimentoBean.estabelecimento.uf}"
                                 label="uf" />
 
-                            <h:commandButton value="Obter Coordenadas" 
-                                             action="#{estabelecimentoBean.obterCoordenadas()}">
-                                <f:ajax execute="@form" render="@form" />
-                            </h:commandButton>
-                            <h:outputLabel/>
                             <h:outputLabel value="Latitude"/>
                             <p:inputText id="latitude" readonly="true"
                                          value="#{estabelecimentoBean.estabelecimento.latitude}"/>
@@ -187,7 +182,7 @@
                                 <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
                                 <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="maskVenc" />
                             </p:calendar>
-                            
+
                             <h:outputLabel for="mask" value="Data Vencimento"/>
                             <p:calendar value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
                                         id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
@@ -205,11 +200,17 @@
                         </h:panelGrid>
                     </p:fieldset><br/>
 
-                    <p:commandButton value="Mapa" icon="ui-icon-search" onclick="geocode()" type="button"/><br />
+                    <h:commandButton value="Mapa" 
+                                     action="#{estabelecimentoBean.obterCoordenadas()}">
+                        <f:ajax execute="@form" render="@form" />
 
-                    <p:gmap id="geoGmap" widgetVar="geoMap" center="#{estabelecimentoBean.centerGeoMap}" zoom="16" type="ROADMAP" model="#{estabelecimentoBean.geoModel}" style="width:95%;height:400px">
-                        <p:ajax event="geocode" listener="#{estabelecimentoBean.onGeocode}" update="@this" />
+                    </h:commandButton>
+
+                    <p:gmap id="geoGmap" center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
+                            zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" style="width:95%;height:400px">
+                        <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
                     </p:gmap>
+
                 </h:form>
 
                 <h:form prependId="false">

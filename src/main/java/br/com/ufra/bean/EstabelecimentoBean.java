@@ -5,7 +5,6 @@
  */
 package br.com.ufra.bean;
 
-import br.com.ufra.cep.service.CepWebService;
 import br.com.ufra.entidade.Estabelecimento;
 import br.com.ufra.geocoding.services.GoogleGeocodingService;
 import br.com.ufra.rn.EstabelecimentoRN;
@@ -15,11 +14,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.GeocodeResult;
 import org.primefaces.model.map.LatLng;
@@ -34,9 +33,9 @@ import org.primefaces.model.map.Marker;
 @ViewScoped
 public class EstabelecimentoBean implements Serializable {
 
-    private MapModel geoModel;
+    private MapModel draggableModel;
 
-    private String centerGeoMap = "-1.2965754,-48.4652863";
+    private Marker marker;
 
     private LatLng center;
 
@@ -46,8 +45,8 @@ public class EstabelecimentoBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        geoModel = new DefaultMapModel();
         estabelecimento = new Estabelecimento();
+        draggableModel = new DefaultMapModel();
     }
 
     public Estabelecimento getEstabelecimento() {
@@ -62,32 +61,14 @@ public class EstabelecimentoBean implements Serializable {
         return estabelecimentos = rn.obterTodos();
     }
 
-    public MapModel getGeoModel() {
-        return geoModel;
+    public MapModel getDraggableModel() {
+        return draggableModel;
     }
 
-    public String getCenterGeoMap() {
-        return centerGeoMap;
-    }
-
-    public void onGeocode(GeocodeEvent event) {
-        List<GeocodeResult> results = event.getResults();
-
-        if (results != null && !results.isEmpty()) {
-            this.center = results.get(0).getLatLng();
-            centerGeoMap = this.center.getLat() + "," + this.center.getLng();
-
-            for (int i = 0; i < results.size(); i++) {
-                GeocodeResult result = results.get(i);
-                geoModel.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
-            }
-
-        }
-//        this.estabelecimento.setLatitude(String.valueOf(center.getLat()));
-//        this.estabelecimento.setLongitude(String.valueOf(center.getLng()));
-//
-//        System.out.println("Latitude: " + String.valueOf(center.getLat()));
-//        System.out.println("Longitude: " + String.valueOf(center.getLng()));
+    public void onMarkerDrag(MarkerDragEvent event) {
+        marker = event.getMarker();
+        this.estabelecimento.setLatitude(String.valueOf(marker.getLatlng().getLat()));
+        this.estabelecimento.setLongitude(String.valueOf(marker.getLatlng().getLng()));
     }
 
     public void obterCoordenadas() {
@@ -104,12 +85,13 @@ public class EstabelecimentoBean implements Serializable {
         this.estabelecimento.setLatitude(geocodingService.getLatitude());
         this.estabelecimento.setLongitude(geocodingService.getLongitude());
 
-        System.out.println("Latitude: " + estabelecimento.getLatitude());
-        System.out.println("Longitude: " + estabelecimento.getLongitude());
-    }
+        draggableModel = new DefaultMapModel();
+        center = new LatLng(Double.parseDouble(geocodingService.getLatitude()), Double.parseDouble(geocodingService.getLongitude()));
+        draggableModel.addOverlay(new Marker(center, endereco));
 
-    public void consultarCEP() {
-        rn.obterCep(estabelecimento);
+        for (Marker premarket : draggableModel.getMarkers()) {
+            premarket.setDraggable(true);
+        }
     }
 
     public String salvar() {
