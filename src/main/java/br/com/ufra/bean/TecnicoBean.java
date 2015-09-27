@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class TecnicoBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Tecnico tecnico = new Tecnico();
     private Tecnico tecnicoLogado = new Tecnico();
     private TecnicoRN rn = new TecnicoRN();
@@ -90,5 +91,4 @@ public class TecnicoBean implements Serializable {
         return "lista.xhtml";
     }
 
-    
 }

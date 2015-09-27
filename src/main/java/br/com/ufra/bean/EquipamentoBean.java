@@ -22,6 +22,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class EquipamentoBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Equipamento equipamento = new Equipamento();
     private EquipamentoRN rn = new EquipamentoRN();
     private List<Equipamento> equipamentos;

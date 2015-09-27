@@ -60,6 +60,13 @@
             <scope>compile</scope>
         </dependency>
         
+        <!-- Implementação de EntityManager da JPA -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.1.Final</version>
+        </dependency>
+        
         <!--Spring Security -->
         <dependency>
             <groupId>org.springframework.security</groupId> 
@@ -75,13 +82,6 @@
             <groupId>org.springframework.security</groupId> 
             <artifactId>spring-security-web</artifactId> 
             <version>3.1.0.RELEASE</version> 
-        </dependency>
-        
-        <!-- Implementação de EntityManager da JPA -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.1.Final</version>
         </dependency>
         
         <!-- Driver JDBC do MySQL -->
@@ -133,6 +133,8 @@
             <artifactId>httpclient</artifactId>
             <version>4.5</version>
         </dependency>
+        
+         <!-- Jersey -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>

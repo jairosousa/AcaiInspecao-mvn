@@ -20,7 +20,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @RequestScoped
 public class InspecaoBean {
-    
+
+    private static final long serialVersionUID = 1L;
     private Inspecao inspecao = new Inspecao();
     private InspecaoRN rn = new InspecaoRN();
     private List<Inspecao> inspecaos;
@@ -74,5 +75,5 @@ public class InspecaoBean {
     public String cancelar() {
         return "lista.xhtml";
     }
-    
+
 }

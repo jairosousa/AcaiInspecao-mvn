@@ -32,13 +32,14 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class VistoriaBean {
 
+    private static final long serialVersionUID = 1L;
     private Vistoria vistoria = new Vistoria();
-    private Inspecao inspecao  = new Inspecao(); 
+    private Inspecao inspecao = new Inspecao();
     private Equipamento equipamento = new Equipamento();
     private VistoriaRN rnVistoria = new VistoriaRN();
     private InspecaoRN rnInspecao = new InspecaoRN();
     private EquipamentoRN rnEquipamento = new EquipamentoRN();
-    private List<Vistoria> vistorias ;
+    private List<Vistoria> vistorias;
     private List<Inspecao> inspecoes = new ArrayList<>();
     private List<Equipamento> equipamentos = new ArrayList<>();
     private boolean skip;
@@ -53,8 +54,6 @@ public class VistoriaBean {
     public void setDataInspecao(Date dataInspecao) {
         this.dataInspecao = dataInspecao;
     }
-    
-    
 
     public String getObs() {
         return obs;
@@ -63,8 +62,6 @@ public class VistoriaBean {
     public void setObs(String obs) {
         this.obs = obs;
     }
-    
-    
 
     public boolean isInspApto() {
         return inspApto;
@@ -74,8 +71,6 @@ public class VistoriaBean {
         this.inspApto = inspApto;
     }
 
-    
-    
     public Equipamento getEquipamento() {
         return equipamento;
     }
@@ -83,8 +78,7 @@ public class VistoriaBean {
     public void setEquipamento(Equipamento equipamento) {
         this.equipamento = equipamento;
     }
-    
-    
+
     public Inspecao getInspecao() {
         return inspecao;
     }
@@ -108,9 +102,7 @@ public class VistoriaBean {
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
     }
-    
-    
-    
+
     public Vistoria getVistoria() {
         return vistoria;
     }
@@ -136,30 +128,30 @@ public class VistoriaBean {
     }
 
     public void adicionarinspecao() {
-         inspecao = new Inspecao();
+        inspecao = new Inspecao();
         inspecao.setVistoria(vistoria);
         inspecao.setEquipamento(equipamento);
         inspecao.setApto(inspApto);
         inspecao.setObservacao(obs);
         inspecao.setDataInsp(dataInspecao);
         inspecoes.add(inspecao);
-        
+
     }
-    
-    private boolean definirStatusEstabelecimentoEVistoriaApt(List<Inspecao> inspecoesRealizadas){
+
+    private boolean definirStatusEstabelecimentoEVistoriaApt(List<Inspecao> inspecoesRealizadas) {
         Inspecao inspecaoRealizada;
         Iterator<Inspecao> iterator = inspecoesRealizadas.iterator();
         int contInspecaoApt = 0;
-       while (iterator.hasNext() && iterator.next().getApto() == true){
-           System.out.println("aa");
-           contInspecaoApt ++;
-       }
-        System.out.println("context inspecao apt: "+contInspecaoApt);
-        if (contInspecaoApt == inspecoesRealizadas.size()){
+        while (iterator.hasNext() && iterator.next().getApto() == true) {
+            System.out.println("aa");
+            contInspecaoApt++;
+        }
+        System.out.println("context inspecao apt: " + contInspecaoApt);
+        if (contInspecaoApt == inspecoesRealizadas.size()) {
             vistoria.getEstabelecimento().setStatus("regular");
             return true;
-        }else{
-             vistoria.getEstabelecimento().setStatus("pendente");
+        } else {
+            vistoria.getEstabelecimento().setStatus("pendente");
             return false;
         }
     }
