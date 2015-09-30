@@ -31,6 +31,7 @@ public class TecnicoBean implements Serializable {
     private List<Tecnico> tecnicos;
 
     public Tecnico getTecnico() {
+        System.out.println("tec"+tecnico.getNome());
         return tecnico;
     }
 
