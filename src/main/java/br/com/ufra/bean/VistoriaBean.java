@@ -16,11 +16,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
@@ -29,12 +26,12 @@ import org.primefaces.event.FlowEvent;
  * @author Jairo
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class VistoriaBean {
 
     private static final long serialVersionUID = 1L;
     private Vistoria vistoria = new Vistoria();
-    private Inspecao inspecao = new Inspecao();
+    private Inspecao inspecao;
     private Equipamento equipamento = new Equipamento();
     private VistoriaRN rnVistoria = new VistoriaRN();
     private InspecaoRN rnInspecao = new InspecaoRN();
@@ -42,6 +39,7 @@ public class VistoriaBean {
     private List<Vistoria> vistorias;
     private List<Inspecao> inspecoes = new ArrayList<>();
     private List<Equipamento> equipamentos = new ArrayList<>();
+    private List<Equipamento> equipamentosObrigatorios = new ArrayList<>();
     private boolean skip;
     private boolean inspApto;
     private String obs;
@@ -96,11 +94,15 @@ public class VistoriaBean {
     }
 
     public List<Equipamento> getEquipamentos() {
-        return rnEquipamento.obterTodos();
+        return rnEquipamento.obterTodosNaoObrigatorios();
     }
 
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
+    }
+
+    public List<Equipamento> getEquipamentosObrigatorios() {
+        return equipamentosObrigatorios = rnEquipamento.obterTodosObrigatorios();
     }
 
     public Vistoria getVistoria() {
@@ -116,6 +118,11 @@ public class VistoriaBean {
     }
 
     public List<Inspecao> getInspecaos() {
+        for (Equipamento equipamento : getEquipamentosObrigatorios()) {
+            inspecao = new Inspecao();
+            inspecao.setEquipamento(equipamento);
+            inspecoes.add(inspecao);
+        }
         return inspecoes;
     }
 

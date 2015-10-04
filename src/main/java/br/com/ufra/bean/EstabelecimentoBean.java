@@ -14,13 +14,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.GeocodeResult;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
@@ -30,7 +29,7 @@ import org.primefaces.model.map.Marker;
  * @author Jairo
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class EstabelecimentoBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +43,7 @@ public class EstabelecimentoBean implements Serializable {
     private Estabelecimento estabelecimento;
     private EstabelecimentoRN rn = new EstabelecimentoRN();
     private List<Estabelecimento> estabelecimentos;
+    private List<Estabelecimento> estabelecimentosPendentesVistoria;
 
     @PostConstruct
     public void init() {
@@ -61,6 +61,10 @@ public class EstabelecimentoBean implements Serializable {
 
     public List<Estabelecimento> getEstabelecimentos() {
         return estabelecimentos = rn.obterTodos();
+    }
+
+    public List<Estabelecimento> getEstabelecimentosPendentesVistoria() {
+        return estabelecimentosPendentesVistoria = rn.obterTodosPendenteVistoria();
     }
 
     public MapModel getDraggableModel() {
@@ -130,9 +134,7 @@ public class EstabelecimentoBean implements Serializable {
     }
 
     public void atualizaDataVencimento() {
-
         estabelecimento.setDataVencimento(rn.atualizaDataVencimento(estabelecimento));
-
     }
 
     public String editar() {

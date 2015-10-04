@@ -8,10 +8,13 @@ package br.com.ufra.dao;
 import br.com.ufra.dao.service.EstabelecimentoDAO;
 import br.com.ufra.dao.service.GenericDAO;
 import br.com.ufra.entidade.Estabelecimento;
+import br.com.ufra.rn.EstabelecimentoRN;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -35,6 +38,7 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
 
     @Override
     public Date atualizaDataVencimento(Estabelecimento estabelecimento) {
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(estabelecimento.getDataLicenca());
         cal.add(Calendar.DAY_OF_MONTH, 365);
@@ -68,6 +72,24 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
             e.printStackTrace();
         }
         return estabelecimento;
+    }
+
+    @Override
+    public List<Estabelecimento> obterTodosPendenteVistoria() {
+
+        List<Estabelecimento> todos = dao.obterTodos(Estabelecimento.class);
+
+        List<Estabelecimento> list = new ArrayList<>();
+
+        for (Estabelecimento pendente : todos) {
+
+            if (pendente.getStatus().equalsIgnoreCase("Aguardando vistoria") || pendente.getStatus().equalsIgnoreCase("Pendênte")) {
+                list.add(pendente);
+            }
+
+        }
+
+        return list;
     }
 
 }

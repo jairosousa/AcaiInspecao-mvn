@@ -7,7 +7,7 @@ import br.com.ufra.entidade.Vistoria;
 import java.util.List;
 
 public class InspecaoDAOImpl extends GenericDAOImpl<Inspecao> implements InspecaoDAO{
-        
+    
     
     @Override
     public boolean salvarInspecaoApartirInspecoes(Vistoria vistoria, List<Inspecao> inspecoes) {
@@ -30,7 +30,5 @@ public class InspecaoDAOImpl extends GenericDAOImpl<Inspecao> implements Inspeca
             return false;
         }
     }
-    
-    
-    
+
 }

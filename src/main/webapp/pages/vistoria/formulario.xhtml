@@ -8,7 +8,7 @@
 
     <body>
 
-       
+
         <ui:composition template="./../../index.xhtml">
 
 
@@ -30,8 +30,8 @@
                                         <p:selectOneMenu value="#{vistoriaBean.vistoria.estabelecimento}"
                                                          converter="estabelecimentoConverter" >
                                             <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                            <f:selectItems value="#{estabelecimentoBean.estabelecimentos}" var="estabelecimentos"
-                                                           itemLabel="#{estabelecimentos.nomeFantasia}"/>
+                                            <f:selectItems value="#{estabelecimentoBean.estabelecimentosPendentesVistoria}" var="estabelecimentos"
+                                                           itemLabel="#{estabelecimentos.nomeFantasia} - #{estabelecimentos.status}"/>
                                         </p:selectOneMenu>
 
                                         <h:outputText value="Tecnico"/>
@@ -87,13 +87,13 @@
                                         <f:selectItems value="#{vistoriaBean.equipamentos}" var="equipamentos"
                                                        itemLabel="#{equipamentos.nome}"/>
                                     </p:selectOneMenu>
-                                     
+
                                     <p:outputLabel for="apto" value="Apto" />
                                     <p:selectOneRadio id="equipApto" value ="#{vistoriaBean.inspApto}">
-                                    <f:selectItem itemLabel ="Sim" itemValue="true"/>
-                                    <f:selectItem itemLabel="Não" itemValue="false"/>
+                                        <f:selectItem itemLabel ="Sim" itemValue="true"/>
+                                        <f:selectItem itemLabel="Não" itemValue="false"/>
                                     </p:selectOneRadio>
-                                    
+
                                     <h:outputText value="Observação"/>
                                     <p:inputTextarea id="obsVis" value="#{vistoriaBean.obs}" label="obs" />
 

@@ -295,8 +295,12 @@ public class Estabelecimento implements Serializable {
     }
 
     public Date getDataCadastro() {
-        Calendar cal = Calendar.getInstance();
-        return dataCadastro = cal.getTime();
+        if (dataCadastro != null) {
+            return dataCadastro;
+        } else {
+            Calendar cal = Calendar.getInstance();
+            return dataCadastro = cal.getTime();
+        }
     }
 
     public void setDataCadastro(Date dataCadastro) {

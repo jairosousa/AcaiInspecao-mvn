@@ -7,6 +7,7 @@ package br.com.ufra.dao.service;
 
 import br.com.ufra.entidade.Estabelecimento;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,7 @@ public interface EstabelecimentoDAO extends GenericDAO<Estabelecimento>{
     public Date atualizaDataVencimento(Estabelecimento estabelecimento);
     
     public Estabelecimento obterCep(Estabelecimento estabelecimento);
+    
+    public List<Estabelecimento> obterTodosPendenteVistoria();
     
 }

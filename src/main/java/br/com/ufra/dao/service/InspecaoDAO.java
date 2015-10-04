@@ -13,6 +13,8 @@ import java.util.List;
  *
  * @author geovane
  */
-public interface InspecaoDAO extends GenericDAO<Inspecao>{
-    public boolean salvarInspecaoApartirInspecoes (Vistoria vistoria, List<Inspecao> inspecoes);
+public interface InspecaoDAO extends GenericDAO<Inspecao> {
+
+    public boolean salvarInspecaoApartirInspecoes(Vistoria vistoria, List<Inspecao> inspecoes);
+
 }

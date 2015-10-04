@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.ufra.rn;
 
-import br.com.ufra.dao.GenericDAOImpl;
+import br.com.ufra.dao.EquipamentoDAOImpl;
 import br.com.ufra.entidade.Equipamento;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,19 +15,27 @@ import java.util.List;
  * @author Jairo
  */
 public class EquipamentoRN {
-    
-     private GenericDAOImpl<Equipamento> dao = new GenericDAOImpl<Equipamento>();
-     
-     public Equipamento obter(Integer id) {
+
+    private EquipamentoDAOImpl dao = new EquipamentoDAOImpl();
+
+    public Equipamento obter(Integer id) {
         if (id == null) {
             return null;
         } else {
             return dao.obter(Equipamento.class, id);
         }
     }
-     
-     public List<Equipamento> obterTodos() {
+
+    public List<Equipamento> obterTodos() {
         return dao.obterTodos(Equipamento.class);
+    }
+
+    public List<Equipamento> obterTodosObrigatorios() {
+        return dao.obterTodosObrigatorios();
+    }
+
+    public List<Equipamento> obterTodosNaoObrigatorios() {
+        return dao.obterTodosNaoObrigatorios();
     }
 
     public List<Equipamento> obterEquipamento(String busca) {
@@ -45,7 +52,7 @@ public class EquipamentoRN {
         }
 
     }
-    
+
     public boolean salvar(Equipamento equipamento) {
         if (equipamento.getNome().equals("")) {
             return false;
@@ -65,5 +72,5 @@ public class EquipamentoRN {
             return dao.excluir(equipamento);
         }
     }
-    
+
 }

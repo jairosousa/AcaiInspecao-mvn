@@ -74,7 +74,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             if (em.isOpen()) {
                 this.desfazerTransacao();
             }
-            System.out.println("erro: "+e.getMessage());
+            System.out.println("erro: " + e.getMessage());
             return false;
         }
 
@@ -91,7 +91,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             if (em.isOpen()) {
                 this.desfazerTransacao();
             }
-            System.out.println("Erro ao atualizar"+e.getCause().toString());
+            System.out.println("Erro ao atualizar" + e.getCause().toString());
             return false;
         }
 

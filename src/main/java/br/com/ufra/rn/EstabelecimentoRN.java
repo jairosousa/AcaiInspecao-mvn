@@ -31,6 +31,10 @@ public class EstabelecimentoRN {
         return dao.obterTodos(Estabelecimento.class);
     }
     
+    public List<Estabelecimento> obterTodosPendenteVistoria() {
+        return dao.obterTodosPendenteVistoria();
+    }
+    
 
     public List<Estabelecimento> obterEstabelecimento(String busca) {
         if (busca == null || busca.length() < 3) {
