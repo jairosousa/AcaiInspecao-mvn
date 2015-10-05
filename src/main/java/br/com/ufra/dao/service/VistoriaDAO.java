@@ -5,7 +5,9 @@
  */
 package br.com.ufra.dao.service;
 
+import br.com.ufra.entidade.Estabelecimento;
 import br.com.ufra.entidade.Vistoria;
+import java.util.List;
 
 /**
  *
@@ -13,6 +15,7 @@ import br.com.ufra.entidade.Vistoria;
  */
 public interface VistoriaDAO extends GenericDAO<Vistoria> {
     
+    public List<Vistoria> obterVistoriasComEstabelecimento();
     
-    
+    public List<Vistoria> obterVistoriasPorEstabelecimento(Estabelecimento e);
 }

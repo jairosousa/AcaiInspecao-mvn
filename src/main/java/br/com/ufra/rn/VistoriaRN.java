@@ -5,7 +5,10 @@
  */
 package br.com.ufra.rn;
 
+import br.com.ufra.dao.EstabelecimentoDAOImpl;
 import br.com.ufra.dao.GenericDAOImpl;
+import br.com.ufra.dao.VistoriaDAOImpl;
+import br.com.ufra.entidade.Estabelecimento;
 import br.com.ufra.entidade.Vistoria;
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
  */
 public class VistoriaRN {
     
-    private GenericDAOImpl<Vistoria> dao = new GenericDAOImpl<>();
+    private VistoriaDAOImpl dao = new VistoriaDAOImpl();
     
     public Vistoria obter(Integer id) {
         if (id == null) {
@@ -49,6 +52,10 @@ public class VistoriaRN {
         } else {
             return dao.excluir(vistoria);
         }
+    }
+    
+    public List<Vistoria> obterVistoriasPorEstabelecimento(Estabelecimento e){
+        return dao.obterVistoriasPorEstabelecimento(e);
     }
     
 }

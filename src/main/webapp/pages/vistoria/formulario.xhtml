@@ -30,22 +30,22 @@
                                         <p:selectOneMenu value="#{vistoriaBean.vistoria.estabelecimento}"
                                                          converter="estabelecimentoConverter" >
                                             <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                            <f:selectItems value="#{estabelecimentoBean.estabelecimentosPendentesVistoria}" var="estabelecimentos"
-                                                           itemLabel="#{estabelecimentos.nomeFantasia} - #{estabelecimentos.status}"/>
+                                            <f:selectItems value="#{vistoriaBean.estabelecimentosPendenteEAguardando}" var="estabelecimentos"
+                                                           itemLabel="#{estabelecimentos.nomeFantasia}"/>
                                         </p:selectOneMenu>
 
                                         <h:outputText value="Tecnico"/>
                                         <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico1}"
                                                          converter="tecnicoConverter">
                                             <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                            <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
+                                            <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
                                                            itemLabel="#{tecnicos.nome}"/>
                                         </p:selectOneMenu>
                                         <h:outputText value="Tecnico"/>
                                         <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
                                                          converter="tecnicoConverter">
                                             <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                            <f:selectItems value="#{tecnicoBean.tecnicos}" var="tecnicos"
+                                            <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
                                                            itemLabel="#{tecnicos.nome}"/>
                                         </p:selectOneMenu>
 
@@ -73,7 +73,9 @@
 
                         <p:tab id="inpecao" title="Inspeção">
                             <p:panel header="Detalhes da inspeção">
-
+                                <f:metadata>
+                                    <f:viewAction action="#{vistoriaBean.inicializar()}"/>
+                                </f:metadata>
                                 <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
                                     <h:outputLabel for="mask" value="Data inspeção"/>
                                     <p:calendar value="#{vistoriaBean.dataInspecao}"
@@ -84,8 +86,9 @@
                                     <p:selectOneMenu value="#{vistoriaBean.equipamento}"
                                                      converter="equipamentoConverter">
                                         <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                        <f:selectItems value="#{vistoriaBean.equipamentos}" var="equipamentos"
-                                                       itemLabel="#{equipamentos.nome}"/>
+                                        <f:selectItems value="#{vistoriaBean.equipamentosNaoObrigatorios}" itemValue="#{vistoriaBean.equipamento}" 
+                                                       var="equipamentos"
+                                                       itemLabel="#{equipamentos.nome}" />
                                     </p:selectOneMenu>
 
                                     <p:outputLabel for="apto" value="Apto" />

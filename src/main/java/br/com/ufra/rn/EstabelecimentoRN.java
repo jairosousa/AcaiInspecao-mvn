@@ -31,8 +31,8 @@ public class EstabelecimentoRN {
         return dao.obterTodos(Estabelecimento.class);
     }
     
-    public List<Estabelecimento> obterTodosPendenteVistoria() {
-        return dao.obterTodosPendenteVistoria();
+    public List<Estabelecimento> estabelecimentosAguardandoVistoriaEPendente() {
+        return dao.estabelecimentosAguardandoVistoriaEPendente();
     }
     
 

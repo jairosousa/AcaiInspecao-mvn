@@ -12,6 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.0.5.RELEASE</spring.version>
+        <!-- Ehcache -->
+        <ehcache-core.version>2.6.11</ehcache-core.version>
     </properties>
     
    
@@ -60,13 +62,6 @@
             <scope>compile</scope>
         </dependency>
         
-        <!-- Implementação de EntityManager da JPA -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.1.Final</version>
-        </dependency>
-        
         <!--Spring Security -->
         <dependency>
             <groupId>org.springframework.security</groupId> 
@@ -82,6 +77,13 @@
             <groupId>org.springframework.security</groupId> 
             <artifactId>spring-security-web</artifactId> 
             <version>3.1.0.RELEASE</version> 
+        </dependency>
+        
+        <!-- Implementação de EntityManager da JPA -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.1.Final</version>
         </dependency>
         
         <!-- Driver JDBC do MySQL -->
@@ -105,7 +107,7 @@
             <version>2.2.8-10</version>
         </dependency>
         
-      <!--Primefaces -->
+        <!--Primefaces -->
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>all-themes</artifactId>
@@ -115,7 +117,7 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.2</version>
-        </dependency>  
+        </dependency>
         
         <!--gson -->
         <dependency>
@@ -133,8 +135,6 @@
             <artifactId>httpclient</artifactId>
             <version>4.5</version>
         </dependency>
-        
-         <!-- Jersey -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
@@ -159,6 +159,20 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
             <version>1.1.1</version>
+        </dependency>
+        
+        <!-- Ehcache -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>${ehcache-core.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+        <version>4.3.1.Final</version>
+            <scope>compile</scope>
         </dependency>
         
     </dependencies>
