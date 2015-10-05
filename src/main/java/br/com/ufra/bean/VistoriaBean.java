@@ -11,13 +11,16 @@ import br.com.ufra.entidade.Vistoria;
 import br.com.ufra.rn.EquipamentoRN;
 import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.VistoriaRN;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
@@ -26,8 +29,8 @@ import org.primefaces.event.FlowEvent;
  * @author Jairo
  */
 @ManagedBean
-@SessionScoped
-public class VistoriaBean {
+@ViewScoped
+public class VistoriaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Vistoria vistoria = new Vistoria();
@@ -44,6 +47,20 @@ public class VistoriaBean {
     private boolean inspApto;
     private String obs;
     private Date dataInspecao;
+
+    public VistoriaBean() {
+        Calendar cal = Calendar.getInstance();
+        for (Equipamento equipamento : getEquipamentosObrigatorios()) {
+            inspecao = new Inspecao();
+            inspecao.setEquipamento(equipamento);
+            inspecao.setVistoria(vistoria);
+            inspecao.setDataInsp(cal.getTime());
+            inspecao.setApto(true);
+            inspecoes.add(inspecao);
+        }
+
+        System.out.println("Ben");
+    }
 
     public Date getDataInspecao() {
         return dataInspecao;
@@ -118,11 +135,6 @@ public class VistoriaBean {
     }
 
     public List<Inspecao> getInspecaos() {
-        for (Equipamento equipamento : getEquipamentosObrigatorios()) {
-            inspecao = new Inspecao();
-            inspecao.setEquipamento(equipamento);
-            inspecoes.add(inspecao);
-        }
         return inspecoes;
     }
 
@@ -156,6 +168,7 @@ public class VistoriaBean {
         System.out.println("context inspecao apt: " + contInspecaoApt);
         if (contInspecaoApt == inspecoesRealizadas.size()) {
             vistoria.getEstabelecimento().setStatus("regular");
+            vistoria.setApto(true);
             return true;
         } else {
             vistoria.getEstabelecimento().setStatus("pendente");

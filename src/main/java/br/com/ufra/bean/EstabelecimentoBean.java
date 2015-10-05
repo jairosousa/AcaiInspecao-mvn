@@ -29,7 +29,7 @@ import org.primefaces.model.map.Marker;
  * @author Jairo
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class EstabelecimentoBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

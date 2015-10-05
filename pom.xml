@@ -105,7 +105,7 @@
             <version>2.2.8-10</version>
         </dependency>
         
-        <!--Primefaces -->
+      <!--Primefaces -->
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>all-themes</artifactId>
@@ -115,7 +115,7 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.2</version>
-        </dependency>
+        </dependency>  
         
         <!--gson -->
         <dependency>

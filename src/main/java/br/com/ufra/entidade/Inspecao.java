@@ -65,6 +65,8 @@ public class Inspecao implements Serializable {
     private Vistoria vistoria;
 
     public Inspecao() {
+        
+        
     }
 
     public Inspecao(Integer id) {
