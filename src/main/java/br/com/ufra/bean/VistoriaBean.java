@@ -24,8 +24,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -43,6 +41,7 @@ public class VistoriaBean implements Serializable {
     private Vistoria vistoria = new Vistoria();
     private Inspecao inspecao;
     private Estabelecimento estabelecimento = new Estabelecimento();
+    private EstabelecimentoRN rnestabelecimento = new EstabelecimentoRN();
     private Equipamento equipamento = new Equipamento();
     private final VistoriaRN rnVistoria = new VistoriaRN();
     private final InspecaoRN rnInspecao = new InspecaoRN();
@@ -252,11 +251,17 @@ public class VistoriaBean implements Serializable {
         }
         System.out.println("context inspecao apt: " + contInspecaoApt);
         if (contInspecaoApt == inspecoesRealizadas.size()) {
-            vistoria.getEstabelecimento().setStatus("regular");
+            estabelecimento = rnestabelecimento.obter(vistoria.getEstabelecimento().getId());
+            estabelecimento.setStatus("Regular");
+            rnestabelecimento.salvar(estabelecimento);
+            vistoria.setEstabelecimento(estabelecimento);
             vistoria.setApto(true);
             return true;
         } else {
-            vistoria.getEstabelecimento().setStatus("pendente");
+            estabelecimento = rnestabelecimento.obter(vistoria.getEstabelecimento().getId());
+            estabelecimento.setStatus("Pendente");
+            rnestabelecimento.salvar(estabelecimento);
+            
             return false;
         }
     }
