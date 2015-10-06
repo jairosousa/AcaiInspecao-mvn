@@ -6,9 +6,11 @@
 package br.com.ufra.bean;
 
 import br.com.ufra.entidade.Equipamento;
+import br.com.ufra.entidade.Estabelecimento;
 import br.com.ufra.entidade.Inspecao;
 import br.com.ufra.entidade.Vistoria;
 import br.com.ufra.rn.EquipamentoRN;
+import br.com.ufra.rn.EstabelecimentoRN;
 import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.VistoriaRN;
 import java.io.Serializable;
@@ -19,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
@@ -35,6 +36,8 @@ public class VistoriaBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private Vistoria vistoria = new Vistoria();
     private Inspecao inspecao;
+    private Estabelecimento estabelecimento = new Estabelecimento();
+    private EstabelecimentoRN rnestabelecimento = new EstabelecimentoRN();
     private Equipamento equipamento = new Equipamento();
     private VistoriaRN rnVistoria = new VistoriaRN();
     private InspecaoRN rnInspecao = new InspecaoRN();
@@ -167,11 +170,17 @@ public class VistoriaBean implements Serializable {
         }
         System.out.println("context inspecao apt: " + contInspecaoApt);
         if (contInspecaoApt == inspecoesRealizadas.size()) {
-            vistoria.getEstabelecimento().setStatus("regular");
+            estabelecimento = rnestabelecimento.obter(vistoria.getEstabelecimento().getId());
+            estabelecimento.setStatus("Regular");
+            rnestabelecimento.salvar(estabelecimento);
+            vistoria.setEstabelecimento(estabelecimento);
             vistoria.setApto(true);
             return true;
         } else {
-            vistoria.getEstabelecimento().setStatus("pendente");
+            estabelecimento = rnestabelecimento.obter(vistoria.getEstabelecimento().getId());
+            estabelecimento.setStatus("Pendente");
+            rnestabelecimento.salvar(estabelecimento);
+            
             return false;
         }
     }
