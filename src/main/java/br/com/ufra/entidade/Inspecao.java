@@ -6,6 +6,7 @@
 package br.com.ufra.entidade;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Inspecao.findByDataInsp", query = "SELECT i FROM Inspecao i WHERE i.dataInsp = :dataInsp"),
     @NamedQuery(name = "Inspecao.findByApto", query = "SELECT i FROM Inspecao i WHERE i.apto = :apto")})
 public class Inspecao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,8 +67,7 @@ public class Inspecao implements Serializable {
     private Vistoria vistoria;
 
     public Inspecao() {
-        
-        
+
     }
 
     public Inspecao(Integer id) {
@@ -88,7 +89,12 @@ public class Inspecao implements Serializable {
     }
 
     public Date getDataInsp() {
-        return dataInsp;
+        if (dataInsp != null) {
+            return dataInsp;
+        } else {
+            Calendar cal = Calendar.getInstance();
+            return dataInsp = cal.getTime();
+        }
     }
 
     public void setDataInsp(Date dataInsp) {
@@ -151,5 +157,5 @@ public class Inspecao implements Serializable {
     public String toString() {
         return "br.com.ufra.entidade.Inspecao[ id=" + id + " ]";
     }
-    
+
 }

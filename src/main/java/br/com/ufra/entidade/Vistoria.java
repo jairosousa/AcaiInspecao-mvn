@@ -109,8 +109,12 @@ public class Vistoria implements Serializable {
     }
 
     public Date getDataVistoria() {
-        Calendar cal = Calendar.getInstance();
-        return dataVistoria = cal.getTime();
+        if (dataVistoria != null) {
+            return dataVistoria;
+        } else {
+            Calendar cal = Calendar.getInstance();
+            return dataVistoria = cal.getTime();
+        }
     }
 
     public void setDataVistoria(Date dataVistoria) {

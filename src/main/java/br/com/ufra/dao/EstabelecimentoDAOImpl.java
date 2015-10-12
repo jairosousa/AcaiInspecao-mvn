@@ -83,7 +83,7 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
 
         for (Estabelecimento pendente : todos) {
 
-            if (pendente.getStatus().equalsIgnoreCase("Aguardando vistoria") || pendente.getStatus().equalsIgnoreCase("Pendênte")) {
+            if (pendente.getStatus().equalsIgnoreCase("Aguardando vistoria") || pendente.getStatus().equalsIgnoreCase("Pendente")) {
                 list.add(pendente);
             }
 
@@ -92,4 +92,4 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
         return list;
     }
 
-}
+    }

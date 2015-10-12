@@ -14,203 +14,204 @@
         <ui:composition template="./../../index.xhtml">
 
             <ui:define name="content">
-
                 <h:form id="formularioEstabelecimento">
+                    <div align="left">
 
-                    <p:toolbar>
-                        <f:facet name="left">
-                            Estabelecimentos
-                        </f:facet>
+                        <p:toolbar>
+                            <f:facet name="left">
+                                Estabelecimentos
+                            </f:facet>
 
-                        <f:facet name="right">
-                            <p:commandButton value="Salvar" action="#{estabelecimentoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
-                            <p:commandButton value="Cancelar" action="#{estabelecimentoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
-                        </f:facet>
+                            <f:facet name="right">
+                                <p:commandButton value="Salvar" action="#{estabelecimentoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
+                                <p:commandButton value="Cancelar" action="#{estabelecimentoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                            </f:facet>
 
-                    </p:toolbar> <br />
+                        </p:toolbar> <br />
 
-                    <p:growl
-                        id="growl"
-                        showDetail="true"
-                        sticky="false"/>
-                    <h:inputHidden value="#{estabelecimentoBean.estabelecimento.id}"/>
-
-
-                    <p:fieldset legend="Dados do Estabelecimento" toggleable="true">
-
-                        <h:panelGrid id="dadoEstabelecimento" columns="1" columnClasses="grid">
-                            <h:panelGrid columns="4" columnClasses="label, value">
+                        <p:growl
+                            id="growl"
+                            showDetail="true"
+                            sticky="false"/>
+                        <h:inputHidden value="#{estabelecimentoBean.estabelecimento.id}"/>
 
 
-                                <p:outputLabel value="Razão Social" for="razaosocial"/>
-                                <p:inputText id="razaosocial" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.razaoSocial}"
-                                             rendered="true" label="Razão Social">
-                                    <f:validateLength maximum="100" minimum="2"/>
-                                </p:inputText>
+                        <p:fieldset legend="Dados do Estabelecimento" toggleable="true">
 
-                                <h:outputLabel value="Nome Fantasia" for="nomefantasia"/>
-                                <p:inputText id="nomefantasia" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.nomeFantasia}"
-                                             rendered="true" label="Nome">
-                                    <f:validateLength maximum="100" minimum="2"/>
-                                </p:inputText>
+                            <h:panelGrid id="dadoEstabelecimento" columns="1" columnClasses="grid">
+                                <h:panelGrid columns="4" columnClasses="label, value">
 
-                                <p:outputLabel value="CNPJ" for="cnpj"/>
-                                <p:inputMask id="cnpj" value="#{estabelecimentoBean.estabelecimento.cnpj}"
-                                             mask="99.999.999/9999-99"/>
-                            </h:panelGrid>
-                        </h:panelGrid>
-                    </p:fieldset><br/>
 
-                    <p:fieldset legend="Dados do Contato" toggleable="true">
-
-                        <h:panelGrid id="dadoContato" columns="1" columnClasses="grid">
-
-                            <h:panelGrid columns="4" columnClasses="label, value">
-
-                                <p:outputLabel value="Nome" for="nomecontato"/>
-                                <p:inputText id="nomecontato" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.nomeContato}"
-                                             rendered="true" label="Contato">
-                                    <f:validateLength maximum="50" minimum="2"/>
-                                </p:inputText>
-
-                                <h:outputLabel value="Email" for="email"/>
-
-                                <h:panelGroup>
-                                    <p:inputText id="email"
-                                                 label="E-Mail"
-                                                 value="#{estabelecimentoBean.estabelecimento.email}"
-                                                 size="50" maxlength="50" required="true"
-                                                 validatorMessage="E-mail invalido">
-                                        <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                                    <p:outputLabel value="Razão Social" for="razaosocial"/>
+                                    <p:inputText id="razaosocial" size="50"
+                                                 value="#{estabelecimentoBean.estabelecimento.razaoSocial}"
+                                                 rendered="true" label="Razão Social">
+                                        <f:validateLength maximum="100" minimum="2"/>
                                     </p:inputText>
-                                    <h:message for="email"/>
-                                </h:panelGroup>
+
+                                    <h:outputLabel value="Nome Fantasia" for="nomefantasia"/>
+                                    <p:inputText id="nomefantasia" size="50"
+                                                 value="#{estabelecimentoBean.estabelecimento.nomeFantasia}"
+                                                 rendered="true" label="Nome">
+                                        <f:validateLength maximum="100" minimum="2"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel value="CNPJ" for="cnpj"/>
+                                    <p:inputMask id="cnpj" value="#{estabelecimentoBean.estabelecimento.cnpj}"
+                                                 mask="99.999.999/9999-99"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </p:fieldset><br/>
+
+                        <p:fieldset legend="Dados do Contato" toggleable="true">
+
+                            <h:panelGrid id="dadoContato" columns="1" columnClasses="grid">
+
+                                <h:panelGrid columns="4" columnClasses="label, value">
+
+                                    <p:outputLabel value="Nome" for="nomecontato"/>
+                                    <p:inputText id="nomecontato" size="50"
+                                                 value="#{estabelecimentoBean.estabelecimento.nomeContato}"
+                                                 rendered="true" label="Contato">
+                                        <f:validateLength maximum="50" minimum="2"/>
+                                    </p:inputText>
+
+                                    <h:outputLabel value="Email" for="email"/>
+
+                                    <h:panelGroup>
+                                        <p:inputText id="email"
+                                                     label="E-Mail"
+                                                     value="#{estabelecimentoBean.estabelecimento.email}"
+                                                     size="50" maxlength="50" required="true"
+                                                     validatorMessage="E-mail invalido">
+                                            <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                                        </p:inputText>
+                                        <h:message for="email"/>
+                                    </h:panelGroup>
 
 
-                                <h:outputLabel value="CPF" for="cpf"/>
-                                <p:inputMask id="cpf"
-                                             value="#{estabelecimentoBean.estabelecimento.cpf}"
-                                             label="cpf" mask="999.999.999-99" rendered="true"
-                                             requiredMessage="É necessário informar o cpf"/>
+                                    <h:outputLabel value="CPF" for="cpf"/>
+                                    <p:inputMask id="cpf"
+                                                 value="#{estabelecimentoBean.estabelecimento.cpf}"
+                                                 label="cpf" mask="999.999.999-99" rendered="true"
+                                                 requiredMessage="É necessário informar o cpf"/>
 
-                                <h:outputLabel value="RG" for="rg"/>
-                                <p:inputText type="number" id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
-                                             label="rg">
-                                    <f:validateLength maximum="11" minimum="2"/>
-                                </p:inputText>
+                                    <h:outputLabel value="RG" for="rg"/>
+                                    <p:inputText type="number" id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
+                                                 label="rg">
+                                        <f:validateLength maximum="11" minimum="2"/>
+                                    </p:inputText>
 
-                                <h:outputLabel value="Telefone" for="telefone"/>
-                                <p:inputMask id="telefone" value="#{estabelecimentoBean.estabelecimento.telefone}"
-                                             label="telefone" mask="(99) 9999-9999"/>
+                                    <h:outputLabel value="Telefone" for="telefone"/>
+                                    <p:inputMask id="telefone" value="#{estabelecimentoBean.estabelecimento.telefone}"
+                                                 label="telefone" mask="(99) 9999-9999"/>
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </p:fieldset><br/>
+
+                        <p:fieldset legend="Endereço" toggleable="true">
+
+                            <h:panelGrid id="dadoEndereco" columns="1" columnClasses="grid">
+
+                                <h:panelGrid columns="4" columnClasses="label, value">
+
+                                    <p:outputLabel value="Logradouro" for="logradouro"/>
+                                    <p:inputText 
+                                        id="logradouro" value="#{estabelecimentoBean.estabelecimento.logradouro}"
+                                        size="50" label="logradouro">
+                                    </p:inputText>
+
+                                    <p:outputLabel value="Complemento" for="complemento"/>
+                                    <p:inputText id="complemento" size="50"
+                                                 value="#{estabelecimentoBean.estabelecimento.complemento}"
+                                                 label="complemento" />
+
+
+                                    <p:outputLabel for="cep" value="CEP" />
+                                    <p:inputMask id="cep" 
+                                                 value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
+
+
+                                    <h:outputLabel value="Número" for="numero"/>
+                                    <p:inputText 
+                                        id="numero" value="#{estabelecimentoBean.estabelecimento.numero}"
+                                        label="numero" />
+
+                                    <h:outputLabel value="Bairro" for="bairro"/>
+                                    <p:inputText 
+                                        id="bairro" value="#{estabelecimentoBean.estabelecimento.bairro}"
+                                        label="bairro" />
+
+                                    <h:outputLabel value="Cidade" for="cidade"/>
+                                    <p:inputText 
+                                        id="cidade" value="#{estabelecimentoBean.estabelecimento.cidade}"
+                                        label="cidade" />
+                                    <h:outputLabel value="UF" for="uf"/>
+                                    <p:inputText 
+                                        id="uf" value="#{estabelecimentoBean.estabelecimento.uf}"
+                                        label="uf" />
+
+                                    <h:outputLabel value="Latitude"/>
+                                    <p:inputText id="latitude" readonly="true"
+                                                 value="#{estabelecimentoBean.estabelecimento.latitude}"/>
+                                    <h:outputLabel value="Longitude"/>
+                                    <p:inputText id="longitude" readonly="true"
+                                                 value="#{estabelecimentoBean.estabelecimento.longitude}"/>
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                        </p:fieldset>
+                        <br/>
+                        <p:fieldset legend="Dados de Acesso" toggleable="true">
+
+                            <h:panelGrid columns="6">
+
+                                <h:outputLabel for="mask" value="Data Cadastro"/>
+                                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
+                                            id="maskCad" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                                </p:calendar>
+
+                                <h:outputLabel for="mask" value="Data Licença"/>
+                                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
+                                            id="maskLic" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="maskVenc" />
+                                </p:calendar>
+
+                                <h:outputLabel for="mask" value="Data Vencimento"/>
+                                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
+                                            id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
+                                </p:calendar>
+
+                                <p:outputLabel for="status" value="Status" />
+                                <p:selectOneMenu id="status" value="#{estabelecimentoBean.estabelecimento.status}">
+                                    <f:selectItem itemLabel="Aguardando vistoria" itemValue="Aguardando vistoria" />
+                                    <f:selectItem itemLabel="Pendênte" itemValue="Pendente" />
+                                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                                    <f:selectItem itemLabel="Vencida" itemValue="Vencida" />
+                                    <f:selectItem itemLabel="Suspensa" itemValue="Suspença" />
+                                </p:selectOneMenu>
 
                             </h:panelGrid>
-                        </h:panelGrid>
-                    </p:fieldset><br/>
+                        </p:fieldset><br/>
+                    </div>
 
-                    <p:fieldset legend="Endereço" toggleable="true">
+                    <div align="left">
 
-                        <h:panelGrid id="dadoEndereco" columns="1" columnClasses="grid">
+                            <h:commandButton value="Mapa" 
+                                             action="#{estabelecimentoBean.obterCoordenadas()}">
+                                <f:ajax execute="@form" render="@form" />
 
-                            <h:panelGrid columns="4" columnClasses="label, value">
+                            </h:commandButton>
 
-                                <p:outputLabel value="Logradouro" for="logradouro"/>
-                                <p:inputText 
-                                    id="logradouro" value="#{estabelecimentoBean.estabelecimento.logradouro}"
-                                    size="50" label="logradouro">
-                                </p:inputText>
-
-                                <p:outputLabel value="Complemento" for="complemento"/>
-                                <p:inputText id="complemento" size="50"
-                                             value="#{estabelecimentoBean.estabelecimento.complemento}"
-                                             label="complemento" />
-
-
-                                <p:outputLabel for="cep" value="CEP" />
-                                <p:inputMask id="cep" 
-                                             value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
-
-
-                                <h:outputLabel value="Número" for="numero"/>
-                                <p:inputText 
-                                    id="numero" value="#{estabelecimentoBean.estabelecimento.numero}"
-                                    label="numero" />
-
-                                <h:outputLabel value="Bairro" for="bairro"/>
-                                <p:inputText 
-                                    id="bairro" value="#{estabelecimentoBean.estabelecimento.bairro}"
-                                    label="bairro" />
-
-                                <h:outputLabel value="Cidade" for="cidade"/>
-                                <p:inputText 
-                                    id="cidade" value="#{estabelecimentoBean.estabelecimento.cidade}"
-                                    label="cidade" />
-                                <h:outputLabel value="UF" for="uf"/>
-                                <p:inputText 
-                                    id="uf" value="#{estabelecimentoBean.estabelecimento.uf}"
-                                    label="uf" />
-
-                                <h:outputLabel value="Latitude"/>
-                                <p:inputText id="latitude" readonly="true"
-                                             value="#{estabelecimentoBean.estabelecimento.latitude}"/>
-                                <h:outputLabel value="Longitude"/>
-                                <p:inputText id="longitude" readonly="true"
-                                             value="#{estabelecimentoBean.estabelecimento.longitude}"/>
-
-                            </h:panelGrid>
-                        </h:panelGrid>
-
-                    </p:fieldset>
-                    <br/>
-                    <p:fieldset legend="Dados de Acesso" toggleable="true">
-
-                        <h:panelGrid columns="2">
-
-                            <h:outputLabel for="mask" value="Data Cadastro"/>
-                            <p:calendar value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
-                                        id="maskCad" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                            </p:calendar>
-
-                            <h:outputLabel for="mask" value="Data Licença"/>
-                            <p:calendar value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
-                                        id="maskLic" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="maskVenc" />
-                            </p:calendar>
-
-                            <h:outputLabel for="mask" value="Data Vencimento"/>
-                            <p:calendar value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
-                                        id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
-                            </p:calendar>
-
-                            <p:outputLabel for="status" value="Status" />
-                            <p:selectOneMenu id="status" value="#{estabelecimentoBean.estabelecimento.status}">
-                                <f:selectItem itemLabel="Aguardando vistoria" itemValue="Aguardando vistoria" />
-                                <f:selectItem itemLabel="Pendênte" itemValue="Pendênte" />
-                                <f:selectItem itemLabel="Regular" itemValue="Regular" />
-                                <f:selectItem itemLabel="Vencida" itemValue="Vencida" />
-                                <f:selectItem itemLabel="Suspensa" itemValue="Suspença" />
-                            </p:selectOneMenu>
-
-                        </h:panelGrid>
-                    </p:fieldset><br/>
-
-                    <p:fieldset legend="Mapa" toggleable="true">
-
-                        <h:commandButton value="Mapa" 
-                                         action="#{estabelecimentoBean.obterCoordenadas()}">
-                            <f:ajax execute="@form" render="@form" />
-
-                        </h:commandButton>
-
-                        <p:gmap id="geoGmap" center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
-                                zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" style="width:100%;height:400px">
-                            <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
-                        </p:gmap>
-                    </p:fieldset>
+                            <p:gmap id="geoGmap" center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
+                                    zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" style="width:100%;height:400px">
+                                <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
+                            </p:gmap>
+                    </div>
                 </h:form>
             </ui:define>
 
