@@ -63,8 +63,8 @@ public class EstabelecimentoBean implements Serializable {
         return estabelecimentos = rn.obterTodos();
     }
 
-    public List<Estabelecimento> getEstabelecimentosPendentesVistoria() {
-        return estabelecimentosPendentesVistoria = rn.obterTodosPendenteVistoria();
+    public List<Estabelecimento> getEstabelecimentosPendentesEAguardando() {
+        return estabelecimentosPendentesVistoria = rn.estabelecimentosAguardandoVistoriaEPendente();
     }
 
     public MapModel getDraggableModel() {

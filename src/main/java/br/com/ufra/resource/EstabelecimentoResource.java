@@ -5,6 +5,7 @@ import br.com.ufra.dao.GenericDAOImpl;
 import br.com.ufra.entidade.Estabelecimento;
 import br.com.ufra.resource.pojo.EstabelecimentoPOJO;
 import br.com.ufra.resource.pojo.conversor.EstabelecimentoConverter;
+import br.com.ufra.rn.EstabelecimentoRN;
 import br.com.ufra.util.Mensagem;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/estabelecimento")
 public class EstabelecimentoResource extends Application {
     
-    GenericDAOImpl<Estabelecimento> dao = new GenericDAOImpl();
+    EstabelecimentoRN rnEstabelecimento = new EstabelecimentoRN();
     Estabelecimento estabelecimento;
     EstabelecimentoPOJO estabelecimentoPOJO; 
     Gson gson = new Gson();
@@ -36,7 +37,7 @@ public class EstabelecimentoResource extends Application {
     @Path("all")
     public String obterTodos() {
        try {
-            estabelecimentos = dao.obterTodos(Estabelecimento.class);
+            estabelecimentos = rnEstabelecimento.estabelecimentosAguardandoVistoriaEPendente();
             if (!estabelecimentos.isEmpty()) {
 
                json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));

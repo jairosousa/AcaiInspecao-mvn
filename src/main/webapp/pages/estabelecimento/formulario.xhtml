@@ -199,19 +199,21 @@
                         </p:fieldset><br/>
                     </div>
 
-                    <div align="left">
+                    <br/>
 
-                            <h:commandButton value="Mapa" 
-                                             action="#{estabelecimentoBean.obterCoordenadas()}">
-                                <f:ajax execute="@form" render="@form" />
+                    <p:fieldset legend="Mapa" toggleable="true">
 
-                            </h:commandButton>
+                        <h:commandButton value="Mapa" 
+                                         action="#{estabelecimentoBean.obterCoordenadas()}">
+                            <f:ajax execute="@form" render="@form" />
 
-                            <p:gmap id="geoGmap" center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
-                                    zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" style="width:100%;height:400px">
-                                <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
-                            </p:gmap>
-                    </div>
+                        </h:commandButton>
+
+                        <p:gmap id="geoGmap" center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
+                                zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" style="width:100%;height:400px">
+                            <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
+                        </p:gmap>
+                    </p:fieldset>
                 </h:form>
             </ui:define>
 

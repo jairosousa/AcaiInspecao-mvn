@@ -11,22 +11,27 @@
         <ui:composition template="./../../index.xhtml">
 
             <ui:define name="content">
-                <h:form id="listaVistoria">
+                <h:form id="listaVistoriaPorEstabelecimento">
                     <p:growl
                         id="growl"
                         showDetail="true"
                         sticky="false"/>
                     <p:toolbar>
                         <f:facet name="left">
-                            Vistorias
+                            Vistorias dos estabelecimento
                         </f:facet>
 
                         <f:facet name="right">
                             <p:commandButton value="Novo" action="#{vistoriaBean.incluir()}" update="growl" icon="ui-icon-disk"/>
                         </f:facet>
                     </p:toolbar>
-
-                    <p:dataTable var="vistorias" value="#{vistoriaBean.vistorias}"
+                    
+                     <f:metadata>
+                         <f:viewAction action="#{vistoriaBean.getVistoriasPorEstabelecimento}"/>
+                                </f:metadata>
+                    
+<!--                    <p:ajax listener="#{vistoriaBean.getVistoriasPorEstabelecimento}" />-->
+                    <p:dataTable var="vistoria" value="#{vistoriaBean.vistorias}"
                                  rows="5" paginator="true" id="visto"
                                  sortMode="multiple" style="text-align: center">
 
@@ -35,15 +40,11 @@
                         </p:column>
 
                         <p:column headerText="Estabelecimento">
-                            <h:outputText value="#{vistorias.estabelecimento.nomeFantasia}"/>
-                        </p:column>
-
-                        <p:column headerText="Contato">
-                            <h:outputText value="#{vistorias.estabelecimento.nomeContato}"/>
+                            <h:outputText value="#{vistoria.estabelecimento.nomeFantasia}"/>
                         </p:column>
 
                         <p:column headerText="Status">
-                            <h:outputText value="#{vistorias.estabelecimento.status}"/>
+                            <h:outputText value="#{vistoria.estabelecimento.status}"/>
                         </p:column>
 
                         <p:column headerText="Data Vistoria">
@@ -56,9 +57,6 @@
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
-                        <p:column headerText="Endereço">
-                            <h:outputText value="#{vistorias.estabelecimento.logradouro}"/>
-                        </p:column>
 
                         <p:column headerText="Operações" >
                             <div align="center">
@@ -68,7 +66,7 @@
                                     action="#{vistoriaBean.editar()}">
                                     <f:setPropertyActionListener
                                         target="#{vistoriaBean.vistoria}"
-                                        value="#{vistorias}"/>
+                                        value="#{vistoria}"/>
                                 </p:commandButton>
 
                                 <p:commandButton
@@ -77,30 +75,30 @@
                                     action="#{vistoriaBean.excluir()}">
                                     <f:setPropertyActionListener
                                         target="#{vistoriaBean.vistoria}"
-                                        value="#{vistorias}"/>
+                                        value="#{vistoria}"/>
                                 </p:commandButton>
 
                             </div>
                         </p:column>
 
-                        <p:rowExpansion>
-
-                            <p:panelGrid columns="2">
-
-                                <p:outputLabel value="Tecnico" />
-                                <h:outputText value="#{vistorias.tecnico1.nome}"/>
-
-                                <p:outputLabel value="Tecnico" />
-                                <h:outputText value="#{vistorias.tecnico2.nome}"/>
-
-                                <p:outputLabel value="Apto" />
-                                <h:outputText value="#{vistorias.apto?'Sim':'Não'}"/>
-
-                                <p:outputLabel value="Observação" />
-                                <h:outputText value="#{vistorias.observacao}"/>
-
-                            </p:panelGrid>
-                        </p:rowExpansion>
+                        <!--                        <p:rowExpansion>
+                        
+                                                    <p:panelGrid columns="2">
+                        
+                                                        <p:outputLabel value="Tecnico" />
+                                                        <h:outputText value="#{vistorias.tecnico1.nome}"/>
+                        
+                                                        <p:outputLabel value="Tecnico" />
+                                                        <h:outputText value="#{vistorias.tecnico2.nome}"/>
+                        
+                                                        <p:outputLabel value="Apto" />
+                                                        <h:outputText value="#{vistorias.apto?'Sim':'Não'}"/>
+                        
+                                                        <p:outputLabel value="Observação" />
+                                                        <h:outputText value="#{vistorias.observacao}"/>
+                        
+                                                    </p:panelGrid>
+                                                </p:rowExpansion>-->
                     </p:dataTable>
                 </h:form>
             </ui:define>

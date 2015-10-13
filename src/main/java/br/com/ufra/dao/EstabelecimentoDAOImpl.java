@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -75,21 +76,20 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
     }
 
     @Override
-    public List<Estabelecimento> obterTodosPendenteVistoria() {
+    public List<Estabelecimento> estabelecimentosAguardandoVistoriaEPendente() {
 
-        List<Estabelecimento> todos = dao.obterTodos(Estabelecimento.class);
-
-        List<Estabelecimento> list = new ArrayList<>();
-
-        for (Estabelecimento pendente : todos) {
-
-            if (pendente.getStatus().equalsIgnoreCase("Aguardando vistoria") || pendente.getStatus().equalsIgnoreCase("Pendente")) {
-                list.add(pendente);
-            }
-
+      try {
+            String aguardando="Aguardando vistoria", pendente = "Pendente";
+            String query = "SELECT e FROM Estabelecimento e WHERE e.status =:aguardando OR e.status =:pendente ";
+            Query q = super.getEntityManager().createQuery(query);
+            q.setParameter("aguardando", aguardando).setParameter("pendente",pendente);
+            
+            return (List<Estabelecimento>)q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao obterAguardandoVistoriaEPendente: "+e.toString());
+            return null;
         }
 
-        return list;
-    }
-
-    }
+}
+    
+}
