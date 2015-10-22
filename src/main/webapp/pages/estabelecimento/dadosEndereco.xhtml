@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition>
+        <p:fieldset legend="Endereço" toggleable="true">
+
+            <h:panelGrid id="dadoEndereco" columns="1" columnClasses="grid">
+
+                <h:panelGrid columns="4" columnClasses="label, value">
+
+                    <p:outputLabel value="Logradouro" for="logradouro"/>
+                    <p:inputText 
+                        id="logradouro" value="#{estabelecimentoBean.estabelecimento.logradouro}"
+                        size="50" label="logradouro">
+                    </p:inputText>
+
+                    <p:outputLabel value="Complemento" for="complemento"/>
+                    <p:inputText id="complemento" size="50"
+                                 value="#{estabelecimentoBean.estabelecimento.complemento}"
+                                 label="complemento" />
+
+
+                    <p:outputLabel for="cep" value="CEP" />
+                    <p:inputMask id="cep" 
+                                 value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
+
+
+                    <h:outputLabel value="Número" for="numero"/>
+                    <p:inputText 
+                        id="numero" value="#{estabelecimentoBean.estabelecimento.numero}"
+                        label="numero" />
+
+                    <h:outputLabel value="Bairro" for="bairro"/>
+                    <p:inputText 
+                        id="bairro" value="#{estabelecimentoBean.estabelecimento.bairro}"
+                        label="bairro" />
+
+                    <h:outputLabel value="Cidade" for="cidade"/>
+                    <p:inputText 
+                        id="cidade" value="#{estabelecimentoBean.estabelecimento.cidade}"
+                        label="cidade" />
+                    <h:outputLabel value="UF" for="uf"/>
+                    <p:inputText 
+                        id="uf" value="#{estabelecimentoBean.estabelecimento.uf}"
+                        label="uf" />
+
+
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:fieldset>
+    </ui:composition>
+
+</html>
+

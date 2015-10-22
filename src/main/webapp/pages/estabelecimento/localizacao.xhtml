@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition>
+        <p:fieldset legend="Localização" toggleable="true">
+            <p:panel style="border-color: activeborder">
+                <h:panelGrid columns="5" >
+
+                    <h:outputLabel value="Latitude"/>
+                    <p:inputText id="latitude" 
+                                 value="#{estabelecimentoBean.estabelecimento.latitude}"/>
+
+                    <h:outputLabel value="Longitude"/>
+                    <p:inputText id="longitude"
+                                 value="#{estabelecimentoBean.estabelecimento.longitude}"/>
+
+                    <h:commandButton id="opemMapa"
+                                     value="Obter Coordenadas" 
+                                     action="#{estabelecimentoBean.obterCoordenadas()}"/>
+                    <h:outputLink id="openDialogLink" value="javascript:void(0)" onclick="PF('dlg').show();">Ver o Mapa</h:outputLink>
+                </h:panelGrid>
+            </p:panel>
+        </p:fieldset><br />
+
+        <p:dialog id="picture" widgetVar="dlg" header="Localização" resizable="false" showEffect="clip" hideEffect="clip" height="400" width="500"
+                  minimizable="true" maximizable="true">
+
+            <p:gmap id="geoGmap" center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
+                    zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" style="width:100%;height:400px">
+                <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
+            </p:gmap>
+
+        </p:dialog>  
+
+    </ui:composition>
+
+</html>
+

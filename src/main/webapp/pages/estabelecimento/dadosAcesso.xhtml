@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition>
+
+        <p:fieldset legend="Dados de Acesso" toggleable="true">
+
+            <h:panelGrid columns="6">
+
+                <h:outputLabel for="mask" value="Data Cadastro"/>
+                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
+                            id="maskCad" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                </p:calendar>
+
+                <h:outputLabel for="mask" value="Data Licença"/>
+                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
+                            id="maskLic" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                    <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="maskVenc" />
+                </p:calendar>
+
+                <h:outputLabel for="mask" value="Data Vencimento"/>
+                <p:calendar value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
+                            id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
+                </p:calendar>
+
+                <p:outputLabel for="status" value="Status" />
+                <p:selectOneMenu id="status" value="#{estabelecimentoBean.estabelecimento.status}">
+                    <f:selectItem itemLabel="Aguardando vistoria" itemValue="Aguardando vistoria" />
+                    <f:selectItem itemLabel="Pendênte" itemValue="Pendente" />
+                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
+                    <f:selectItem itemLabel="Vencida" itemValue="Vencida" />
+                    <f:selectItem itemLabel="Suspensa" itemValue="Suspença" />
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+        </p:fieldset>
+
+    </ui:composition>
+
+</html>
+

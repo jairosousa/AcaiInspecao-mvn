@@ -11,7 +11,11 @@
 }
 
 h1{
-    color: aliceblue;
+    color: #708090;
+    font: normal 1.5em/1.1 OFL Sorts Mill Goudy, Georgia, serif;
+    font-family: Verdana;
+    margin: 1px;
+    font-size: 20px;
 }
 header {
     font-family: verdana, sans-serif;
@@ -54,6 +58,6 @@ footer {
 }
 
 body {
-    background-color: #ddd;
+    background-color: #dddddd;
 }
 

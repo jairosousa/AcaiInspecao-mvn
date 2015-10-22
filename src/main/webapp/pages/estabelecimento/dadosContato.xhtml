@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition>
+
+        <p:fieldset legend="Dados do Contato" toggleable="true">
+
+            <h:panelGrid id="dadoContato" columns="1" columnClasses="grid">
+
+                <h:panelGrid columns="4" columnClasses="label, value">
+
+                    <p:outputLabel value="Nome" for="nomecontato"/>
+                    <p:inputText id="nomecontato" size="50"
+                                 value="#{estabelecimentoBean.estabelecimento.nomeContato}"
+                                 rendered="true" label="Contato">
+                        <f:validateLength maximum="50" minimum="2"/>
+                    </p:inputText>
+
+                    <h:outputLabel value="Email" for="email"/>
+
+                    <h:panelGroup>
+                        <p:inputText id="email"
+                                     label="E-Mail"
+                                     value="#{estabelecimentoBean.estabelecimento.email}"
+                                     size="50" maxlength="50" required="true"
+                                     validatorMessage="E-mail invalido">
+                            <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                        </p:inputText>
+                        <h:message for="email"/>
+                    </h:panelGroup>
+
+
+                    <h:outputLabel value="CPF" for="cpf"/>
+                    <p:inputMask id="cpf"
+                                 value="#{estabelecimentoBean.estabelecimento.cpf}"
+                                 label="cpf" mask="999.999.999-99" rendered="true"
+                                 requiredMessage="É necessário informar o cpf"/>
+
+                    <h:outputLabel value="RG" for="rg"/>
+                    <p:inputText type="number" id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
+                                 label="rg">
+                        <f:validateLength maximum="11" minimum="2"/>
+                    </p:inputText>
+
+                    <h:outputLabel value="Telefone" for="telefone"/>
+                    <p:inputMask id="telefone" value="#{estabelecimentoBean.estabelecimento.telefone}"
+                                 label="telefone" mask="(99) 9999-9999"/>
+
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:fieldset>
+
+    </ui:composition>
+
+</html>
+

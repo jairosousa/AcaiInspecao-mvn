@@ -74,7 +74,9 @@
                                 <p:commandButton
                                     ajax="false"
                                     icon="ui-icon-trash"
-                                    action="#{vistoriaBean.excluir()}">
+                                    action="#{vistoriaBean.excluir()}"
+                                    onclick="if (!confirm('Confirma a exclusão da vistoria do estabelecimento #{vistorias.estabelecimento.nomeFantasia}?'))
+                                                return false;">
                                     <f:setPropertyActionListener
                                         target="#{vistoriaBean.vistoria}"
                                         value="#{vistorias}"/>
