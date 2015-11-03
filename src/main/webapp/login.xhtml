@@ -1,12 +1,44 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html" >
+
     <h:head>
-        <title>Facelet Title</title>
+        <title>Açai Inspeção</title>
+        <h:outputStylesheet library="css" name="main.css"/>
     </h:head>
-    <h:body>
-        Hello from Facelets
+
+    <h:body id="corpo">
+
+
+
+        <div class="panel">
+            <div class="imag">
+                <h:graphicImage  library="images" name="acaipde.png" height="70" width="70"/>
+            </div>
+
+            <h3>Inspeção Açaí</h3>
+            <form id="form_login" action="#{request.contextPath}/j_spring_security_check"
+                  method="post">
+                <input id="j_username" 
+                       name="j_username" 
+                       class="campo-de-texto" 
+                       type="text" 
+                       placeholder="Login"/>
+                <input id="j_password" 
+                       name="j_password" 
+                       type="password" 
+                       class="campo-de-texto" 
+                       placeholder="Senha"/>
+
+                <button id="bt_entrar" class="btn-redondo" type="submit">Entrar</button>
+                <div class="bpmlab" align="center">
+                    <a class="bpmlab" href="https://portalnew.ufra.edu.br/">Açai Inpeção&copy;</a>
+                    <p>All rights reserved.</p>
+                </div>
+            </form>
+        </div>
+
     </h:body>
 </html>
 

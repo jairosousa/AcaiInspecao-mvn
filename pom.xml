@@ -10,10 +10,8 @@
     <name>AcaiInspecao-mvn</name>
 
     <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>3.0.5.RELEASE</spring.version>
-        <!-- Ehcache -->
-        <ehcache-core.version>2.6.11</ehcache-core.version>
     </properties>
     
    
@@ -25,12 +23,7 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>hibernate-jpamodelgen-4.3.1.Final</artifactId>
-            <version>SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
+        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -58,32 +51,49 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.8.Final</version>
-            <scope>compile</scope>
+            <version>4.3.7.Final</version>
         </dependency>
-        
-        <!--Spring Security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId> 
-            <artifactId>spring-security-config</artifactId> 
-            <version>3.1.0.RELEASE</version> 
-        </dependency> 
-        <dependency> 
-            <groupId>org.springframework.security</groupId> 
-            <artifactId>spring-security-core</artifactId> 
-            <version>3.1.0.RELEASE</version> 
-        </dependency> 
-        <dependency> 
-            <groupId>org.springframework.security</groupId> 
-            <artifactId>spring-security-web</artifactId> 
-            <version>3.1.0.RELEASE</version> 
-        </dependency>
-        
-        <!-- Implementação de EntityManager da JPA -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.1.Final</version>
+            <version>4.3.7.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>uaihebert.com</groupId>
+            <artifactId>EasyCriteria</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        
+        <!--Spring Security -->
+        
+        <dependency>
+            <groupId>net.glxn</groupId>
+            <artifactId>qrgen</artifactId>
+            <version>1.4</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>3.0.5.RELEASE</version>
         </dependency>
         
         <!-- Driver JDBC do MySQL -->
@@ -101,10 +111,17 @@
             <version>2.2.10</version>
             <scope>compile</scope>
         </dependency>
+        
+        <dependency> 
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
+
         <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>2.2.8-10</version>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.11.1.1</version>
         </dependency>
         
         <!--Primefaces -->
@@ -117,6 +134,11 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.2</version>
+        </dependency>
+        <dependency>  
+            <groupId>org.primefaces.themes</groupId>  
+            <artifactId>bootstrap</artifactId>  
+            <version>1.0.10</version>  
         </dependency>
         
         <!--gson -->
@@ -135,6 +157,8 @@
             <artifactId>httpclient</artifactId>
             <version>4.5</version>
         </dependency>
+        
+        <!-- Jersey -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
@@ -161,19 +185,6 @@
             <version>1.1.1</version>
         </dependency>
         
-        <!-- Ehcache -->
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <version>${ehcache-core.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-        <version>4.3.1.Final</version>
-            <scope>compile</scope>
-        </dependency>
         
     </dependencies>
 
@@ -195,6 +206,19 @@
             <id>unknown-jars-temp-repo</id>
             <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
             <url>file:${project.basedir}/lib</url>
+        </repository>
+        
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <url>http://repository.primefaces.org/</url>
+            <id>PrimeFaces-maven-lib</id>
+            <layout>default</layout>
+            <name>Repository for library PrimeFaces-maven-lib</name>
         </repository>
         
     </repositories>
