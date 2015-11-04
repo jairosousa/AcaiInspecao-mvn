@@ -56,6 +56,12 @@
                             <h:outputText value="Email"/>
                             <p:inputText id="email" value="#{tecnicoBean.tecnico.email}"
                                          label="email"/>
+                            
+                            <h:outputLabel value="Perfil" for="perfil"/>
+                            <h:selectOneRadio value="#{tecnicoBean.tecnico.perfil}" id="perfil">
+                            <f:selectItem itemLabel="Administrador" itemValue="ROLE_ADMIN"/>
+                            <f:selectItem itemLabel="Usuário" itemValue="ROLE_USER"/>
+                        </h:selectOneRadio>
 
                             <h:outputText value="Senha"/>
                             <p:password id="senha" value="#{tecnicoBean.tecnico.senha}"

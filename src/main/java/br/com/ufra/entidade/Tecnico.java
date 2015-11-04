@@ -64,6 +64,9 @@ public class Tecnico implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "senha")
     private String senha;
+    @Basic(optional = false)
+    @Column(name = "perfil")
+    private String perfil;
     @Transient
     private String ConfirmeSenha;
     @OneToMany(mappedBy = "tecnico1")
@@ -115,6 +118,14 @@ public class Tecnico implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
     public String getSenha() {

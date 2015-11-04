@@ -27,8 +27,11 @@ and open the template in the editor.
 
         <p:layout fullPage="true">
 
-            <p:layoutUnit position="north" size="100" header="Açai inspeção web" style="text-align: center" >
+            <p:layoutUnit position="north" size="100" style="text-align: center" >
+                <div id="panelHeader">
                 <h:graphicImage library="images" name="acaipde.png" height="50" width="50"/>
+                <h3> Açai Inspeção</h3>
+                </div>
             </p:layoutUnit>
 
             <p:layoutUnit position="south" size="75" header="Copyright 2015 Todos os direios reservados" style="text-align: center">
@@ -47,12 +50,12 @@ and open the template in the editor.
 
                         <h:form >
                             <h:outputText
-                                id="bemVindo" style="font-family: sans-serif;"
+                                id="bemVindo" style="font: italic 0.9em/2.0 georgia;"
                                 value="Seja bem vindo(a) ao sistema de Fiscalização do Açaí PDE, #{tecnicoBean.tecnicoLogado.email} !"/>
 
 
                             <h:outputLink style="margin-left: 10px" value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
-                                <h:outputText value="Sair"/>
+                                <h:outputText value="Sair" style="font: italic 0.9em/2.0 georgia;"/>
                             </h:outputLink>                       
 
                         </h:form>

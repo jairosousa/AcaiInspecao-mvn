@@ -10,6 +10,7 @@ import br.com.ufra.rn.TecnicoRN;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.NoResultException;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.User;
@@ -31,16 +32,16 @@ public class LoginSpring implements UserDetailsService {
             throw new UsernameNotFoundException(string);
         }
         Tecnico usuarioLogado;
-        
+
         try {
             usuarioLogado = tecnicoRN.obterEmail(string);
         } catch (NoResultException e) {
             throw new UsernameNotFoundException(string, e);
         }
-        
+
         List<GrantedAuthority> papeis = new ArrayList<>();
         if (usuarioLogado != null) {
-            papeis.add(new GrantedAuthorityImpl("ROLE_" + "USER"));
+            papeis.add(new GrantedAuthorityImpl(usuarioLogado.getPerfil()));
             User user = new User(
                     usuarioLogado.getEmail(),
                     usuarioLogado.getSenha(),
@@ -55,4 +56,13 @@ public class LoginSpring implements UserDetailsService {
         }
     }
 
+    public static String encode(String senha) {
+        ShaPasswordEncoder sha = new ShaPasswordEncoder(256);
+        return sha.encodePassword(senha, null);
+
+    }
+
+    public static void main(String[] args) {
+        System.out.println(encode("123"));
+    }
 }

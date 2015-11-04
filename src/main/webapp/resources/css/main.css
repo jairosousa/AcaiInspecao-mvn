@@ -101,12 +101,21 @@ body {
     color: #666666;
 }
 h3{
-    font: italic 1.1em/2.2 georgia;
+    font: italic 0.9em/2.0 georgia;
+    font-size: 2em;
+    color: #610631;
+    text-align: center;
+    margin: -22px auto auto 21px;
+}
+
+#bemVindo{
+    font: italic 0.9em/2.0 georgia;
     font-size: 2em;
     color: #610631;
     text-align: center;
     margin: 10px auto 15px auto;
 }
+
 .panel .bpmlab {
     background: transparent;
     font: italic 0.5em/0.6 georgia;
@@ -117,4 +126,8 @@ h3{
 a p {
     text-decoration: none;
     position: relative;
+}
+#panelHeader{
+    display: inline-block;
+    text-align: center;
 }

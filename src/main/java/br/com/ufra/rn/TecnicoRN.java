@@ -5,9 +5,9 @@
  */
 package br.com.ufra.rn;
 
-import br.com.ufra.dao.GenericDAOImpl;
 import br.com.ufra.dao.TecnicoDAOImpl;
 import br.com.ufra.entidade.Tecnico;
+import br.com.ufra.spring.LoginSpring;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,8 +59,12 @@ public class TecnicoRN {
             return false;
         } else {
             if (tecnico.getId() == null) {
+                String senhaEncode = LoginSpring.encode(tecnico.getSenha());
+                tecnico.setSenha(senhaEncode);
                 return dao.criar(tecnico);
             } else {
+                String senhaEncode = LoginSpring.encode(tecnico.getSenha());
+                tecnico.setSenha(senhaEncode);
                 return dao.atualizar(tecnico);
             }
         }
@@ -81,8 +85,8 @@ public class TecnicoRN {
     public boolean existe(String email) {
         return dao.existe(email);
     }
-    
-    public List<Tecnico> obterTecnicosPorMatricula(String mat1, String mat2){
+
+    public List<Tecnico> obterTecnicosPorMatricula(String mat1, String mat2) {
         return dao.obterTecnicosPorMatricula(mat1, mat2);
     }
 }

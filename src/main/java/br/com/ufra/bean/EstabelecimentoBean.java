@@ -30,7 +30,7 @@ import org.primefaces.model.map.Marker;
  * @author Jairo
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class EstabelecimentoBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -82,8 +82,8 @@ public class EstabelecimentoBean implements Serializable {
 
         GoogleGeocodingService geocodingService = new GoogleGeocodingService();
 
-        String endereco = this.estabelecimento.getLogradouro() + ", " + this.estabelecimento.getNumero() + " "
-                + this.estabelecimento.getCidade() + " - " + this.estabelecimento.getUf();
+        String endereco = this.estabelecimento.getLogradouro() + ", " + this.estabelecimento.getNumero() + ", "
+              +this.estabelecimento.getBairro() + this.estabelecimento.getCidade() + " - " + this.estabelecimento.getUf();
 
         System.out.println(endereco);
 
