@@ -7,6 +7,7 @@ package br.com.ufra.rn;
 
 import br.com.ufra.dao.GenericDAOImpl;
 import br.com.ufra.dao.InspecaoDAOImpl;
+import br.com.ufra.dao.VistoriaDAOImpl;
 import br.com.ufra.entidade.Inspecao;
 import br.com.ufra.entidade.Vistoria;
 import java.util.List;
@@ -16,43 +17,49 @@ import java.util.List;
  * @author Jairo
  */
 public class InspecaoRN {
-    
-    private InspecaoDAOImpl dao = new InspecaoDAOImpl();
-    
+
+    private InspecaoDAOImpl daoInspecao = new InspecaoDAOImpl();
+    private VistoriaDAOImpl daoVistoria; 
     public Inspecao obter(Integer id) {
         if (id == null) {
             return null;
         } else {
-            return dao.obter(Inspecao.class, id);
+            return daoInspecao.obter(Inspecao.class, id);
         }
     }
 
     public List<Inspecao> obterTodos() {
-        return dao.obterTodos(Inspecao.class);
+        return daoInspecao.obterTodos(Inspecao.class);
     }
-    
+
     public boolean salvar(Inspecao inspecao) {
         if (inspecao.getDataInsp() == null) {
             return false;
         } else {
             if (inspecao.getId() == null || inspecao.getId() == 0) {
-                return dao.criar(inspecao);
+                return daoInspecao.criar(inspecao);
             } else {
-                return dao.atualizar(inspecao);
+                return daoInspecao.atualizar(inspecao);
             }
         }
     }
-    
-       public boolean salvarInspecaoApartirInspecoes(Vistoria vistoria, List<Inspecao> inspecoes){
-           
-          return dao.salvarInspecaoApartirInspecoes(vistoria, inspecoes);
+
+    public boolean salvarInspecaoApartirInspecoes(Vistoria vistoria, List<Inspecao> inspecoes) {
+
+        return daoInspecao.salvarInspecaoApartirInspecoes(vistoria, inspecoes);
     }
-    
+
     public boolean excluir(Inspecao inspecao) {
         if (inspecao.getDataInsp() == null) {
             return false;
         } else {
-            return dao.excluir(inspecao);
+            return daoInspecao.excluir(inspecao);
         }
+    }
+
+    public List<Inspecao> obterInspecoesPorVistoria(Integer idv) {
+        daoVistoria = new VistoriaDAOImpl();
+       Vistoria vistoria= daoVistoria.obter(Vistoria.class, idv);
+        return daoInspecao.obterInspecoesPorVistoria(vistoria);
     }
 }

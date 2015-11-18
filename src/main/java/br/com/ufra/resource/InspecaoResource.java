@@ -24,6 +24,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
@@ -34,7 +35,7 @@ public class InspecaoResource extends Application {
     VistoriaRN rnVistoria = new VistoriaRN();
     TecnicoRN rnTecnico = new TecnicoRN();
     EstabelecimentoRN rnEstabelecimento = new EstabelecimentoRN();
-    
+
     Estabelecimento estabelecimento;
     Tecnico tecnico1, tecnico2;
     Inspecao inspecao;
@@ -43,7 +44,7 @@ public class InspecaoResource extends Application {
     Mensagem mensagem = Mensagem.getInstance();
     String json;
     List<InspecaoPOJO> listPOJO = new ArrayList<>();
-    List<Inspecao> inspecoes = new ArrayList<>();
+    List<Inspecao> inspecoes;
     Vistoria vistoria;
     //String listPOJO ;
 
@@ -90,9 +91,37 @@ public class InspecaoResource extends Application {
 //        System.out.println(listPOJO.size());
 //        System.out.println("json" + gson.toJson(listPOJO));
         try {
+            inspecoes = new ArrayList<>();
             inspecoes = rnInspecao.obterTodos();
             if (!inspecoes.isEmpty()) {
                 return gson.toJson(InspecaoConverter.toInspecoesPOJO(inspecoes));
+            } else {
+                mensagem.setMensagemServToClient("A lista está vazia!");
+                json = gson.toJson(mensagem);
+                System.out.println(json);
+                return json;
+            }
+        } catch (Exception e) {
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
+            json = gson.toJson(mensagem);
+
+            System.out.println(json);
+
+            return json;
+        }
+
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("inspecoesPorVistoria")
+    public String obterInspecoesPorVistoria(@QueryParam("idv") Integer idv) {
+        try {
+            inspecoes = new ArrayList<>();
+            inspecoes = rnInspecao.obterInspecoesPorVistoria(idv);
+            if (!inspecoes.isEmpty()) {
+                return gson.
+                        toJson(InspecaoConverter.toInspecoesPOJO(inspecoes));
             } else {
                 mensagem.setMensagemServToClient("A lista está vazia!");
                 json = gson.toJson(mensagem);
@@ -124,15 +153,15 @@ public class InspecaoResource extends Application {
             vistoria.setId(null);
             vistoria.setTecnico1(tecnico1);
             vistoria.setTecnico2(tecnico2);
-            
-          if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria, inspecoes)){
-        
-            mensagem.setMensagemServToClient("Operação realizada com sucesso !");            
-          System.out.println("json "+gson.toJson(mensagem));            
-          return gson.toJson(mensagem);                
-          } else {
-              mensagem.setMensagemServToClient("Erro, não foi possível concluir a operação. Tente novamente!");
-               return gson.toJson(mensagem);
+
+            if (rnInspecao.salvarInspecaoApartirInspecoes(vistoria, inspecoes)) {
+
+                mensagem.setMensagemServToClient("Operação realizada com sucesso !");
+                System.out.println("json " + gson.toJson(mensagem));
+                return gson.toJson(mensagem);
+            } else {
+                mensagem.setMensagemServToClient("Erro, não foi possível concluir a operação. Tente novamente!");
+                return gson.toJson(mensagem);
             }
 
         } catch (Exception e) {

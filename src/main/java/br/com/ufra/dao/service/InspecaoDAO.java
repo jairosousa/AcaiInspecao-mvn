@@ -16,5 +16,6 @@ import java.util.List;
 public interface InspecaoDAO extends GenericDAO<Inspecao> {
 
     public boolean salvarInspecaoApartirInspecoes(Vistoria vistoria, List<Inspecao> inspecoes);
-
+    
+    public List<Inspecao> obterInspecoesPorVistoria(Vistoria v);
 }
