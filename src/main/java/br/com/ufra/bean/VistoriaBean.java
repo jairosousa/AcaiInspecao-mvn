@@ -39,15 +39,17 @@ public class VistoriaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Vistoria vistoria = new Vistoria();
-    private Inspecao inspecao;
+    private Inspecao inspecao = new Inspecao();
     private Estabelecimento estabelecimento = new Estabelecimento();
-    private EstabelecimentoRN rnestabelecimento = new EstabelecimentoRN();
     private Equipamento equipamento = new Equipamento();
+
+    private EstabelecimentoRN rnestabelecimento = new EstabelecimentoRN();
     private final VistoriaRN rnVistoria = new VistoriaRN();
     private final InspecaoRN rnInspecao = new InspecaoRN();
     private final TecnicoRN rnTecnico = new TecnicoRN();
     private final EstabelecimentoRN rnEstabelecimento = new EstabelecimentoRN();
     private final EquipamentoRN rnEquipamento = new EquipamentoRN();
+
     private List<Estabelecimento> estabelecimentos = new ArrayList<>();
     private List<Vistoria> vistorias;
     private List<Inspecao> inspecoes = new ArrayList<>();
@@ -55,6 +57,7 @@ public class VistoriaBean implements Serializable {
     private List<Equipamento> equipamentosObrigatorios = new ArrayList<>();
     private List<Equipamento> equipamentosNaoObrigatorios = new ArrayList<>();
     private List<Tecnico> tecnicos = new ArrayList<>();
+
     private boolean skip;
     private boolean inspApto;
     private String obs;
@@ -230,14 +233,27 @@ public class VistoriaBean implements Serializable {
     }
 
     public void adicionarinspecao() {
-        inspecao = new Inspecao();
         inspecao.setVistoria(vistoria);
         inspecao.setEquipamento(equipamento);
         inspecao.setApto(inspApto);
         inspecao.setObservacao(obs);
         inspecao.setDataInsp(dataInspecao);
-        inspecoes.add(inspecao);
-        inicializar();
+        boolean contem = false;
+        int indice = 0;
+        for (Inspecao i : inspecoes) {
+            if (i.getEquipamento().equals(inspecao.getEquipamento())) {
+                contem = true;
+                break;
+            }
+            indice++;
+        }
+        if (contem) {
+            inspecoes.remove(indice);
+            inspecoes.add(indice, inspecao);
+        } else {
+            inspecoes.add(inspecao);
+        }
+        inspecao = new Inspecao();
 
     }
 
@@ -261,7 +277,7 @@ public class VistoriaBean implements Serializable {
             estabelecimento = rnestabelecimento.obter(vistoria.getEstabelecimento().getId());
             estabelecimento.setStatus("Pendente");
             rnestabelecimento.salvar(estabelecimento);
-            
+
             return false;
         }
     }
