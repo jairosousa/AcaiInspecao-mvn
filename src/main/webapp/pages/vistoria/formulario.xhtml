@@ -29,22 +29,20 @@
                                         <h:outputText value="Estabelecimento"/>
                                         <p:selectOneMenu value="#{vistoriaBean.vistoria.estabelecimento}"
                                                          converter="estabelecimentoConverter" >
-                                            <f:selectItem  />
+                                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
                                             <f:selectItems value="#{vistoriaBean.estabelecimentosPendenteEAguardando}" var="estabelecimentos"
                                                            itemLabel="#{estabelecimentos.nomeFantasia} - #{estabelecimentos.status}"/>
                                         </p:selectOneMenu>
 
                                         <h:outputText value="Tecnico"/>
-                                        <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico1}"
-                                                         converter="tecnicoConverter">
-                                            <f:selectItem  />
-                                            <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
-                                                           itemLabel="#{tecnicos.nome}"/>
-                                        </p:selectOneMenu>
+
+                                        <h:outputLabel value="#{tecnicoBean.tecnicoLogado.nome}"/>
+
+
                                         <h:outputText value="Tecnico"/>
                                         <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
                                                          converter="tecnicoConverter">
-                                            <f:selectItem />
+                                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
                                             <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
                                                            itemLabel="#{tecnicos.nome}"/>
                                         </p:selectOneMenu>
@@ -72,73 +70,56 @@
                         </p:tab>
 
                         <p:tab id="inpecao" title="Inspeção">
-                            <p:panel 
-                                id="pDetalhesInspecao"
-                                header="Detalhes da inspeção">
+                            <p:panel header="Detalhes da inspeção">
                                 <f:metadata>
                                     <f:viewAction action="#{vistoriaBean.inicializar()}"/>
                                 </f:metadata>
-
                                 <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2" columnClasses="label, value">
                                     <h:outputLabel for="mask" value="Data inspeção"/>
-                                    <p:calendar value="#{vistoriaBean.inspecao.dataInsp}"
+                                    <p:calendar value="#{vistoriaBean.dataInspecao}"
                                                 id="maskinsp" pattern="dd/MM/yyyy" mask="true" showOn="button">
                                     </p:calendar>
 
                                     <h:outputText value="Equipamentos"/>
-                                    <p:selectOneMenu 
-                                        value="#{vistoriaBean.inspecao.equipamento}"
-                                        converter="equipamentoConverter">
-                                        <f:selectItem />
-                                        <f:selectItems 
-                                            value="#{equipamentoBean.equipamentos}" 
-                                            itemValue="#{e}" 
-                                            var="e"
-                                            itemLabel="#{e.nome}" />
+                                    <p:selectOneMenu value="#{vistoriaBean.equipamento}"
+                                                     converter="equipamentoConverter">
+                                        <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                        <f:selectItems value="#{vistoriaBean.equipamentosNaoObrigatorios}" itemValue="#{vistoriaBean.equipamento}" 
+                                                       var="equipamentos"
+                                                       itemLabel="#{equipamentos.nome}" />
                                     </p:selectOneMenu>
 
                                     <p:outputLabel for="apto" value="Apto" />
-                                    <p:selectOneRadio id="equipApto" value ="#{vistoriaBean.inspecao.apto}">
+                                    <p:selectOneRadio id="equipApto" value ="#{vistoriaBean.inspApto}">
                                         <f:selectItem itemLabel ="Sim" itemValue="true"/>
                                         <f:selectItem itemLabel="Não" itemValue="false"/>
                                     </p:selectOneRadio>
 
                                     <h:outputText value="Observação"/>
-                                    <p:inputTextarea id="obsVis" value="#{vistoriaBean.inspecao.observacao}" label="obs" />
+                                    <p:inputTextarea id="obsVis" value="#{vistoriaBean.obs}" label="obs" />
 
                                     <h:panelGroup>
-                                        <p:commandButton 
-                                            value="Adicionar" 
-                                            ajax="false"
-                                            action="#{vistoriaBean.adicionarinspecao()}"/>
-                                        <p:commandButton 
-                                            value="Adicionar Equipamento" 
-                                            onclick="PF('dlg').show();" type="button" icon="ui-icon-extlink" />
+                                        <p:commandButton value="Adicionar" action="#{vistoriaBean.adicionarinspecao()}" update="inspTable" icon="ui-icon-disk"/>
                                     </h:panelGroup>
                                 </h:panelGrid>
 
-
-
-                                <p:dataTable 
-                                    id="inspTable" 
-                                    value="#{vistoriaBean.inspecaos}"
-                                    var="inspecao" 
-                                    sortMode="multiple" rows="5" paginator="true"
-                                    style="text-align: center">
+                                <p:dataTable var="equipamentos" value="#{vistoriaBean.inspecaos}"
+                                             sortMode="multiple" rows="5" paginator="true"
+                                             id="inspTable" style="text-align: center">
                                     <p:column headerText="Nome">
-                                        <h:outputText value="#{inspecao.equipamento.nome}"/>
+                                        <h:outputText value="#{equipamentos.equipamento.nome}"/>
                                     </p:column>
 
-                                    <p:column headerText="Observações">
-                                        <h:outputText value="#{inspecao.observacao}"/>
+                                    <p:column headerText="Descrição">
+                                        <h:outputText value="#{equipamentos.equipamento.descricao}"/>
                                     </p:column>
 
                                     <p:column headerText="Status">
-                                        <h:outputText value="#{inspecao.equipamento.status}"/>
+                                        <h:outputText value="#{equipamentos.equipamento.status}"/>
                                     </p:column>
 
                                     <p:column headerText="Material">
-                                        <h:outputText value="#{inspecao.equipamento.material}"/>
+                                        <h:outputText value="#{equipamentos.equipamento.material}"/>
                                     </p:column>
 
                                     <p:column headerText="Operações" >
@@ -146,9 +127,6 @@
                                             <p:commandButton
                                                 ajax="false"
                                                 icon="ui-icon-pencil">
-                                                <f:setPropertyActionListener
-                                                    value="#{inspecao}"
-                                                    target="#{vistoriaBean.inspecao}"/>
                                             </p:commandButton>
 
                                             <p:commandButton
@@ -161,8 +139,6 @@
 
                             </p:panel>
                         </p:tab>
-
-
 
                         <p:tab id="confirma" title="Confirmação">
                             <p:panel header="Confirmação">
@@ -213,23 +189,6 @@
                         </p:tab>
 
                     </p:wizard>
-
-                    <p:dialog header="Adicionar Equipamento" widgetVar="dlg" >
-
-                        <p:panelGrid columns="3">
-
-                            <h:outputText value="Equipamentos"/>
-                            <p:selectOneMenu value="#{vistoriaBean.equipamento}"
-                                             converter="equipamentoConverter">
-                                <f:selectItem />
-                                <f:selectItems value="#{vistoriaBean.equipamentosNaoObrigatorios}" itemValue="#{vistoriaBean.equipamento}" 
-                                               var="equipamentos"
-                                               itemLabel="#{equipamentos.nome}" />
-                            </p:selectOneMenu>
-
-                            <p:commandButton value="Adicionar" action="#{vistoriaBean.adicionarinspecao()}" update="inspTable" icon="ui-icon-disk"/>
-                        </p:panelGrid>
-                    </p:dialog>
 
                 </h:form>
             </ui:define>

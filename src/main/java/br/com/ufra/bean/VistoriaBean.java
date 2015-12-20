@@ -15,6 +15,7 @@ import br.com.ufra.rn.EstabelecimentoRN;
 import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.TecnicoRN;
 import br.com.ufra.rn.VistoriaRN;
+import br.com.ufra.util.UsuarioUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,17 +40,15 @@ public class VistoriaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Vistoria vistoria = new Vistoria();
-    private Inspecao inspecao = new Inspecao();
+    private Inspecao inspecao;
     private Estabelecimento estabelecimento = new Estabelecimento();
-    private Equipamento equipamento = new Equipamento();
-
     private EstabelecimentoRN rnestabelecimento = new EstabelecimentoRN();
+    private Equipamento equipamento = new Equipamento();
     private final VistoriaRN rnVistoria = new VistoriaRN();
     private final InspecaoRN rnInspecao = new InspecaoRN();
     private final TecnicoRN rnTecnico = new TecnicoRN();
     private final EstabelecimentoRN rnEstabelecimento = new EstabelecimentoRN();
     private final EquipamentoRN rnEquipamento = new EquipamentoRN();
-
     private List<Estabelecimento> estabelecimentos = new ArrayList<>();
     private List<Vistoria> vistorias;
     private List<Inspecao> inspecoes = new ArrayList<>();
@@ -57,13 +56,13 @@ public class VistoriaBean implements Serializable {
     private List<Equipamento> equipamentosObrigatorios = new ArrayList<>();
     private List<Equipamento> equipamentosNaoObrigatorios = new ArrayList<>();
     private List<Tecnico> tecnicos = new ArrayList<>();
-
     private boolean skip;
     private boolean inspApto;
     private String obs;
     private Date dataInspecao;
 
     public VistoriaBean() {
+        vistoria.setTecnico1(UsuarioUtil.obterUsuarioLogado());
         Calendar cal = Calendar.getInstance();
         for (Equipamento equipamento : getEquipamentosObrigatorios()) {
             inspecao = new Inspecao();
@@ -73,8 +72,14 @@ public class VistoriaBean implements Serializable {
             inspecao.setApto(true);
             inspecoes.add(inspecao);
         }
+        System.out.println("Tecnico: " + vistoria.getTecnico1().getNome());
+    }
 
-        System.out.println("Ben");
+    public String UsuarioLogado() {
+
+        String usuario = UsuarioUtil.obterUsuarioLogado().getNome();
+        System.out.println("Usuario: " + usuario);
+        return usuario;
     }
 
     public Date getDataInspecao() {
@@ -233,27 +238,14 @@ public class VistoriaBean implements Serializable {
     }
 
     public void adicionarinspecao() {
+        inspecao = new Inspecao();
         inspecao.setVistoria(vistoria);
         inspecao.setEquipamento(equipamento);
         inspecao.setApto(inspApto);
         inspecao.setObservacao(obs);
         inspecao.setDataInsp(dataInspecao);
-        boolean contem = false;
-        int indice = 0;
-        for (Inspecao i : inspecoes) {
-            if (i.getEquipamento().equals(inspecao.getEquipamento())) {
-                contem = true;
-                break;
-            }
-            indice++;
-        }
-        if (contem) {
-            inspecoes.remove(indice);
-            inspecoes.add(indice, inspecao);
-        } else {
-            inspecoes.add(inspecao);
-        }
-        inspecao = new Inspecao();
+        inspecoes.add(inspecao);
+        inicializar();
 
     }
 

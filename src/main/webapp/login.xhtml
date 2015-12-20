@@ -12,14 +12,17 @@
 
 
 
+
         <div class="panel">
             <div class="imag">
-                <h:graphicImage  library="images" name="acaipde.png" height="70" width="70"/>
+                <h:graphicImage  library="imagens" name="acaipde.png" height="70" width="70"/>
             </div>
 
             <h3>Inspeção Açaí</h3>
+
             <form id="form_login" action="#{request.contextPath}/j_spring_security_check"
                   method="post">
+
                 <input id="j_username" 
                        name="j_username" 
                        class="campo-de-texto" 
@@ -36,9 +39,16 @@
                     <a class="bpmlab" href="https://portalnew.ufra.edu.br/">Açai Inpeção&copy;</a>
                     <p>All rights reserved.</p>
                 </div>
+
+                <div align="center">
+                    <h:panelGroup rendered="#{!empty param.login_error}">
+                        <h4><span style="color: red">Erro ao efetuar o login!</span></h4><br/>
+                        <br/>
+                        #{SPRING_SECURITY_LAST_EXEPTION.message}
+                    </h:panelGroup>
+                </div>
             </form>
         </div>
 
     </h:body>
 </html>
-

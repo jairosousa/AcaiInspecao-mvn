@@ -37,7 +37,7 @@
                         </p:column>
 
                         <p:column headerText="Nome">
-                            <h:outputText id="nomeFantasia" value="#{estabelecimentos.nomeFantasia}"/>
+                            <h:outputText value="#{estabelecimentos.nomeFantasia}"/>
                         </p:column>
 
                         <p:column headerText="Contato">
@@ -55,12 +55,9 @@
                         <p:column headerText="Operações" >
                             <div align="center">
                                 <p:commandButton
-                                    ajax="false"
                                     icon="ui-icon-pencil"
                                     action="#{estabelecimentoBean.editar()}">
-                                    <f:setPropertyActionListener
-                                        target="#{estabelecimentoBean.estabelecimento}"
-                                        value="#{estabelecimentos}"/>
+                                    <f:param name="id" value="#{estabelecimentos.id}"/>
                                 </p:commandButton>
 
                                 <p:commandButton
@@ -159,15 +156,6 @@
                                         <div align="center">
                                             <p:commandButton
                                                 ajax="false"
-                                                icon="ui-icon-pencil"
-                                                action="#{vistoriaBean.editar()}">
-                                                <f:setPropertyActionListener
-                                                    target="#{vistoriaBean.vistoria}"
-                                                    value="#{vistorias}"/>
-                                            </p:commandButton>
-
-                                            <p:commandButton
-                                                ajax="false"
                                                 icon="ui-icon-trash"
                                                 action="#{vistoriaBean.excluir()}"
                                                 onclick="if (!confirm('Confirma a exclusão da vistoria do estabelecimento #{estabelecimentos.nomeFantasia}?'))
@@ -176,7 +164,6 @@
                                                     target="#{vistoriaBean.vistoria}"
                                                     value="#{vistorias}"/>
                                             </p:commandButton>
-
                                         </div>
                                     </p:column>
 

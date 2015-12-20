@@ -14,8 +14,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
@@ -50,6 +48,16 @@ public class EstabelecimentoBean implements Serializable {
     public void init() {
         estabelecimento = new Estabelecimento();
         draggableModel = new DefaultMapModel();
+
+        try {
+            if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().containsKey("id")) {
+                Integer id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id").toString());
+                this.estabelecimento = rn.obter(id);
+                System.out.println("estabelecimento id: " + estabelecimento.getId() + "\nestabelecimento nome: " + estabelecimento.getNomeFantasia());
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("id");
+            }
+        } catch (Exception e) {
+        }
     }
 
     public Estabelecimento getEstabelecimento() {
@@ -82,8 +90,8 @@ public class EstabelecimentoBean implements Serializable {
 
         GoogleGeocodingService geocodingService = new GoogleGeocodingService();
 
-        String endereco = this.estabelecimento.getLogradouro() + ", " + this.estabelecimento.getNumero() + ", "
-              +this.estabelecimento.getBairro() + this.estabelecimento.getCidade() + " - " + this.estabelecimento.getUf();
+        String endereco = this.estabelecimento.getLogradouro() + ", " + this.estabelecimento.getNumero() + " "
+                + this.estabelecimento.getCidade() + " - " + this.estabelecimento.getUf();
 
         System.out.println(endereco);
 
@@ -139,6 +147,10 @@ public class EstabelecimentoBean implements Serializable {
     }
 
     public String editar() {
+        Integer id = Integer.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
+
+        System.out.println("estabelecimento id: " + id);
         return "formulario.xhtml";
     }
 
