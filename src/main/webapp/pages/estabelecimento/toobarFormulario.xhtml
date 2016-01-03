@@ -13,7 +13,7 @@
         <p:toolbar style="margin-top: 20px">
             <p:toolbarGroup align="right">
                 <p:commandButton value="Salvar" action="#{estabelecimentoBean.salvar()}" update="growl" icon="ui-icon-disk"/>
-                <p:commandButton value="Cancelar" action="#{estabelecimentoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                <p:commandButton value="Cancelar" action="#{estabelecimentoBean.cancelar()}" update="growl" icon="ui-icon-arrowrefresh-1-w" process="@this"/>
             </p:toolbarGroup>
         </p:toolbar>
 

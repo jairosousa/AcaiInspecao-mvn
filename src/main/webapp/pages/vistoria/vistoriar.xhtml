@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="./../../index.xhtml">
+        <ui:define name="content">
+
+            <h1>Vistoriar Estabelecimento</h1>
+
+            <f:metadata>
+                <f:viewAction action="#{vistoriaBean.gerarListaEquipamentosObrigatorios()}" />
+            </f:metadata>
+
+
+            <h:form id="frm-vistoriar">
+
+                <p:growl id="msgs"/>
+
+
+                <p:toolbar id="toolbar">
+
+                    <f:facet name="left">
+
+                        <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                         action="#{vistoriaBean.salvar()}"/>
+
+                        <span class="ui-separator"> <span
+                                class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+
+
+
+                    </f:facet>
+
+                </p:toolbar>
+
+                <p:panelGrid columns="2" id="painel-vistoria">
+
+                    <p:outputLabel value="Estabelecimento"/>
+                    <p:inputText value="#{vistoriaBean.estabelecimentoSelecionado.nomeFantasia}"
+                                 disabled="true"/>
+
+                    <p:outputLabel value="Tecnico"/>
+                    <h:outputLabel value="#{tecnicoBean.tecnicoLogado.nome}"/>
+
+                    <h:outputText value="Tecnico"/>
+                    <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
+                                     converter="tecnicoConverter">
+                        <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                        <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
+                                       itemLabel="#{tecnicos.nome}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="dtVistoria" value="Data vistoria"/>
+                    <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
+                                id="dtVistoria" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                    </p:calendar>
+
+                    <h:outputLabel for="dtSolicitacao" value="Data solicitação"/>
+                    <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
+                                id="dtSolicitacao" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                    </p:calendar>
+
+                </p:panelGrid>
+
+                <p:dataTable value="#{vistoriaBean.equipamentos}"
+                             var="inspEquipamento" emptyMessage="Nenhum equipamento para ser inspecionado" rows="7"
+                             paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                             id="inspEquip-table"
+                             selection="#{vistoriaBean.equipamentoSelecionado}"
+                             selectionMode="single" rowKey="#{inspEquipamento.id}">
+
+                    <f:facet name="header">
+                        Inspeções de Equipamentos
+
+                        <p:commandButton value="Adicionar" style="margin-left: 800px"
+                                         icon="ui-icon-pencil" title="Adicionar equipamentos"
+                                         process="@this" update=":frm-vistoriar:equipamento-dialog"
+                                         oncomplete="PF('adicaoEquipamentoDialog').show()">
+
+                        </p:commandButton>
+
+                    </f:facet>
+
+                    <p:column headerText="Nome" sortBy="#{inspEquipamento.nome}" width="30"
+                              style="width: 30px; text-align: left">
+                        <h:outputText value="#{inspEquipamento.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição" style="width: 50px; text-align: left" >
+                        <h:outputText value="#{inspEquipamento.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Material" style="width: 10px; text-align: center">
+                        <h:outputText value="#{inspEquipamento.material}" />
+                    </p:column>
+
+                    <p:column headerText="Status" style="width: 10px; text-align: center">
+                        <h:outputText value="#{inspEquipamento.status}"/>
+                    </p:column>
+
+                    <p:column style="width: 10px; text-align: center">
+                        <p:commandButton icon="ui-icon-search" title="adicionar inspeção"/>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:dialog header="Adicionar equipamento" widgetVar="adicaoEquipamentoDialog"
+                          id="equipamento-dialog" resizable="false" 
+                          closeOnEscape="true">
+
+                    <p:dataTable value="#{vistoriaBean.equipamentosNaoObrigatorios}"
+                                 var="equipNaoObrigatorios" emptyMessage="Nenhum equipamento para ser inspecionado" rows="7"
+                                 paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                                 id="adicionarEquipamento-table"
+                                 selection="#{vistoriaBean.equipamentosSelecionados}"
+                                 selectionMode="multiple" rowKey="#{equipNaoObrigatorios.id}">
+
+
+                        <p:column headerText="Nome" sortBy="#{equipNaoObrigatorios.nome}" width="30"
+                                  style="width: 30px; text-align: left">
+                            <h:outputText value="#{equipNaoObrigatorios.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Descrição" style="width: 50px; text-align: left" >
+                            <h:outputText value="#{equipNaoObrigatorios.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="Material" style="width: 10px; text-align: center">
+                            <h:outputText value="#{equipNaoObrigatorios.material}" />
+                        </p:column>
+
+                        <p:column headerText="Status" style="width: 10px; text-align: center">
+                            <h:outputText value="#{equipNaoObrigatorios.status}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Adicionar" icon="ui-icon-arrowreturnthick-1-s" 
+                                             action="#{vistoriaBean.adicionarEquipamento}"
+                                             title="adicionar equipamento"
+                                             process="equipamento-dialog" update="adicionarEquipamento-table"
+                                             oncomplete="PF('edicaoEmpresaDialog').hide()">
+                                <p:resetInput target="equipamento-dialog" />
+                            </p:commandButton>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:dialog>
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

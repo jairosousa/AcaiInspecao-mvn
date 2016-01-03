@@ -10,7 +10,6 @@
 >
     <http auto-config="true">
         <intercept-url pattern="/index.xhtml" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/index.xhtml" access="ROLE_USER"/>
         <intercept-url pattern="/pages/**" access="ROLE_ADMIN" />
         
         

@@ -1,184 +1,182 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body>
 
-        <ui:composition template="./../../index.xhtml">
+    <ui:composition template="./../../index.xhtml">
 
-            <ui:define name="content">
+        <ui:define name="content">
 
 
-                <h:form id="listaEstabelecimento">
-                    <p:growl
-                        id="growl"
-                        showDetail="true"
-                        sticky="false"/>
-                    <p:toolbar>
-                        <f:facet name="left">
-                            Estabelecimentos
-                        </f:facet>
+            <h:form id="listaEstabelecimento">
+                <p:growl
+                    id="growl"
+                    showDetail="true"
+                    sticky="false"/>
+                <p:toolbar>
+                    <f:facet name="left">
+                        Estabelecimentos
+                    </f:facet>
 
-                        <f:facet name="right">
-                            <p:commandButton value="Novo" action="#{estabelecimentoBean.incluir()}" update="growl" icon="ui-icon-disk"/>
-                        </f:facet>
-                    </p:toolbar>
+                    <f:facet name="right">
+                        <p:commandButton value="Novo" action="#{estabelecimentoBean.incluir()}" update="growl" icon="ui-icon-disk"/>
+                    </f:facet>
+                </p:toolbar>
 
-                    <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
-                                 rows="5" paginator="true" id="estab"
-                                 sortMode="multiple" style="text-align: center">
+                <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
+                             rows="5" paginator="true" id="estab"
+                             sortMode="multiple" style="text-align: center">
 
-                        <p:column style="width: 16px">
-                            <p:rowToggler/>
-                        </p:column>
+                    <p:column style="width: 16px">
+                        <p:rowToggler/>
+                    </p:column>
 
-                        <p:column headerText="Nome">
-                            <h:outputText value="#{estabelecimentos.nomeFantasia}"/>
-                        </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{estabelecimentos.nomeFantasia}"/>
+                    </p:column>
 
-                        <p:column headerText="Contato">
-                            <h:outputText value="#{estabelecimentos.nomeContato}"/>
-                        </p:column>
+                    <p:column headerText="Contato">
+                        <h:outputText value="#{estabelecimentos.nomeContato}"/>
+                    </p:column>
 
-                        <p:column headerText="Bairro">
-                            <h:outputText value="#{estabelecimentos.bairro}"/>
-                        </p:column>
+                    <p:column headerText="Bairro">
+                        <h:outputText value="#{estabelecimentos.bairro}"/>
+                    </p:column>
 
-                        <p:column headerText="Status">
-                            <h:outputText value="#{estabelecimentos.status}"/>
-                        </p:column>
+                    <p:column headerText="Status">
+                        <h:outputText value="#{estabelecimentos.status}"/>
+                    </p:column>
 
-                        <p:column headerText="Operações" >
-                            <div align="center">
-                                <p:commandButton
-                                    icon="ui-icon-pencil"
-                                    action="#{estabelecimentoBean.editar()}">
-                                    <f:param name="id" value="#{estabelecimentos.id}"/>
-                                </p:commandButton>
+                    <p:column headerText="Operações" >
+                        <div align="center">
+                            <p:commandButton
+                                icon="ui-icon-pencil"
+                                action="#{estabelecimentoBean.editar()}">
+                                <f:param name="id" value="#{estabelecimentos.id}"/>
+                            </p:commandButton>
 
-                                <p:commandButton
-                                    ajax="false"
-                                    icon="ui-icon-trash"
-                                    action="#{estabelecimentoBean.excluir()}"
-                                    onclick="if (!confirm('Confirma a exclusão do estabelecimento #{estabelecimentos.nomeFantasia}?'))
+                            <p:commandButton
+                                ajax="false"
+                                icon="ui-icon-trash"
+                                action="#{estabelecimentoBean.excluir()}"
+                                onclick="if (!confirm('Confirma a exclusão do estabelecimento #{estabelecimentos.nomeFantasia}?'))
                                                 return false;">
-                                    <f:setPropertyActionListener
-                                        target="#{estabelecimentoBean.estabelecimento}"
-                                        value="#{estabelecimentos}"/>
-                                </p:commandButton>
+                                <f:setPropertyActionListener
+                                    target="#{estabelecimentoBean.estabelecimento}"
+                                    value="#{estabelecimentos}"/>
+                            </p:commandButton>
 
-                            </div>
-                        </p:column>
+                        </div>
+                    </p:column>
 
-                        <p:rowExpansion>
+                    <p:rowExpansion>
 
-                            <p:panelGrid columns="4">
+                        <p:panelGrid columns="4">
 
-                                <p:outputLabel value="Logradouro" />
-                                <h:outputText value="#{estabelecimentos.logradouro}"/>
-
-
-                                <p:outputLabel value="Nº"/>
-                                <h:outputText value="#{estabelecimentos.numero}"/>
+                            <p:outputLabel value="Logradouro" />
+                            <h:outputText value="#{estabelecimentos.logradouro}"/>
 
 
-                                <p:outputLabel value="Email"/>
-                                <h:outputText value="#{estabelecimentos.email}"/>
+                            <p:outputLabel value="Nº"/>
+                            <h:outputText value="#{estabelecimentos.numero}"/>
 
-                                <p:outputLabel value="Telefone"/>
-                                <h:outputText value="#{estabelecimentos.telefone}"/>
 
-                                <p:outputLabel value="Data Cadastro"/>
-                                <h:outputText value="#{estabelecimentos.dataCadastro}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
+                            <p:outputLabel value="Email"/>
+                            <h:outputText value="#{estabelecimentos.email}"/>
 
-                                <p:outputLabel value="Data Licença"/>
-                                <h:outputText value="#{estabelecimentos.dataLicenca}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
+                            <p:outputLabel value="Telefone"/>
+                            <h:outputText value="#{estabelecimentos.telefone}"/>
 
-                                <p:outputLabel value="Data Vencimento"/>
-                                <h:outputText value="#{estabelecimentos.dataVencimento}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
+                            <p:outputLabel value="Data Cadastro"/>
+                            <h:outputText value="#{estabelecimentos.dataCadastro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
 
-                                <p:outputLabel value="Latitude"/>
-                                <h:outputText value="#{estabelecimentos.latitude}"/>
-                                <p:outputLabel/>
-                                <p:outputLabel/>
-                                <p:outputLabel value="Longitude"/>
-                                <h:outputText value="#{estabelecimentos.longitude}"/>
+                            <p:outputLabel value="Data Licença"/>
+                            <h:outputText value="#{estabelecimentos.dataLicenca}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
 
-                            </p:panelGrid>
-                            <p:fieldset legend="Vistorias" toggleable="true">
+                            <p:outputLabel value="Data Vencimento"/>
+                            <h:outputText value="#{estabelecimentos.dataVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
 
-                                <p:dataTable var="vistorias" value="#{estabelecimentos.vistoriaList}"
-                                             rows="5" paginator="true" id="vistorias"
-                                             sortMode="multiple" style="text-align: center">
-                                    <f:facet name="header">
-                                        Vistorias do Estabelecimento #{estabelecimentoBean.estabelecimento.nomeFantasia}
-                                    </f:facet>
+                            <p:outputLabel value="Latitude"/>
+                            <h:outputText value="#{estabelecimentos.latitude}"/>
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+                            <p:outputLabel value="Longitude"/>
+                            <h:outputText value="#{estabelecimentos.longitude}"/>
 
-                                    <p:column headerText="ID">
-                                        <h:outputText value="#{vistorias.id}"/>
-                                    </p:column>
+                        </p:panelGrid>
+                        <p:fieldset legend="Vistorias" toggleable="true">
 
-                                    <p:column headerText="Tecnico">
-                                        <h:outputText value="#{vistorias.tecnico1.nome}"/>
-                                    </p:column>
+                            <p:dataTable var="vistorias" value="#{estabelecimentos.vistoriaList}"
+                                         rows="5" paginator="true" id="vistorias"
+                                         sortMode="multiple" style="text-align: center">
+                                <f:facet name="header">
+                                    Vistorias do Estabelecimento #{estabelecimentoBean.estabelecimento.nomeFantasia}
+                                </f:facet>
 
-                                    <p:column headerText="Tecnico">
-                                        <h:outputText value="#{vistorias.tecnico2.nome}"/>
-                                    </p:column>
+                                <p:column headerText="ID">
+                                    <h:outputText value="#{vistorias.id}"/>
+                                </p:column>
 
-                                    <p:column headerText="Data Solicitação">
-                                        <h:outputText value="#{vistorias.dataSolicitacao}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
+                                <p:column headerText="Tecnico">
+                                    <h:outputText value="#{vistorias.tecnico1.nome}"/>
+                                </p:column>
 
-                                    <p:column headerText="Data Vistoria">
-                                        <h:outputText value="#{vistorias.dataVistoria}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
+                                <p:column headerText="Tecnico">
+                                    <h:outputText value="#{vistorias.tecnico2.nome}"/>
+                                </p:column>
 
-                                    <p:column headerText="Endereço">
-                                        <h:outputText value="#{vistorias.estabelecimento.logradouro}"/>
-                                    </p:column>
+                                <p:column headerText="Data Solicitação">
+                                    <h:outputText value="#{vistorias.dataSolicitacao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
 
-                                    <p:column headerText="Operações" >
-                                        <div align="center">
-                                            <p:commandButton
-                                                ajax="false"
-                                                icon="ui-icon-trash"
-                                                action="#{vistoriaBean.excluir()}"
-                                                onclick="if (!confirm('Confirma a exclusão da vistoria do estabelecimento #{estabelecimentos.nomeFantasia}?'))
+                                <p:column headerText="Data Vistoria">
+                                    <h:outputText value="#{vistorias.dataVistoria}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Endereço">
+                                    <h:outputText value="#{vistorias.estabelecimento.logradouro}"/>
+                                </p:column>
+
+                                <p:column headerText="Operações" >
+                                    <div align="center">
+                                        <p:commandButton
+                                            ajax="false"
+                                            icon="ui-icon-trash"
+                                            action="#{vistoriaBean.excluir()}"
+                                            onclick="if (!confirm('Confirma a exclusão da vistoria do estabelecimento #{estabelecimentos.nomeFantasia}?'))
                                                             return false;">
-                                                <f:setPropertyActionListener
-                                                    target="#{vistoriaBean.vistoria}"
-                                                    value="#{vistorias}"/>
-                                            </p:commandButton>
-                                        </div>
-                                    </p:column>
+                                            <f:setPropertyActionListener
+                                                target="#{vistoriaBean.vistoria}"
+                                                value="#{vistorias}"/>
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>
 
-                                </p:dataTable>
-                            </p:fieldset>
+                            </p:dataTable>
+                        </p:fieldset>
 
-                        </p:rowExpansion>
+                    </p:rowExpansion>
 
-                    </p:dataTable>  
+                </p:dataTable>  
 
-                </h:form>
+            </h:form>
 
-            </ui:define>
+        </ui:define>
 
-        </ui:composition>
+    </ui:composition>
 
-    </body>
 </html>

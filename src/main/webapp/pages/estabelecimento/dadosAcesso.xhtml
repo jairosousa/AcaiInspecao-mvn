@@ -14,20 +14,20 @@
 
             <h:panelGrid columns="6">
 
-                <h:outputLabel for="mask" value="Data Cadastro"/>
+                <h:outputLabel for="maskCad" value="Data Cadastro"/>
                 <p:calendar value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
                             id="maskCad" pattern="dd/MM/yyyy" mask="true" showOn="button">
                     <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
                 </p:calendar>
 
-                <h:outputLabel for="mask" value="Data Licença"/>
+                <h:outputLabel for="maskLic" value="Data Licença"/>
                 <p:calendar value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
                             id="maskLic" pattern="dd/MM/yyyy" mask="true" showOn="button">
                     <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
                     <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="maskVenc" />
                 </p:calendar>
 
-                <h:outputLabel for="mask" value="Data Vencimento"/>
+                <h:outputLabel for="maskVenc" value="Data Vencimento"/>
                 <p:calendar value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
                             id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
                 </p:calendar>

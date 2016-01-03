@@ -8,8 +8,7 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <h:body>
         <ui:composition>
@@ -18,12 +17,10 @@ and open the template in the editor.
                     <p:panelMenu>
 
                         <p:submenu label="Equipamento">
-
-                            <p:menuitem value="Cadastro" url="/pages/equipamento/formulario.xhtml"
-                                        icon="ui-icon-note"/>
-                            <p:menuitem value="Listar" url="/pages/equipamento/lista.xhtml"
-                                        icon="ui-icon-note"/>
-
+                            <p:menuitem
+                            value="Equipamento" 
+                            url="/pages/equipamento/equipamentos.xhtml"
+                            icon="ui-icon-note"/>
                         </p:submenu>
 
                         <p:submenu label="Estabelecimento">
@@ -49,6 +46,8 @@ and open the template in the editor.
                             <p:menuitem value="Cadastro" url="/pages/vistoria/formulario.xhtml"
                                         icon="ui-icon-note"/>
                             <p:menuitem value="Listar" url="/pages/vistoria/lista.xhtml"
+                                        icon="ui-icon-note"/>
+                            <p:menuitem value="Realizar" url="/pages/vistoria/realizarVistoria.xhtml"
                                         icon="ui-icon-note"/>
 
                         </p:submenu>

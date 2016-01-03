@@ -8,72 +8,80 @@ package br.com.ufra.bean;
 import br.com.ufra.entidade.Equipamento;
 import br.com.ufra.rn.EquipamentoRN;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author Jairo
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class EquipamentoBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Equipamento equipamento = new Equipamento();
+    private Equipamento equipamentoEdicao = new Equipamento();
+    private Equipamento equipamentoSelecionado;
     private EquipamentoRN rn = new EquipamentoRN();
     private List<Equipamento> equipamentos;
 
-    public Equipamento getEquipamento() {
-        return equipamento;
-    }
-
-    public void setEquipamento(Equipamento equipamento) {
-        this.equipamento = equipamento;
-    }
-
     public List<Equipamento> getEquipamentos() {
-        return equipamentos = rn.obterTodos();
+        return equipamentos;
     }
 
-    public String salvar() {
-        if (rn.salvar(equipamento)) {
+    public void prepararNovoCadastro() {
+        equipamentoEdicao = new Equipamento();
+    }
+
+    public void consultar() {
+        equipamentos = rn.obterTodos();
+    }
+
+    public void salvar() {
+        if (rn.salvar(equipamentoEdicao)) {
+            consultar();
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
+            RequestContext.getCurrentInstance().update(Arrays.asList("frm-equipamento:msgs", "frm-equipamento:equipamento-table"));
         } else {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "Erro no Cadastro!");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
-
         }
+
     }
 
-    public String excluir() {
-        if (rn.excluir(equipamento)) {
+    public void excluir() {
+        if (rn.excluir(equipamentoSelecionado)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro foi excluído com exito");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
+            equipamentoSelecionado = null;
+            consultar();
         } else {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "O cadastro não foi excluído!!!");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
         }
     }
 
-    public String editar() {
-        return "formulario.xhtml";
+    public Equipamento getEquipamentoEdicao() {
+        return equipamentoEdicao;
     }
 
-    public String incluir() {
-        return "formulario.xhtml";
+    public void setEquipamentoEdicao(Equipamento equipamentoEdicao) {
+        this.equipamentoEdicao = equipamentoEdicao;
     }
 
-    public String cancelar() {
-        return "lista.xhtml";
+    public Equipamento getEquipamentoSelecionado() {
+        return equipamentoSelecionado;
     }
+
+    public void setEquipamentoSelecionado(Equipamento equipamentoSelecionado) {
+        this.equipamentoSelecionado = equipamentoSelecionado;
+    }
+
 }
