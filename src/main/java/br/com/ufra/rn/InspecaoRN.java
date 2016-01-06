@@ -5,11 +5,13 @@
  */
 package br.com.ufra.rn;
 
-import br.com.ufra.dao.GenericDAOImpl;
 import br.com.ufra.dao.InspecaoDAOImpl;
 import br.com.ufra.dao.VistoriaDAOImpl;
+import br.com.ufra.entidade.Equipamento;
 import br.com.ufra.entidade.Inspecao;
 import br.com.ufra.entidade.Vistoria;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,17 +21,51 @@ import java.util.List;
 public class InspecaoRN {
 
     private InspecaoDAOImpl daoInspecao = new InspecaoDAOImpl();
-    private VistoriaDAOImpl daoVistoria; 
+    private VistoriaDAOImpl daoVistoria;
+
+    public List<Inspecao> criarInspecoes(List<Equipamento> equipamentos) {
+        if (equipamentos == null || equipamentos.isEmpty()) {
+            return null;
+        } else {
+            List<Inspecao> resposta = new ArrayList<>();
+            Inspecao i = null;
+            Date hoje = new Date();
+            for (Equipamento e : equipamentos) {
+                i = new Inspecao();
+                i.setEquipamento(e);
+                i.setDataInsp(hoje);
+                i.setApto(false);
+                resposta.add(i);
+            }
+            return resposta;
+        }
+    }
+
+    public Inspecao criarInspecao(Equipamento equipamento) {
+        if (equipamento == null) {
+            return null;
+        } else {
+            Inspecao resposta = new Inspecao();
+            Date hoje = new Date();
+            resposta.setEquipamento(equipamento);
+            resposta.setDataInsp(hoje);
+            resposta.setApto(false);
+            return resposta;
+        }
+    }
+
     public Inspecao obter(Integer id) {
         if (id == null) {
             return null;
+
         } else {
             return daoInspecao.obter(Inspecao.class, id);
         }
     }
 
     public List<Inspecao> obterTodos() {
-        return daoInspecao.obterTodos(Inspecao.class);
+        return daoInspecao.obterTodos(Inspecao.class
+        );
     }
 
     public boolean salvar(Inspecao inspecao) {
@@ -59,7 +95,7 @@ public class InspecaoRN {
 
     public List<Inspecao> obterInspecoesPorVistoria(Integer idv) {
         daoVistoria = new VistoriaDAOImpl();
-       Vistoria vistoria= daoVistoria.obter(Vistoria.class, idv);
+        Vistoria vistoria = daoVistoria.obter(Vistoria.class, idv);
         return daoInspecao.obterInspecoesPorVistoria(vistoria);
     }
 }

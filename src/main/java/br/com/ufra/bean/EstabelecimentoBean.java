@@ -85,6 +85,10 @@ public class EstabelecimentoBean implements Serializable {
         this.estabelecimento.setLatitude(String.valueOf(marker.getLatlng().getLat()));
         this.estabelecimento.setLongitude(String.valueOf(marker.getLatlng().getLng()));
     }
+    
+    public void consultar() {
+        this.estabelecimentos = rn.obterTodos();
+    }
 
     public void obterCoordenadas() {
 

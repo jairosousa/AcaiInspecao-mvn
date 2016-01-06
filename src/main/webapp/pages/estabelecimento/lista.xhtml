@@ -1,15 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/templates/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    
 
+    <ui:define name="titulo">Consulta Estabelecimentos</ui:define>
 
-    <ui:composition template="./../../index.xhtml">
-
-        <ui:define name="content">
+    <ui:define name="corpo">
 
 
             <h:form id="listaEstabelecimento">
@@ -17,18 +19,11 @@
                     id="growl"
                     showDetail="true"
                     sticky="false"/>
-                <p:toolbar>
-                    <f:facet name="left">
-                        Estabelecimentos
-                    </f:facet>
-
-                    <f:facet name="right">
-                        <p:commandButton value="Novo" action="#{estabelecimentoBean.incluir()}" update="growl" icon="ui-icon-disk"/>
-                    </f:facet>
-                </p:toolbar>
+                
+                <h1>Estabelecimentos</h1><br/>
 
                 <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
-                             rows="5" paginator="true" id="estab"
+                             rows="5" paginator="true" id="estab" paginatorPosition="bottom"
                              sortMode="multiple" style="text-align: center">
 
                     <p:column style="width: 16px">
@@ -64,7 +59,7 @@
                                 icon="ui-icon-trash"
                                 action="#{estabelecimentoBean.excluir()}"
                                 onclick="if (!confirm('Confirma a exclusão do estabelecimento #{estabelecimentos.nomeFantasia}?'))
-                                                return false;">
+                                            return false;">
                                 <f:setPropertyActionListener
                                     target="#{estabelecimentoBean.estabelecimento}"
                                     value="#{estabelecimentos}"/>
@@ -117,16 +112,22 @@
                         <p:fieldset legend="Vistorias" toggleable="true">
 
                             <p:dataTable var="vistorias" value="#{estabelecimentos.vistoriaList}"
-                                         rows="5" paginator="true" id="vistorias"
+                                         emptyMessage="Estabelecimento não possui vistorias"
+                                         rows="5" paginator="true" id="vistorias" paginatorPosition="bottom"
                                          sortMode="multiple" style="text-align: center">
-                                <f:facet name="header">
-                                    Vistorias do Estabelecimento #{estabelecimentoBean.estabelecimento.nomeFantasia}
-                                </f:facet>
 
-                                <p:column headerText="ID">
-                                    <h:outputText value="#{vistorias.id}"/>
+                                <p:column headerText="Data Vistoria">
+                                    <h:outputText value="#{vistorias.dataVistoria}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
                                 </p:column>
-
+                                
+                                <p:column headerText="Data Solicitação">
+                                    <h:outputText value="#{vistorias.dataSolicitacao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+                                
                                 <p:column headerText="Tecnico">
                                     <h:outputText value="#{vistorias.tecnico1.nome}"/>
                                 </p:column>
@@ -135,35 +136,12 @@
                                     <h:outputText value="#{vistorias.tecnico2.nome}"/>
                                 </p:column>
 
-                                <p:column headerText="Data Solicitação">
-                                    <h:outputText value="#{vistorias.dataSolicitacao}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                    </h:outputText>
-                                </p:column>
-
-                                <p:column headerText="Data Vistoria">
-                                    <h:outputText value="#{vistorias.dataVistoria}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                    </h:outputText>
-                                </p:column>
-
                                 <p:column headerText="Endereço">
                                     <h:outputText value="#{vistorias.estabelecimento.logradouro}"/>
                                 </p:column>
-
-                                <p:column headerText="Operações" >
-                                    <div align="center">
-                                        <p:commandButton
-                                            ajax="false"
-                                            icon="ui-icon-trash"
-                                            action="#{vistoriaBean.excluir()}"
-                                            onclick="if (!confirm('Confirma a exclusão da vistoria do estabelecimento #{estabelecimentos.nomeFantasia}?'))
-                                                            return false;">
-                                            <f:setPropertyActionListener
-                                                target="#{vistoriaBean.vistoria}"
-                                                value="#{vistorias}"/>
-                                        </p:commandButton>
-                                    </div>
+                                
+                                <p:column headerText="Bairro">
+                                    <h:outputText value="#{vistorias.estabelecimento.bairro}"/>
                                 </p:column>
 
                             </p:dataTable>
@@ -178,5 +156,3 @@
         </ui:define>
 
     </ui:composition>
-
-</html>

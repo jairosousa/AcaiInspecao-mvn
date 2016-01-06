@@ -10,6 +10,12 @@
 
 }
 
+#login-dialog{
+    width: 260px;
+    margin: auto;
+    margin-top: 150px;
+}
+
 h1{
     color: #708090;
     font: normal 1.5em/1.1 OFL Sorts Mill Goudy, Georgia, serif;
@@ -17,19 +23,17 @@ h1{
     margin: 1px;
     font-size: 20px;
 }
-header {
-    font-family: verdana, sans-serif;
-    color: black;
-    background-color:#660033;
-    font-size: 15px;
-    font-weight: bolder;
-    margin-bottom: 10px;
-    width: 1100px;
+header{
+    padding: 5px;
+    margin-bottom: 20px;
+    height: 30px;
+    background-color: #610631;
+    color: #fff;
+    box-shadow: 0px 2px 2px #ccc
 }
 
-.conteudo {
-    float: left;
-    width: 75%;
+#conteudo{
+    padding: 0px 8px;
 }
 
 .menu {
@@ -57,8 +61,11 @@ footer {
     text-align: center;
 }
 
-body {
-    background-color: #dddddd;
+body{
+    fonte-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    font-weight: normal;
 }
 
 .panel {

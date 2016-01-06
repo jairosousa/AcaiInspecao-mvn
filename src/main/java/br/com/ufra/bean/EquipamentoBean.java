@@ -39,7 +39,7 @@ public class EquipamentoBean implements Serializable {
     }
 
     public void consultar() {
-        equipamentos = rn.obterTodos();
+        this.equipamentos = rn.obterTodos();
     }
 
     public void salvar() {
