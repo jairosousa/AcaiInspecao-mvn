@@ -155,7 +155,7 @@ public class EstabelecimentoBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
 
         System.out.println("estabelecimento id: " + id);
-        return "formulario.xhtml";
+        return "/pages/estabelecimento/formulario?faces-redirect=true";
     }
 
     public String incluir() {

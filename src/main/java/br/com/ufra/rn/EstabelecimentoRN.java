@@ -7,6 +7,7 @@ package br.com.ufra.rn;
 
 import br.com.ufra.dao.EstabelecimentoDAOImpl;
 import br.com.ufra.entidade.Estabelecimento;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,9 @@ import java.util.List;
  *
  * @author Jairo
  */
-public class EstabelecimentoRN {
+public class EstabelecimentoRN implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private EstabelecimentoDAOImpl dao = new EstabelecimentoDAOImpl();
 
@@ -30,11 +33,10 @@ public class EstabelecimentoRN {
     public List<Estabelecimento> obterTodos() {
         return dao.obterTodos(Estabelecimento.class);
     }
-    
+
     public List<Estabelecimento> estabelecimentosAguardandoVistoriaEPendente() {
         return dao.estabelecimentosAguardandoVistoriaEPendente();
     }
-    
 
     public List<Estabelecimento> obterEstabelecimento(String busca) {
         if (busca == null || busca.length() < 3) {
@@ -50,20 +52,20 @@ public class EstabelecimentoRN {
         }
 
     }
-    
-    public Estabelecimento obterCep(Estabelecimento estabelecimento){
+
+    public Estabelecimento obterCep(Estabelecimento estabelecimento) {
         return dao.obterCep(estabelecimento);
     }
 
     public boolean salvar(Estabelecimento estabelecimento) {
-            System.out.println(estabelecimento.getNomeContato());
+        System.out.println(estabelecimento.getNomeContato());
         if (estabelecimento.getNomeContato().equals("")) {
             return false;
         } else {
             if (estabelecimento.getId() == null || estabelecimento.getId() == 0) {
                 return dao.criar(estabelecimento);
             } else {
-                System.out.println("atualizar e"+ estabelecimento.getCep());
+                System.out.println("atualizar e" + estabelecimento.getCep());
                 return dao.atualizar(estabelecimento);
             }
         }
