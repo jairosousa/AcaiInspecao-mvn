@@ -17,39 +17,37 @@
 
         <div class="panel">
             <div class="imag">
-                <h:graphicImage  library="imagens" name="acaipde.png" height="70" width="70"/>
+                    <h:graphicImage  library="imagens" name="acaipde.png" height="70" width="70"/>
             </div>
+            <div id="login">
+                <form id="form_login" action="#{request.contextPath}/j_spring_security_check"
+                      method="post">
 
-            <h3>Inspeção Açaí</h3>
+                    <input id="j_username" 
+                           name="j_username" 
+                           class="campo-de-texto" 
+                           type="text" 
+                           placeholder="Login"/>
+                    <input id="j_password" 
+                           name="j_password" 
+                           type="password" 
+                           class="campo-de-texto" 
+                           placeholder="Senha"/>
 
-            <form id="form_login" action="#{request.contextPath}/j_spring_security_check"
-                  method="post">
-
-                <input id="j_username" 
-                       name="j_username" 
-                       class="campo-de-texto" 
-                       type="text" 
-                       placeholder="Login"/>
-                <input id="j_password" 
-                       name="j_password" 
-                       type="password" 
-                       class="campo-de-texto" 
-                       placeholder="Senha"/>
-
-                <button id="bt_entrar" class="btn-redondo" type="submit">Entrar</button>
-                <div class="bpmlab" align="center">
-                    <a class="bpmlab" href="https://portalnew.ufra.edu.br/">Açai Inpeção </a>
-                    <p>All rights reserved.</p>
-                </div>
-
-                <div align="center">
-                    <h:panelGroup rendered="#{!empty param.login_error}">
-                        <h4><span style="color: red">Erro ao efetuar o login!</span></h4><br/>
-                        <br/>
-                        #{SPRING_SECURITY_LAST_EXEPTION.message}
-                    </h:panelGroup>
-                </div>
-            </form>
+                    <button id="bt_entrar" type="submit">Entrar</button>
+                    <div class="bpmlab" align="center">
+                        <a class="bpmlab" href="https://portalnew.ufra.edu.br/">Açai Inpeção </a>
+                        <p>All rights reserved.</p>
+                    </div>
+                    <div align="center">
+                        <h:panelGroup rendered="#{!empty param.login_error}">
+                            <h4><span style="color: red">Erro ao efetuar o login!</span></h4><br/>
+                            <br/>
+                            #{SPRING_SECURITY_LAST_EXEPTION.message}
+                        </h:panelGroup>
+                    </div>
+                </form>
+            </div>
         </div>
 
     </h:body>

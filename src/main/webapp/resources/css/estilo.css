@@ -3,6 +3,28 @@
     Created on : 01/01/2016, 10:29:30
     Author     : Jairo
 */
+#menu{
+    margin: 0;
+}
+.pagina{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px;
+    background: #ffffff;
+    box-shadow: 5px 4px 10px #333, -5px -5px 10px #ccc;
+}
+
+.tituloPrincipal{
+    text-transform: uppercase;
+    padding: 1px;
+    background-color: #610631;
+    color: #FFFFFF;
+    font-size: 13px;
+}
+
+.tituloPrincipal h3{
+    margin-left: 5px;
+}
 
 #login-dialog{
     width: 260px;
@@ -21,21 +43,22 @@
 
 .ajax-status{
     position: absolute;
-    top: 85px;
-    right: 10px;
-    width: 35px;
-    height: 35px;
+    top: 205px;
+    right: 688px;
+    width: 50px;
+    height: 50px;
 }
 
 body{
-    fonte-size:12px;
+    font-size: 13px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
+    padding: 0;
     font-weight: normal;
 }
 
 header{
-    padding: 5px;
+    padding: 0px;
     margin-bottom: 20px;
     height: 85px;
     background-color: #610631;
@@ -44,7 +67,7 @@ header{
 }
 
 #conteudo{
-    padding: 0px 8px;
+    padding: 0px 5px;
 }
 
 footer{
@@ -61,4 +84,8 @@ h1{
     padding: 0px;
     margin: 0px;
     margin-bottom: 10px
+}
+a{
+    text-decoration: none;
+    color: #333;
 }

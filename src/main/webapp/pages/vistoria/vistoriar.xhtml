@@ -11,182 +11,187 @@
 
     <ui:define name="corpo">
 
-        <h1>Vistoriar Estabelecimento</h1>
+        <div class="pagina">
+
+            <div class="tituloPrincipal">
+                <h3>Vistoriar Estabelecimento</h3>
+            </div>
+
+            <div class="formulario">
+
+                <h:form id="frm-vistoriar">
+
+                    <p:growl id="msgs" autoUpdate="true"/>
+
+
+                    <p:toolbar id="toolbar">
+
+                        <f:facet name="left">
+
+                            <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                             action="#{vistoriaBean.salvar()}"
+                                             update="msgs"/>
+
+                            <span class="ui-separator"> <span
+                                    class="ui-icon ui-icon-grip-dotted-vertical" />
+                            </span>
 
 
 
-        <h:form id="frm-vistoriar">
+                        </f:facet>
 
-            <p:growl id="msgs" autoUpdate="true"/>
+                    </p:toolbar>
 
+                    <p:panelGrid columns="2">
 
-            <p:toolbar id="toolbar">
+                        <p:outputLabel value="Estabelecimento"/>
+                        <h:outputLabel value="#{vistoriaBean.estabelecimentoSelecionado.nomeFantasia}" 
+                                       style="font-family: sans-serif; font-size: 24px"/>
 
-                <f:facet name="left">
+                        <p:outputLabel value="Tecnico"/>
+                        <h:outputLabel value="#{tecnicoBean.tecnicoLogado.nome}"
+                                       style="font-family: sans-serif; font-size: 18px"/>
 
-                    <p:commandButton value="Salvar" icon="ui-icon-disk"
-                                     action="#{vistoriaBean.salvar()}"
-                                     update="msgs"/>
-
-                    <span class="ui-separator"> <span
-                            class="ui-icon ui-icon-grip-dotted-vertical" />
-                    </span>
-
-
-
-                </f:facet>
-
-            </p:toolbar>
-
-            <p:panelGrid columns="2">
-
-                <p:outputLabel value="Estabelecimento"/>
-                <h:outputLabel value="#{vistoriaBean.estabelecimentoSelecionado.nomeFantasia}" 
-                               style="font-family: sans-serif; font-size: 24px"/>
-
-                <p:outputLabel value="Tecnico"/>
-                <h:outputLabel value="#{tecnicoBean.tecnicoLogado.nome}"
-                               style="font-family: sans-serif; font-size: 18px"/>
-
-                <h:outputText value="Tecnico"/>
-                <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
-                                 style="width: 200px;"
-                                 converter="tecnicoConverter">
-                    <f:selectItem  itemLabel="Selecione" noSelectionOption="true" />
-                    <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
-                                   itemLabel="#{tecnicos.nome}"/>
-                </p:selectOneMenu>
-
-                <p:outputLabel for="dtVistoria" value="Data vistoria"/>
-                <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
-                            id="dtVistoria" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                </p:calendar>
-
-                <h:outputLabel for="dtSolicitacao" value="Data solicitação"/>
-                <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
-                            id="dtSolicitacao" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                </p:calendar>
-
-                <h:outputLabel value="Equipamentos" for="equipNaoObrigatorio"/>
-                <h:panelGroup>
-                    <p:panelGrid columns="2" style="margin-bottom: 5px" id="addEstab">
-                        <p:selectOneMenu value="#{vistoriaBean.equipamentoSelecionado}" style="width: 200px;"
-                                         converter="equipamentoConverter">
-                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                            <f:selectItems value="#{vistoriaBean.equipamentosNaoObrigatorios}" var="equipamentos"
-                                           itemLabel="#{equipamentos.nome}"/>
+                        <h:outputText value="Tecnico"/>
+                        <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
+                                         style="width: 200px;"
+                                         converter="tecnicoConverter">
+                            <f:selectItem  itemLabel="Selecione" noSelectionOption="true" />
+                            <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
+                                           itemLabel="#{tecnicos.nome}"/>
                         </p:selectOneMenu>
-                        <p:commandButton 
-                            value="Adicionar"
-                            title="Adicionar" 
-                            action="#{vistoriaBean.adicionarNovaInspecao()}" 
-                            process="addEstab"
-                            update="inspEquip-table" 
-                            icon="ui-icon-plusthick"/>
+
+                        <p:outputLabel for="dtVistoria" value="Data vistoria"/>
+                        <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
+                                    id="dtVistoria" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                        </p:calendar>
+
+                        <h:outputLabel for="dtSolicitacao" value="Data solicitação"/>
+                        <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
+                                    id="dtSolicitacao" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                        </p:calendar>
+
+                        <h:outputLabel value="Equipamentos" for="equipNaoObrigatorio"/>
+                        <h:panelGroup>
+                            <p:panelGrid columns="2" style="margin-bottom: 5px" id="addEstab">
+                                <p:selectOneMenu value="#{vistoriaBean.equipamentoSelecionado}" style="width: 200px;"
+                                                 converter="equipamentoConverter">
+                                    <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                    <f:selectItems value="#{vistoriaBean.equipamentosNaoObrigatorios}" var="equipamentos"
+                                                   itemLabel="#{equipamentos.nome}"/>
+                                </p:selectOneMenu>
+                                <p:commandButton 
+                                    value="Adicionar"
+                                    title="Adicionar Equipamento" 
+                                    action="#{vistoriaBean.adicionarNovaInspecao()}" 
+                                    process="addEstab"
+                                    update="inspEquip-table" 
+                                    icon="ui-icon-plusthick"/>
+                            </p:panelGrid>
+                        </h:panelGroup>
+
                     </p:panelGrid>
-                </h:panelGroup>
-
-            </p:panelGrid>
 
 
 
-            <p:dataTable 
-                id="inspEquip-table"
-                value="#{vistoriaBean.inspecoes}" 
-                var="inspEquipamento" emptyMessage="Nenhum equipamento para ser inspecionado" rows="7"
-                paginator="true" paginatorPosition="bottom" style="margin-top:5px">
+                    <p:dataTable 
+                        id="inspEquip-table"
+                        value="#{vistoriaBean.inspecoes}" 
+                        var="inspEquipamento" emptyMessage="Nenhum equipamento para ser inspecionado" rows="7"
+                        paginator="true" paginatorPosition="bottom" style="margin-top:5px">
 
-                <f:facet name="header">
-                    Inspeções de Equipamentos
-                </f:facet>
+                        <f:facet name="header">
+                            Inspeções de Equipamentos
+                        </f:facet>
 
-                <p:column headerText="Nome" sortBy="#{inspEquipamento.equipamento.nome}" width="30"
-                          style="width: 30px; text-align: left">
-                    <h:outputText value="#{inspEquipamento.equipamento.nome}"/>
-                </p:column>
+                        <p:column headerText="Nome" sortBy="#{inspEquipamento.equipamento.nome}" width="30"
+                                  style="width: 30px; text-align: left">
+                            <h:outputText value="#{inspEquipamento.equipamento.nome}"/>
+                        </p:column>
 
-                <p:column headerText="Descrição" style="width: 50px; text-align: left" >
-                    <h:outputText value="#{inspEquipamento.equipamento.descricao}"/>
-                </p:column>
+                        <p:column headerText="Descrição" style="width: 50px; text-align: left" >
+                            <h:outputText value="#{inspEquipamento.equipamento.descricao}"/>
+                        </p:column>
 
-                <p:column headerText="Material" style="width: 10px; text-align: center">
-                    <h:outputText value="#{inspEquipamento.equipamento.material}" />
-                </p:column>
+                        <p:column headerText="Material" style="width: 10px; text-align: center">
+                            <h:outputText value="#{inspEquipamento.equipamento.material}" />
+                        </p:column>
 
-                <p:column headerText="Observação" sortBy="#{inspecionados.observacao}" 
-                          style="width: 30px; text-align: center">
-                    <h:outputText value="#{inspEquipamento.observacao}"/>
-                </p:column>
+                        <p:column headerText="Observação" sortBy="#{inspecionados.observacao}" 
+                                  style="width: 30px; text-align: center">
+                            <h:outputText value="#{inspEquipamento.observacao}"/>
+                        </p:column>
 
-                <p:column headerText="Apto" 
-                          style="width: 30px; text-align: center">
-                    <h:outputText value="#{inspEquipamento.apto? 'SIM' : 'NÃO'}"/>
-                </p:column>
+                        <p:column headerText="Apto" 
+                                  style="width: 30px; text-align: center">
+                            <h:outputText value="#{inspEquipamento.apto? 'SIM' : 'NÃO'}"/>
+                        </p:column>
 
-                <p:column style="width: 10px; text-align: center">
-                    <p:commandButton 
-                        id="btnInsp"
-                        icon="ui-icon-search" title="adicionar inspeção" 
-                        oncomplete="PF('inpecao-dialog').show()"
-                        process="btnInsp" 
-                        update=":frm-vistoriar:panelInsp-dialog">
-                        <f:setPropertyActionListener value="#{inspEquipamento}" target="#{vistoriaBean.inspecao}"/>
-                    </p:commandButton>
-                </p:column>
+                        <p:column style="width: 10px; text-align: center">
+                            <p:commandButton 
+                                id="btnInsp"
+                                icon="ui-icon-search" title="adicionar inspeção" 
+                                oncomplete="PF('inpecao-dialog').show()"
+                                process="btnInsp" 
+                                update=":frm-vistoriar:panelInsp-dialog">
+                                <f:setPropertyActionListener value="#{inspEquipamento}" target="#{vistoriaBean.inspecao}"/>
+                            </p:commandButton>
+                        </p:column>
 
-            </p:dataTable>
+                    </p:dataTable>
 
-            <p:dialog header="Adicionar Inspeção" widgetVar="inpecao-dialog" id="panelInsp-dialog">
+                    <p:dialog header="Editar Inspeção" widgetVar="inpecao-dialog" id="panelInsp-dialog">
 
-                <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2">
+                        <h:panelGrid columns="2" style="margin-bottom: 5px" cellpadding="2">
 
-                    <h:outputText value="Equipamento"/>
-                    <p:outputLabel value="#{vistoriaBean.inspecao.equipamento.nome}"/>
+                            <h:outputText value="Equipamento"/>
+                            <p:outputLabel value="#{vistoriaBean.inspecao.equipamento.nome}"/>
 
-                    <h:outputLabel for="maskDataInsp" value="Data inspeção"/>
-                    <p:calendar value="#{vistoriaBean.inspecao.dataInsp}"
-                                id="maskDataInsp" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                    </p:calendar>
+                            <h:outputLabel for="maskDataInsp" value="Data inspeção"/>
+                            <p:calendar value="#{vistoriaBean.inspecao.dataInsp}"
+                                        id="maskDataInsp" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                            </p:calendar>
 
-                    <p:outputLabel value="Observação" for="obs"/>
-                    <p:inputTextarea id="obs"
-                                     value="#{vistoriaBean.inspecao.observacao}"/>
+                            <p:outputLabel value="Observação" for="obs"/>
+                            <p:inputTextarea id="obs"
+                                             value="#{vistoriaBean.inspecao.observacao}"/>
 
-                    <p:outputLabel value="Apto"/>
-                    <p:selectOneRadio
-                        id="tipo"
-                        value="#{vistoriaBean.inspecao.apto}">
-                        <f:selectItem
-                            itemValue="true"
-                            itemLabel="SIM"/>
-                        <f:selectItem
-                            itemValue="false"
-                            itemLabel="NÃO"/>
-                    </p:selectOneRadio>
+                            <p:outputLabel value="Apto"/>
+                            <p:selectOneRadio
+                                id="tipo"
+                                value="#{vistoriaBean.inspecao.apto}">
+                                <f:selectItem
+                                    itemValue="true"
+                                    itemLabel="SIM"/>
+                                <f:selectItem
+                                    itemValue="false"
+                                    itemLabel="NÃO"/>
+                            </p:selectOneRadio>
+                            <div aling="center">
+                                <p:commandButton 
+                                    id="btnSalvarInsp"
+                                    value="Salvar" 
+                                    icon="ui-icon-disk" 
+                                    process="panelInsp-dialog"
+                                    update="inspEquip-table"
+                                    oncomplete="PF('inpecao-dialog').hide()">
+                                    <p:resetInput target="panelInsp-dialog" />
+                                </p:commandButton>
 
-                    <p:commandButton 
-                        id="btnSalvarInsp"
-                        value="Salvar" 
-                        icon="ui-icon-disk" 
-                        process="panelInsp-dialog"
-                        update="inspEquip-table"
-                        oncomplete="PF('inpecao-dialog').hide()">
-                        <p:resetInput target="panelInsp-dialog" />
-                    </p:commandButton>
+                                <p:commandButton 
+                                    id="btnCancelarInsp"
+                                    value="Cancelar" 
+                                    icon="ui-icon-close" 
+                                    onclick="PF('inpecao-dialog').hide()">
+                                    <p:resetInput target="panelInsp-dialog" />
+                                </p:commandButton>
+                            </div>
+                        </h:panelGrid>
 
-                    <p:commandButton 
-                        id="btnCancelarInsp"
-                        value="Cancelar" 
-                        icon="ui-icon-close" 
-                        update="inspEquip-table"
-                        onclick="PF('inpecao-dialog').hide()">
-                        <p:resetInput target="panelInsp-dialog" />
-                    </p:commandButton>
+                    </p:dialog>
 
-                </h:panelGrid>
-
-            </p:dialog>
-
-        </h:form>
+                </h:form>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>

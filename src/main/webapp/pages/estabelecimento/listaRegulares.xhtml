@@ -7,12 +7,12 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Consulta Estabelecimentos</ui:define>
+    <ui:define name="titulo">Consulta Estabelecimentos Regulares</ui:define>
 
     <ui:define name="corpo">
 
         <div class="tituloPrincipal">
-            <h3>Estabelecimentos</h3>
+            <h3>Estabelecimentos Regulares</h3>
         </div>
 
         <h:form id="listaEstabelecimento">
@@ -22,7 +22,7 @@
                 sticky="false"/>
 
 
-            <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
+            <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentosRegulares}"
                          rows="5" paginator="true" id="estab" paginatorPosition="bottom"
                          sortMode="multiple" style="text-align: center">
 

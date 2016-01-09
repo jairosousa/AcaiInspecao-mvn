@@ -10,6 +10,8 @@ import br.com.ufra.geocoding.services.GoogleGeocodingService;
 import br.com.ufra.rn.EstabelecimentoRN;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -34,25 +36,30 @@ public class EstabelecimentoBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private MapModel draggableModel;
-
     private Marker marker;
-
     private LatLng center;
 
     private Estabelecimento estabelecimento;
-    private EstabelecimentoRN rn = new EstabelecimentoRN();
+    private EstabelecimentoRN RN = new EstabelecimentoRN();
+    
     private List<Estabelecimento> estabelecimentos;
+    private List<Estabelecimento> estabelecimentosRegulares = new ArrayList<>();
+    private List<Estabelecimento> estabelecimentosPendentes = new ArrayList<>();
+    private List<Estabelecimento> estabelecimentosVencida = new ArrayList<>();
     private List<Estabelecimento> estabelecimentosPendentesVistoria;
+    private List<String> bairros = new ArrayList<>();
 
     @PostConstruct
     public void init() {
-        estabelecimento = new Estabelecimento();
+        this.estabelecimento = new Estabelecimento();
+        this.estabelecimento.setStatus("Aguardando vistoria");
+
         draggableModel = new DefaultMapModel();
 
         try {
             if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().containsKey("id")) {
                 Integer id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id").toString());
-                this.estabelecimento = rn.obter(id);
+                this.estabelecimento = RN.obter(id);
                 System.out.println("estabelecimento id: " + estabelecimento.getId() + "\nestabelecimento nome: " + estabelecimento.getNomeFantasia());
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("id");
             }
@@ -60,34 +67,14 @@ public class EstabelecimentoBean implements Serializable {
         }
     }
 
-    public Estabelecimento getEstabelecimento() {
-        return estabelecimento;
-    }
-
-    public void setEstabelecimento(Estabelecimento estabelecimento) {
-        this.estabelecimento = estabelecimento;
-    }
-
-    public List<Estabelecimento> getEstabelecimentos() {
-        return estabelecimentos = rn.obterTodos();
-    }
-
-    public List<Estabelecimento> getEstabelecimentosPendentesEAguardando() {
-        return estabelecimentosPendentesVistoria = rn.estabelecimentosAguardandoVistoriaEPendente();
-    }
-
-    public MapModel getDraggableModel() {
-        return draggableModel;
-    }
-
     public void onMarkerDrag(MarkerDragEvent event) {
         marker = event.getMarker();
         this.estabelecimento.setLatitude(String.valueOf(marker.getLatlng().getLat()));
         this.estabelecimento.setLongitude(String.valueOf(marker.getLatlng().getLng()));
     }
-    
+
     public void consultar() {
-        this.estabelecimentos = rn.obterTodos();
+        this.estabelecimentos = RN.obterTodos();
     }
 
     public void obterCoordenadas() {
@@ -115,7 +102,7 @@ public class EstabelecimentoBean implements Serializable {
 
     public String salvar() {
 
-        if (rn.salvar(this.estabelecimento)) {
+        if (RN.salvar(this.estabelecimento)) {
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
             FacesContext.getCurrentInstance().addMessage(null, fm);
@@ -129,7 +116,7 @@ public class EstabelecimentoBean implements Serializable {
     }
 
     public String excluir() {
-        if (rn.excluir(estabelecimento)) {
+        if (RN.excluir(estabelecimento)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro foi excluído com exito");
             FacesContext.getCurrentInstance().addMessage(null, fm);
             return "lista.xhtml";
@@ -147,7 +134,7 @@ public class EstabelecimentoBean implements Serializable {
     }
 
     public void atualizaDataVencimento() {
-        estabelecimento.setDataVencimento(rn.atualizaDataVencimento(estabelecimento));
+        estabelecimento.setDataVencimento(RN.atualizaDataVencimento(estabelecimento));
     }
 
     public String editar() {
@@ -157,13 +144,108 @@ public class EstabelecimentoBean implements Serializable {
         System.out.println("estabelecimento id: " + id);
         return "/pages/estabelecimento/formulario?faces-redirect=true";
     }
+    
+    public String editarStatus() {
+        Integer id = Integer.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
+
+        System.out.println("estabelecimento id: " + id);
+        return "/pages/estabelecimento/formularioStatus?faces-redirect=true";
+    }
 
     public String incluir() {
         return "formulario.xhtml";
     }
 
     public String cancelar() {
-        return "lista.xhtml";
+        return "/index?faces-redirect=true";
+    }
+
+    public Estabelecimento getEstabelecimento() {
+        return estabelecimento;
+    }
+
+    public void setEstabelecimento(Estabelecimento estabelecimento) {
+        this.estabelecimento = estabelecimento;
+    }
+
+    public List<Estabelecimento> getEstabelecimentos() {
+        return estabelecimentos = RN.obterTodos();
+    }
+
+    public List<Estabelecimento> getEstabelecimentosPendentesEAguardando() {
+        return estabelecimentosPendentesVistoria = RN.estabelecimentosAguardandoVistoriaEPendente();
+    }
+
+    public List<Estabelecimento> getEstabelecimentosRegulares() {
+        return estabelecimentosRegulares = RN.obterEstabelecimentosRegulares();
+    }
+
+    public List<Estabelecimento> getEstabelecimentosPendentes() {
+        return estabelecimentosPendentes = RN.obterEstabelecimentosPendentes();
+    }
+
+    public List<Estabelecimento> getEstabelecimentosVencida() {
+        return estabelecimentosVencida = RN.obterEstabelecimentoVencido();
+    }
+
+    public MapModel getDraggableModel() {
+        return draggableModel;
+    }
+
+    public List<String> getBairros() {
+        this.bairros.add("Águas Lindas");
+        this.bairros.add("Aurá");
+        this.bairros.add("Barreiro");
+        this.bairros.add("Batista Campos");
+        this.bairros.add("Cabanagem");
+        this.bairros.add("Canudos");
+        this.bairros.add("Castanheira");
+        this.bairros.add("Ciadade Velha");
+        this.bairros.add("Condor");
+        this.bairros.add("Coqueiro");
+        this.bairros.add("Cremação");
+        this.bairros.add("Curió-Utinga");
+        this.bairros.add("Fatima");
+        this.bairros.add("Guamá");
+        this.bairros.add("Guanabara");
+        this.bairros.add("Icoaraci");
+        this.bairros.add("Ilha de Cintra");
+        this.bairros.add("Ilha de Cotijuba");
+        this.bairros.add("Ilha do Combú");
+        this.bairros.add("Ilha do Fortinho");
+        this.bairros.add("Ilha do Jutuba");
+        this.bairros.add("Ilha do Murucutu");
+        this.bairros.add("Ilha dos Patos");
+        this.bairros.add("Ilha Grande");
+        this.bairros.add("Ilha Negra");
+        this.bairros.add("Jurunas");
+        this.bairros.add("Mangueirão");
+        this.bairros.add("Marambaia");
+        this.bairros.add("Marancagalha");
+        this.bairros.add("Marco");
+        this.bairros.add("Montese");
+        this.bairros.add("Mosqueiro");
+        this.bairros.add("Nazaré");
+        this.bairros.add("Outeiro");
+        this.bairros.add("Parque Guajará");
+        this.bairros.add("Parque Verde");
+        this.bairros.add("Pedreira");
+        this.bairros.add("Pratinha");
+        this.bairros.add("Reduto");
+        this.bairros.add("Sacramenta");
+        this.bairros.add("São Brás");
+        this.bairros.add("Souza");
+        this.bairros.add("Tapanã");
+        this.bairros.add("Telegrafo");
+        this.bairros.add("Tenoné");
+        this.bairros.add("Umarizal");
+        this.bairros.add("Una");
+        this.bairros.add("Val-de-Cães");
+
+        Collections.sort(bairros);
+
+        return bairros;
     }
 
 }

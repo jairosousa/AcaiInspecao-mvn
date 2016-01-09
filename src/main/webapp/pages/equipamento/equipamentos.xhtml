@@ -15,117 +15,124 @@
 
     <ui:define name="corpo">
 
-        <h1>Cadastro de Equipamentos</h1>
+        <div class="tituloPrincipal">
+            <h3>Equipamentos</h3>
+        </div>
 
-        <h:form id="frm-equipamento">
+        <div class="formulario">
 
-            <p:growl id="msgs" />
+            <h:form id="frm-equipamento">
 
-            <p:toolbar id="toolbar">
-                <f:facet name="left">
-                    <p:commandButton value="Novo" icon="ui-icon-document"
-                                     action="#{equipamentoBean.prepararNovoCadastro()}"
-                                     process="@this" update="equipamento-dialog"
-                                     oncomplete="PF('edicaoEquipamentoDialog').show()">
-                        <p:resetInput target="equipamento-dialog" />
-                    </p:commandButton>
+                <p:growl id="msgs" />
 
-                    <span class="ui-separator"> <span
-                            class="ui-icon ui-icon-grip-dotted-vertical" />
-                    </span>
+                <p:toolbar id="toolbar">
+                    <f:facet name="left">
+                        <p:commandButton value="Novo" icon="ui-icon-document"
+                                         action="#{equipamentoBean.prepararNovoCadastro()}"
+                                         process="@this" update="equipamento-dialog"
+                                         oncomplete="PF('edicaoEquipamentoDialog').show()">
+                            <p:resetInput target="equipamento-dialog" />
+                        </p:commandButton>
 
-                    <p:commandButton icon="ui-icon-pencil" title="Editar"
-                                     process="@this" update="equipamento-dialog"
-                                     oncomplete="PF('edicaoEquipamentoDialog').show()"
-                                     disabled="#{equipamentoBean.equipamentoSelecionado==null}">
-                        <p:resetInput target="equipamento-dialog" />
+                        <span class="ui-separator"> <span
+                                class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
 
-                        <f:setPropertyActionListener
-                            value="#{equipamentoBean.equipamentoSelecionado}"
-                            target="#{equipamentoBean.equipamentoEdicao}" />
-                    </p:commandButton>
+                        <p:commandButton icon="ui-icon-pencil" title="Editar"
+                                         process="@this" update="equipamento-dialog"
+                                         oncomplete="PF('edicaoEquipamentoDialog').show()"
+                                         disabled="#{equipamentoBean.equipamentoSelecionado==null}">
+                            <p:resetInput target="equipamento-dialog" />
 
-                    <p:commandButton icon="ui-icon-trash" title="Excluir"
-                                     action="#{equipamentoBean.excluir}" process="@this"
-                                     update="equipamento-table msgs toolbar"
-                                     disabled="#{equipamentoBean.equipamentoSelecionado==null}">
-                        <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
-                                   message="Tem certeza que deseja excluir o equipamento?" />
-                    </p:commandButton>
+                            <f:setPropertyActionListener
+                                value="#{equipamentoBean.equipamentoSelecionado}"
+                                target="#{equipamentoBean.equipamentoEdicao}" />
+                        </p:commandButton>
 
-                </f:facet>
-            </p:toolbar>
+                        <p:commandButton icon="ui-icon-trash" title="Excluir"
+                                         action="#{equipamentoBean.excluir}" process="@this"
+                                         update="equipamento-table msgs toolbar"
+                                         disabled="#{equipamentoBean.equipamentoSelecionado==null}">
+                            <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+                                       message="Tem certeza que deseja excluir o equipamento?" />
+                        </p:commandButton>
 
-            <p:dataTable value="#{equipamentoBean.equipamentos}"
-                         var="equipamentos" emptyMessage="Nenhum Equipamento Cadastrado" rows="5"
-                         paginator="true" paginatorPosition="bottom" style="margin-top:5px"
-                         id="equipamento-table"
-                         selection="#{equipamentoBean.equipamentoSelecionado}"
-                         selectionMode="single" rowKey="#{equipamentos.id}">
+                    </f:facet>
+                </p:toolbar>
 
-                <p:ajax event="rowSelect" update=":frm-equipamento:toolbar" />
-                <p:ajax event="rowUnselect" update=":frm-equipamento:toolbar" />
+                <p:dataTable value="#{equipamentoBean.equipamentos}"
+                             var="equipamentos" emptyMessage="Nenhum Equipamento Cadastrado" rows="5"
+                             paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                             id="equipamento-table"
+                             selection="#{equipamentoBean.equipamentoSelecionado}"
+                             selectionMode="single" rowKey="#{equipamentos.id}">
 
-                <p:column headerText="Nome" sortBy="#{equipamentos.nome}">
-                    <h:outputText value="#{equipamentos.nome}"/>
-                </p:column>
+                    <p:ajax event="rowSelect" update=":frm-equipamento:toolbar" />
+                    <p:ajax event="rowUnselect" update=":frm-equipamento:toolbar" />
 
-                <p:column headerText="Descrição">
-                    <h:outputText value="#{equipamentos.descricao}"/>
-                </p:column>
+                    <p:column headerText="Nome" sortBy="#{equipamentos.nome}">
+                        <h:outputText value="#{equipamentos.nome}"/>
+                    </p:column>
 
-                <p:column headerText="Status" sortBy="#{equipamentos.status}">
-                    <h:outputText value="#{equipamentos.status}"/>
-                </p:column>
+                    <p:column headerText="Descrição">
+                        <h:outputText value="#{equipamentos.descricao}"/>
+                    </p:column>
 
-                <p:column headerText="Material">
-                    <h:outputText value="#{equipamentos.material}"/>
-                </p:column>
+                    <p:column headerText="Status" sortBy="#{equipamentos.status}" style="text-align: center">
+                        <h:outputText value="#{equipamentos.status}"/>
+                    </p:column>
 
-            </p:dataTable>
+                    <p:column headerText="Material" style="text-align: center">
+                        <h:outputText value="#{equipamentos.material}"/>
+                    </p:column>
 
-            <p:dialog header="Novo Equipamento" widgetVar="edicaoEquipamentoDialog"
-                      id="equipamento-dialog" resizable="false" 
-                      closeOnEscape="true">
+                </p:dataTable>
 
-                <p:messages id="msgs-dialog" />
-                <p:defaultCommand target="salvar-button" scope="equipamento-dialog" />
 
-                <h:panelGrid columns="2" id="painel-dialog">
 
-                    <p:outputLabel value="Nome" for="nome" />
-                    <p:inputText id="nome" size="60" maxlength="40"
-                                 value="#{equipamentoBean.equipamentoEdicao.nome}" />
+                <p:dialog header="Novo Equipamento" widgetVar="edicaoEquipamentoDialog"
+                          id="equipamento-dialog" resizable="false" 
+                          closeOnEscape="true">
 
-                    <p:outputLabel value="Descricao" for="descricao" />
-                    <p:inputTextarea id="descricao" maxlength="120" rows="2" cols="33"
-                                     value="#{equipamentoBean.equipamentoEdicao.descricao}" />
+                    <p:messages id="msgs-dialog" />
+                    <p:defaultCommand target="salvar-button" scope="equipamento-dialog" />
 
-                    <p:outputLabel for="status" value="Status" />
-                    <p:selectOneRadio id="status" value="#{equipamentoBean.equipamentoEdicao.status}">
-                        <f:selectItem itemLabel="Obrigatorio" itemValue="Obrigatorio"/>
-                        <f:selectItem itemLabel="Não obrigatorio" itemValue="Não obrigatorio" />
-                    </p:selectOneRadio>
+                    <h:panelGrid columns="2" id="painel-dialog">
 
-                    <p:outputLabel for="material" value="Material" />
-                    <p:selectOneMenu id="material" value="#{equipamentoBean.equipamentoEdicao.material}">
-                        <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-                        <f:selectItem itemLabel="Aço Inox" itemValue="Aço Inox" />
-                        <f:selectItem itemLabel="Aluminio" itemValue="Aluminio" />
-                        <f:selectItem itemLabel="Plastico" itemValue="Plastico" />
-                        <f:selectItem itemLabel="Madeira" itemValue="Madeira" />
-                        <f:selectItem itemLabel="Latex" itemValue="Latex" />
-                        <f:selectItem itemLabel="Pano" itemValue="Pano" />
-                    </p:selectOneMenu>
+                        <p:outputLabel value="Nome" for="nome" />
+                        <p:inputText id="nome" size="60" maxlength="40"
+                                     value="#{equipamentoBean.equipamentoEdicao.nome}" />
 
-                    <p:outputLabel />
-                    <p:commandButton value="Salvar" id="salvar-button"
-                                     action="#{equipamentoBean.salvar}" process="equipamento-dialog"
-                                     update="msgs-dialog painel-dialog"
-                                     oncomplete="if(!args.validationFailed)PF('edicaoEquipamentoDialog').hide()" />
-                </h:panelGrid>
-            </p:dialog>
-        </h:form>
+                        <p:outputLabel value="Descricao" for="descricao" />
+                        <p:inputTextarea id="descricao" maxlength="120" rows="2" cols="33"
+                                         value="#{equipamentoBean.equipamentoEdicao.descricao}" />
+
+                        <p:outputLabel for="status" value="Status" />
+                        <p:selectOneRadio id="status" value="#{equipamentoBean.equipamentoEdicao.status}">
+                            <f:selectItem itemLabel="Obrigatorio" itemValue="Obrigatorio"/>
+                            <f:selectItem itemLabel="Não obrigatorio" itemValue="Não obrigatorio" />
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="material" value="Material" />
+                        <p:selectOneMenu id="material" value="#{equipamentoBean.equipamentoEdicao.material}">
+                            <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Aço Inox" itemValue="Aço Inox" />
+                            <f:selectItem itemLabel="Aluminio" itemValue="Aluminio" />
+                            <f:selectItem itemLabel="Plastico" itemValue="Plastico" />
+                            <f:selectItem itemLabel="Madeira" itemValue="Madeira" />
+                            <f:selectItem itemLabel="Latex" itemValue="Latex" />
+                            <f:selectItem itemLabel="Pano" itemValue="Pano" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel />
+                        <p:commandButton value="Salvar" id="salvar-button"
+                                         action="#{equipamentoBean.salvar}" process="equipamento-dialog"
+                                         update="msgs-dialog painel-dialog"
+                                         oncomplete="if(!args.validationFailed)PF('edicaoEquipamentoDialog').hide()" />
+                    </h:panelGrid>
+                </p:dialog>
+            </h:form>
+        </div>
     </ui:define>
 
 </ui:composition>

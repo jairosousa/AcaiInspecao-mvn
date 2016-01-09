@@ -32,15 +32,6 @@
                             id="maskVenc" pattern="dd/MM/yyyy" mask="true" >
                 </p:calendar>
 
-                <p:outputLabel for="status" value="Status" />
-                <p:selectOneMenu id="status" value="#{estabelecimentoBean.estabelecimento.status}">
-                    <f:selectItem itemLabel="Aguardando vistoria" itemValue="Aguardando vistoria" />
-                    <f:selectItem itemLabel="Pendênte" itemValue="Pendente" />
-                    <f:selectItem itemLabel="Regular" itemValue="Regular" />
-                    <f:selectItem itemLabel="Vencida" itemValue="Vencida" />
-                    <f:selectItem itemLabel="Suspensa" itemValue="Suspença" />
-                </p:selectOneMenu>
-
             </h:panelGrid>
         </p:fieldset>
 

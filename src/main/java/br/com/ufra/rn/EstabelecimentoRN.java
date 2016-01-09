@@ -33,6 +33,18 @@ public class EstabelecimentoRN implements Serializable {
     public List<Estabelecimento> obterTodos() {
         return dao.obterTodos(Estabelecimento.class);
     }
+    
+    public List<Estabelecimento> obterEstabelecimentosRegulares(){
+        return dao.obterEstabelecimentosRegulares();
+    }
+    
+    public List<Estabelecimento> obterEstabelecimentosPendentes(){
+        return dao.obterEstabelecimentosPendentes();
+    }
+    
+    public List<Estabelecimento> obterEstabelecimentoVencido(){
+        return dao.obterEstabelecimentoVencido();
+    }
 
     public List<Estabelecimento> estabelecimentosAguardandoVistoriaEPendente() {
         return dao.estabelecimentosAguardandoVistoriaEPendente();

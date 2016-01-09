@@ -7,12 +7,12 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Consulta Estabelecimentos</ui:define>
+    <ui:define name="titulo">Consulta Estabelecimentos Vencidos</ui:define>
 
     <ui:define name="corpo">
 
         <div class="tituloPrincipal">
-            <h3>Estabelecimentos</h3>
+            <h3>Estabelecimentos com licença vencida</h3>
         </div>
 
         <h:form id="listaEstabelecimento">
@@ -22,8 +22,10 @@
                 sticky="false"/>
 
 
-            <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
-                         rows="5" paginator="true" id="estab" paginatorPosition="bottom"
+            <p:dataTable id="estab" var="estabelecimentos" 
+                         value="#{estabelecimentoBean.estabelecimentosVencida}"
+                         emptyMessage="Não Há estabelecimento com vencimento vencida."
+                         rows="5" paginator="true"  paginatorPosition="bottom"
                          sortMode="multiple" style="text-align: center">
 
                 <p:column style="width: 16px">
@@ -45,24 +47,24 @@
                 <p:column headerText="Status">
                     <h:outputText value="#{estabelecimentos.status}"/>
                 </p:column>
+                <p:column headerText="Data Licença">
+                    <h:outputText value="#{estabelecimentos.dataLicenca}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Data Vencimento">
+                    <h:outputText value="#{estabelecimentos.dataVencimento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
 
                 <p:column headerText="Operações" >
                     <div align="center">
                         <p:commandButton
                             icon="ui-icon-pencil"
-                            action="#{estabelecimentoBean.editar()}">
+                            action="#{estabelecimentoBean.editarStatus}">
                             <f:param name="id" value="#{estabelecimentos.id}"/>
-                        </p:commandButton>
-
-                        <p:commandButton
-                            ajax="false"
-                            icon="ui-icon-trash"
-                            action="#{estabelecimentoBean.excluir()}"
-                            onclick="if (!confirm('Confirma a exclusão do estabelecimento #{estabelecimentos.nomeFantasia}?'))
-                                        return false;">
-                            <f:setPropertyActionListener
-                                target="#{estabelecimentoBean.estabelecimento}"
-                                value="#{estabelecimentos}"/>
                         </p:commandButton>
 
                     </div>
@@ -106,7 +108,7 @@
 
                         <p:outputLabel value="Latitude"/>
                         <h:outputText value="#{estabelecimentos.latitude}"/>
-                        
+
                         <p:outputLabel value="Longitude"/>
                         <h:outputText value="#{estabelecimentos.longitude}"/>
 

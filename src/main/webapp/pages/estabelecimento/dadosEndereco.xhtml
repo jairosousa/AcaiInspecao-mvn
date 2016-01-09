@@ -11,9 +11,9 @@
     <ui:composition>
         <p:fieldset legend="Endereço" toggleable="true">
 
-            <h:panelGrid id="dadoEndereco" columns="1" columnClasses="grid">
+            <h:panelGrid id="dadoEndereco" columns="2" columnClasses="grid">
 
-                <h:panelGrid columns="4" columnClasses="label, value">
+                <h:panelGrid columns="2">
 
                     <p:outputLabel value="Logradouro" for="logradouro"/>
                     <p:inputText 
@@ -26,20 +26,24 @@
                                  value="#{estabelecimentoBean.estabelecimento.complemento}"
                                  label="complemento" />
 
+                </h:panelGrid>
 
-                    <p:outputLabel for="cep" value="CEP" />
-                    <p:inputMask id="cep" 
-                                 value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
+                <h:panelGrid columns="6">
 
                     <h:outputLabel value="Número" for="numero"/>
                     <p:inputText 
                         id="numero" value="#{estabelecimentoBean.estabelecimento.numero}"
                         label="numero" />
 
+                    <p:outputLabel for="cep" value="CEP" />
+                    <p:inputMask id="cep" 
+                                 value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
+
+
                     <h:outputLabel value="Bairro" for="bairro"/>
-                    <p:inputText 
-                        id="bairro" value="#{estabelecimentoBean.estabelecimento.bairro}"
-                        label="bairro" />
+                    <p:selectOneMenu id="bairro" value="#{estabelecimentoBean.estabelecimento.bairro}">
+                        <f:selectItems value="#{estabelecimentoBean.bairros}"/>
+                    </p:selectOneMenu>
 
                     <h:outputLabel value="Cidade" for="cidade"/>
                     <p:inputText 
@@ -49,7 +53,6 @@
                     <p:inputText 
                         id="uf" value="#{estabelecimentoBean.estabelecimento.uf}"
                         label="uf" />
-
 
                 </h:panelGrid>
             </h:panelGrid>

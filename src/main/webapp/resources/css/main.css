@@ -63,6 +63,7 @@ footer {
 
 body{
     fonte-size:12px;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
     font-weight: normal;
@@ -70,31 +71,53 @@ body{
 
 .panel {
     background-color: #f5f5f5;
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height:380px;
     margin: 7% auto;
-    padding: 70px 30px;
+    padding: 2px;
     border-radius: 4px;
-    box-shadow: #666666 0 5px 5px;
+    box-shadow: 5px 4px 10px #333, -5px -5px 10px #ccc;
+
 }
 
 .imag{
-    width: 70px;
-    height: 70px;
-    margin: -40px 0px 0px 80px;
+    margin-top: 15px;
+    margin-bottom: 4px;
+    margin-left: -40px;
+    position: absolute;
+    left: 50%;
+}
+
+#login{
+    margin-top: 40%;
+    margin-bottom: 4px;
+    left: 50%;
 }
 
 #bt_entrar{
     height: 35px;
     width: 90px;
+    border-top: 1px solid #96d1f8;
     border-radius: 5px;
-    background-color: #69D2E7;
+    background: #69D2E7;
+    background: -moz-linear-gradient(top, #69D2E7, #65a9d7);
     text-align: center;
     color: #FFFFFF;
     font-family: Verdana, Arial, Sans-Serif;
     opacity: 0.5;
     display: block;
     margin: 15px auto;
+}
+
+#bt_entrar:hover{
+    border-top-color: #28597a;
+    background: #28597a;
+    color: #fffaff; 
+}
+
+#bt_entrar:active{
+    border-top-color: #1b435e;
+    background: #1b435e;
 }
 
 .campo-de-texto {

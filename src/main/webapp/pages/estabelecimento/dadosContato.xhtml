@@ -12,9 +12,9 @@
 
         <p:fieldset legend="Dados do Contato" toggleable="true">
 
-            <h:panelGrid id="dadoContato" columns="1" columnClasses="grid">
+            <h:panelGrid id="dadoContato" columns="2" columnClasses="grid">
 
-                <h:panelGrid columns="4" columnClasses="label, value">
+                <h:panelGrid columns="2">
 
                     <p:outputLabel value="Nome" for="nomecontato"/>
                     <p:inputText id="nomecontato" size="50"
@@ -36,7 +36,9 @@
                         <h:message for="email"/>
                     </h:panelGroup>
 
+                </h:panelGrid>
 
+                <h:panelGrid columns="4">
                     <h:outputLabel value="CPF" for="cpf"/>
                     <p:inputMask id="cpf"
                                  value="#{estabelecimentoBean.estabelecimento.cpf}"

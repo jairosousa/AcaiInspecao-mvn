@@ -16,10 +16,9 @@ import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.TecnicoRN;
 import br.com.ufra.rn.VistoriaRN;
 import br.com.ufra.util.UsuarioUtil;
+import static com.itextpdf.text.Utilities.skip;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -58,22 +57,17 @@ public class VistoriaBean implements Serializable {
     private List<Inspecao> inspecoes;
     private List<Equipamento> equipamentosNaoObrigatorios;
     private List<Tecnico> tecnicos = new ArrayList<>();
-    private boolean skip;
-    private boolean inspApto;
-    private String obs;
-    private Date dataInspecao;
-    Calendar cal;
 
     @PostConstruct
     public void init() {
 
         this.vistoria = new Vistoria();
         vistoria.setTecnico1(UsuarioUtil.obterUsuarioLogado());
-        cal = Calendar.getInstance();
 
         //Inicializando as inspeções dos equipamentos
         List<Equipamento> equipamentosObrigatorios = RN_EQUIPAMENTO.obterTodosObrigatorios();
         this.inspecoes = RNINSPECAO.criarInspecoes(equipamentosObrigatorios);
+        //adicionar a vistoria as inspeções
         for (Inspecao i : this.inspecoes) {
             i.setVistoria(vistoria);
         }
@@ -97,30 +91,6 @@ public class VistoriaBean implements Serializable {
         String usuario = UsuarioUtil.obterUsuarioLogado().getNome();
         System.out.println("Usuario: " + usuario);
         return usuario;
-    }
-
-    public Date getDataInspecao() {
-        return dataInspecao;
-    }
-
-    public void setDataInspecao(Date dataInspecao) {
-        this.dataInspecao = dataInspecao;
-    }
-
-    public String getObs() {
-        return obs;
-    }
-
-    public void setObs(String obs) {
-        this.obs = obs;
-    }
-
-    public boolean isInspApto() {
-        return inspApto;
-    }
-
-    public void setInspApto(boolean inspApto) {
-        this.inspApto = inspApto;
     }
 
     public Equipamento getEquipamentoSelecionado() {
@@ -195,14 +165,6 @@ public class VistoriaBean implements Serializable {
 
     public List<Tecnico> getTecnicos() {
         return tecnicos = rnTecnico.obterTodos();
-    }
-
-    public boolean isSkip() {
-        return skip;
-    }
-
-    public void setSkip(boolean skip) {
-        this.skip = skip;
     }
 
     public List<Estabelecimento> getEstabelecimentosPendenteEAguardando() {
@@ -280,27 +242,10 @@ public class VistoriaBean implements Serializable {
         }
     }
 
-    public String onFlowProcess(FlowEvent event) {
-        if (skip) {
-            skip = false;   //reset in case user goes back
-            return "confirm";
-        } else {
-            return event.getNewStep();
-        }
-    }
-
-    public String editar() {
-        return "formulario.xhtml";
-    }
-
     public String abrirVistoria() {
         Integer id = Integer.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
         return "vistoriar?faces-redirect=true";
-    }
-
-    public String cancelar() {
-        return "lista.xhtml";
     }
 
 }

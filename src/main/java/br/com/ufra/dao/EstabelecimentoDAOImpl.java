@@ -78,18 +78,67 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
     @Override
     public List<Estabelecimento> estabelecimentosAguardandoVistoriaEPendente() {
 
-      try {
-            String aguardando="Aguardando vistoria", pendente = "Pendente";
+        try {
+            String aguardando = "Aguardando vistoria", pendente = "Pendente";
             String query = "SELECT e FROM Estabelecimento e WHERE e.status =:aguardando OR e.status =:pendente ";
             Query q = super.getEntityManager().createQuery(query);
-            q.setParameter("aguardando", aguardando).setParameter("pendente",pendente);
-            
-            return (List<Estabelecimento>)q.getResultList();
+            q.setParameter("aguardando", aguardando).setParameter("pendente", pendente);
+
+            return (List<Estabelecimento>) q.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro ao obterAguardandoVistoriaEPendente: "+e.toString());
+            System.out.println("Erro ao obterAguardandoVistoriaEPendente: " + e.toString());
             return null;
         }
 
-}
+    }
+
+    @Override
+    public List<Estabelecimento> obterEstabelecimentosRegulares() {
+        try {
+            String regular = "Regular";
+            String query = "SELECT e FROM Estabelecimento e WHERE e.status =:regular";
+            Query q = super.getEntityManager().createQuery(query);
+            q.setParameter("regular", regular);
+
+            return (List<Estabelecimento>) q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao obter estabelecimentos regulares: " + e.toString());
+            return null;
+        }
+
+    }
     
+    @Override
+    public List<Estabelecimento> obterEstabelecimentosPendentes() {
+        try {
+            String regular = "Pendente";
+            String query = "SELECT e FROM Estabelecimento e WHERE e.status =:pendente";
+            Query q = super.getEntityManager().createQuery(query);
+            q.setParameter("pendente", regular);
+
+            return (List<Estabelecimento>) q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao estabelecimento pendentes: " + e.toString());
+            return null;
+        }
+
+    }
+    
+    @Override
+    public List<Estabelecimento> obterEstabelecimentoVencido() {
+        Date data = new Date();
+        try {
+            String regular ="";
+            String query = "SELECT e FROM Estabelecimento e WHERE e.dataVencimento <:data";
+            Query q = super.getEntityManager().createQuery(query);
+            q.setParameter("data", data);
+
+            return (List<Estabelecimento>) q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao estabelecimento pendentes: " + e.toString());
+            return null;
+        }
+
+    }
+
 }
