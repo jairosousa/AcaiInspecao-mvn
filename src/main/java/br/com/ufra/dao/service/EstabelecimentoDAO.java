@@ -19,12 +19,12 @@ public interface EstabelecimentoDAO extends GenericDAO<Estabelecimento> {
 
     public Estabelecimento obterCep(Estabelecimento estabelecimento);
 
-    public List<Estabelecimento> estabelecimentosAguardandoVistoriaEPendente();
+    public List<Estabelecimento> estabelecimentosAguardandoVistoria();
 
     public List<Estabelecimento> obterEstabelecimentosRegulares();
 
     public List<Estabelecimento> obterEstabelecimentosPendentes();
-    
+
     public List<Estabelecimento> obterEstabelecimentoVencido();
 
 }

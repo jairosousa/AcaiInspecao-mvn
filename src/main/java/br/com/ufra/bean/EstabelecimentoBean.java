@@ -46,7 +46,6 @@ public class EstabelecimentoBean implements Serializable {
     private List<Estabelecimento> estabelecimentosRegulares = new ArrayList<>();
     private List<Estabelecimento> estabelecimentosPendentes = new ArrayList<>();
     private List<Estabelecimento> estabelecimentosVencida = new ArrayList<>();
-    private List<Estabelecimento> estabelecimentosPendentesVistoria;
     private List<String> bairros = new ArrayList<>();
 
     @PostConstruct
@@ -171,10 +170,6 @@ public class EstabelecimentoBean implements Serializable {
 
     public List<Estabelecimento> getEstabelecimentos() {
         return estabelecimentos = RN.obterTodos();
-    }
-
-    public List<Estabelecimento> getEstabelecimentosPendentesEAguardando() {
-        return estabelecimentosPendentesVistoria = RN.estabelecimentosAguardandoVistoriaEPendente();
     }
 
     public List<Estabelecimento> getEstabelecimentosRegulares() {

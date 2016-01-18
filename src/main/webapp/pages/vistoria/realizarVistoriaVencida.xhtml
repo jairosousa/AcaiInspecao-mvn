@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/templates/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:viewAction action="#{vistoriaBean.consultarEstabelecimentosVencidos()}"/>
+    </f:metadata>
+
+    <ui:define name="titulo">Estabelecimento aguardando vistoria</ui:define>
+
+    <ui:define name="corpo">
+
+            <div class="tituloPrincipal">
+                <h3>Estabelecimento aguardando vistoria</h3>
+            </div>
+
+            <div class="formulario">
+
+                <h:form id="frm-vistoria">
+
+                    <p:growl id="msgs"/>
+
+
+                    <p:toolbar id="toolbar">
+
+                        <f:facet name="left">
+
+                            <p:commandButton 
+                                icon="ui-icon-disk" value="vistoriar"
+                                action="#{vistoriaBean.abrirVistoria()}">
+                                <f:param name="id" value="#{vistoriaBean.estabelecimentoSelecionado.id}"/>
+                            </p:commandButton>
+                        </f:facet>
+
+                    </p:toolbar>
+
+
+                    <p:dataTable value="#{vistoriaBean.estabelecimentos}"
+                                 var="estabelecimentoVistoria" emptyMessage="Nenhum Estabelecimento para ser vistoriado" rows="7"
+                                 paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                                 id="vistoria-table"
+                                 selection="#{vistoriaBean.estabelecimentoSelecionado}"
+                                 selectionMode="single" rowKey="#{estabelecimentoVistoria.id}">
+
+                        <p:ajax event="rowSelect" update=":frm-vistoria:toolbar" />
+                        <p:ajax event="rowUnselect" update=":frm-vistoria:toolbar" />
+
+
+                        <p:column headerText="Nome Fantasia">
+                            <h:outputText value="#{estabelecimentoVistoria.nomeFantasia}"/>
+                        </p:column>
+
+                        <p:column headerText="Contato">
+                            <h:outputText value="#{estabelecimentoVistoria.nomeContato}"/>
+                        </p:column>
+
+                        <p:column headerText="Telefone" style="text-align: center">
+                            <h:outputText value="#{estabelecimentoVistoria.telefone}"/>
+                        </p:column>
+
+                        <p:column headerText="Endereço">
+                            <h:outputText value="#{estabelecimentoVistoria.logradouro}, #{estabelecimentoVistoria.numero}"/>
+                        </p:column>
+
+                        <p:column headerText="Bairro" style="text-align: center">
+                            <h:outputText value="#{estabelecimentoVistoria.bairro}"/>
+                        </p:column>
+
+                        <p:column headerText="Status" style="text-align: center">
+                            <h:outputText value="#{estabelecimentoVistoria.status}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+            </div>
+    </ui:define>
+</ui:composition>

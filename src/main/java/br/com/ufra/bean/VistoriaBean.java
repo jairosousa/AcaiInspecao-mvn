@@ -16,7 +16,6 @@ import br.com.ufra.rn.InspecaoRN;
 import br.com.ufra.rn.TecnicoRN;
 import br.com.ufra.rn.VistoriaRN;
 import br.com.ufra.util.UsuarioUtil;
-import static com.itextpdf.text.Utilities.skip;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,7 +26,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -40,21 +38,24 @@ public class VistoriaBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Vistoria vistoria;
+    private Vistoria vistoriaInspecao = new Vistoria();
     private Inspecao inspecao = new Inspecao();
     private Estabelecimento estabelecimentoSelecionado = new Estabelecimento();
+    private Estabelecimento estabelecimentoVistoria = new Estabelecimento();
     private Equipamento equipamentoSelecionado = new Equipamento();
     private Equipamento equipamentoEdicao = new Equipamento();
 
-    private final EstabelecimentoRN RNESTABELECIMENTO = new EstabelecimentoRN();
-    private final VistoriaRN RNVISTORIA = new VistoriaRN();
-    private final InspecaoRN RNINSPECAO = new InspecaoRN();
-    private final TecnicoRN rnTecnico = new TecnicoRN();
-    private final EstabelecimentoRN rnEstabelecimento = new EstabelecimentoRN();
+    private final VistoriaRN RN_VISTORIA = new VistoriaRN();
+    private final InspecaoRN RN_INSPECAO = new InspecaoRN();
+    private final TecnicoRN RN_tecnico = new TecnicoRN();
+    private final EstabelecimentoRN RN_ESTABELECIMENTO = new EstabelecimentoRN();
     private final EquipamentoRN RN_EQUIPAMENTO = new EquipamentoRN();
 
     private List<Estabelecimento> estabelecimentos = new ArrayList<>();
     private List<Vistoria> vistorias;
+    private List<Vistoria> vistoriasEstabelecimento = new ArrayList<>();
     private List<Inspecao> inspecoes;
+    private List<Inspecao> inspecoesEquipamentos;
     private List<Equipamento> equipamentosNaoObrigatorios;
     private List<Tecnico> tecnicos = new ArrayList<>();
 
@@ -66,7 +67,7 @@ public class VistoriaBean implements Serializable {
 
         //Inicializando as inspeções dos equipamentos
         List<Equipamento> equipamentosObrigatorios = RN_EQUIPAMENTO.obterTodosObrigatorios();
-        this.inspecoes = RNINSPECAO.criarInspecoes(equipamentosObrigatorios);
+        this.inspecoes = RN_INSPECAO.criarInspecoes(equipamentosObrigatorios);
         //adicionar a vistoria as inspeções
         for (Inspecao i : this.inspecoes) {
             i.setVistoria(vistoria);
@@ -75,7 +76,7 @@ public class VistoriaBean implements Serializable {
         try {
             if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().containsKey("id")) {
                 Integer id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id").toString());
-                estabelecimentoSelecionado = rnEstabelecimento.obter(id);
+                estabelecimentoSelecionado = RN_ESTABELECIMENTO.obter(id);
                 System.out.println("Estabelecimento: " + estabelecimentoSelecionado.getNomeFantasia());
                 vistoria.setEstabelecimento(estabelecimentoSelecionado);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("id");
@@ -144,15 +145,47 @@ public class VistoriaBean implements Serializable {
         return estabelecimentos;
     }
 
+    public List<Vistoria> getVistoriasEstabelecimento() {
+        return vistoriasEstabelecimento = RN_VISTORIA.obterVistoriasPorEstabelecimento(estabelecimentoVistoria);
+    }
+
+    public Estabelecimento getEstabelecimentoVistoria() {
+        return estabelecimentoVistoria;
+    }
+
+    public void setEstabelecimentoVistoria(Estabelecimento estabelecimentoVistoria) {
+        this.estabelecimentoVistoria = estabelecimentoVistoria;
+    }
+
+    public List<Inspecao> getInspecoesEquipamentos() {
+        return inspecoesEquipamentos = RN_INSPECAO.obterInspecoesPorVistoria(vistoriaInspecao);
+    }
+
     public List<Vistoria> getVistoriasPorEstabelecimento(AjaxBehaviorEvent event) {
         System.out.println("est get" + estabelecimentoSelecionado.getNomeContato());
-        vistorias = RNVISTORIA.obterVistoriasPorEstabelecimento(estabelecimentoSelecionado);
+        vistorias = RN_VISTORIA.obterVistoriasPorEstabelecimento(estabelecimentoSelecionado);
         System.out.println("get vis" + vistorias.size());
         return vistorias;
     }
 
+    public void obterTodasVistorias() {
+        vistorias = RN_VISTORIA.obterTodos();
+    }
+
+    public Vistoria getVistoriaInspecao() {
+        return vistoriaInspecao;
+    }
+
+    public void setVistoriaInspecao(Vistoria vistoriaInspecao) {
+        this.vistoriaInspecao = vistoriaInspecao;
+    }
+
+    public void obterVistoriaDoEstabelecimento() {
+        vistorias = estabelecimentoSelecionado.getVistoriaList();
+    }
+
     public List<Vistoria> getVistorias() {
-        return vistorias = RNVISTORIA.obterTodos();
+        return vistorias = RN_VISTORIA.obterTodos();
     }
 
     public Estabelecimento getEstabelecimentoSelecionado() {
@@ -164,23 +197,47 @@ public class VistoriaBean implements Serializable {
     }
 
     public List<Tecnico> getTecnicos() {
-        return tecnicos = rnTecnico.obterTodos();
+        return tecnicos = RN_tecnico.obterTodos();
     }
 
-    public List<Estabelecimento> getEstabelecimentosPendenteEAguardando() {
+    public List<Estabelecimento> getEstabelecimentosAguardandoVistoria() {
         if (!FacesContext.getCurrentInstance().isPostback()) {
-            return rnEstabelecimento.estabelecimentosAguardandoVistoriaEPendente();
+            return RN_ESTABELECIMENTO.estabelecimentosAguardandoVistoria();
         } else {
             return null;
         }
     }
 
-    public void consultarEstabelecimentosVistoriar() {
-        estabelecimentos = getEstabelecimentosPendenteEAguardando();
+    public void consultarEstabelecimentosAguardandoVistoria() {
+        estabelecimentos = getEstabelecimentosAguardandoVistoria();
+    }
+    
+    public List<Estabelecimento> getEstabelecimentosVencidos() {
+        if (!FacesContext.getCurrentInstance().isPostback()) {
+            return RN_ESTABELECIMENTO.obterEstabelecimentoVencido();
+        } else {
+            return null;
+        }
+    }
+
+    public void consultarEstabelecimentosVencidos() {
+        estabelecimentos = getEstabelecimentosVencidos();
+    }
+
+    public List<Estabelecimento> getEstabelecimentosPendenteVistoria() {
+        if (!FacesContext.getCurrentInstance().isPostback()) {
+            return RN_ESTABELECIMENTO.obterEstabelecimentosPendentes();
+        } else {
+            return null;
+        }
+    }
+
+    public void consultarEstabelecimentosPendenteVistoria() {
+        estabelecimentos = getEstabelecimentosPendenteVistoria();
     }
 
     public void adicionarNovaInspecao() {
-        Inspecao i = RNINSPECAO.criarInspecao(equipamentoSelecionado);
+        Inspecao i = RN_INSPECAO.criarInspecao(equipamentoSelecionado);
         this.inspecoes.add(i);
     }
 
@@ -199,16 +256,16 @@ public class VistoriaBean implements Serializable {
         }
         System.out.println("context inspecao apt: " + contInspecaoApt);
         if (contInspecaoApt == inspecoesRealizadas.size()) {
-            Estabelecimento estabelecimentoStatus = RNESTABELECIMENTO.obter(this.vistoria.getEstabelecimento().getId());
+            Estabelecimento estabelecimentoStatus = RN_ESTABELECIMENTO.obter(this.vistoria.getEstabelecimento().getId());
             estabelecimentoStatus.setStatus("Regular");
-            RNESTABELECIMENTO.salvar(estabelecimentoStatus);
+            RN_ESTABELECIMENTO.salvar(estabelecimentoStatus);
             this.vistoria.setEstabelecimento(estabelecimentoStatus);
             this.vistoria.setApto(true);
             return true;
         } else {
-            Estabelecimento estabelecimentoStatus = RNESTABELECIMENTO.obter(this.vistoria.getEstabelecimento().getId());
+            Estabelecimento estabelecimentoStatus = RN_ESTABELECIMENTO.obter(this.vistoria.getEstabelecimento().getId());
             estabelecimentoStatus.setStatus("Pendente");
-            RNESTABELECIMENTO.salvar(estabelecimentoStatus);
+            RN_ESTABELECIMENTO.salvar(estabelecimentoStatus);
 
             return false;
         }
@@ -216,22 +273,22 @@ public class VistoriaBean implements Serializable {
 
     public String salvar() {
         definirStatusEstabelecimentoEVistoriaApt(this.inspecoes);
-        if (RNINSPECAO.salvarInspecaoApartirInspecoes(this.vistoria, this.inspecoes)) {
+        if (RN_INSPECAO.salvarInspecaoApartirInspecoes(this.vistoria, this.inspecoes)) {
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
             FacesContext.getCurrentInstance().addMessage(null, fm);
             vistoria = new Vistoria();
-            return "realizarVistoria?faces-redirect=true";
+            return "vistoriaRealizadas?faces-redirect=true";
         } else {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "Erro no Cadastro!");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "realizarVistoria?faces-redirect=true";
+            return "vistoriaRealizadas?faces-redirect=true";
 
         }
     }
 
     public String excluir() {
-        if (RNVISTORIA.excluir(vistoria)) {
+        if (RN_VISTORIA.excluir(vistoria)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro foi excluído com exito");
             FacesContext.getCurrentInstance().addMessage(null, fm);
             return "lista.xhtml";

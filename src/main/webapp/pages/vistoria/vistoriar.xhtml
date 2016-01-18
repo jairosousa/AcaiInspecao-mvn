@@ -37,59 +37,73 @@
                             </span>
 
 
-
                         </f:facet>
 
                     </p:toolbar>
 
                     <p:panelGrid columns="2">
+                        <p:panelGrid columns="2">
 
-                        <p:outputLabel value="Estabelecimento"/>
-                        <h:outputLabel value="#{vistoriaBean.estabelecimentoSelecionado.nomeFantasia}" 
-                                       style="font-family: sans-serif; font-size: 24px"/>
+                            <p:outputLabel value="Estabelecimento"/>
+                            <h:outputLabel value="#{vistoriaBean.estabelecimentoSelecionado.nomeFantasia}" 
+                                           style="font-family: sans-serif; font-size: 24px"/>
 
-                        <p:outputLabel value="Tecnico"/>
-                        <h:outputLabel value="#{tecnicoBean.tecnicoLogado.nome}"
-                                       style="font-family: sans-serif; font-size: 18px"/>
+                            <p:outputLabel value="Tecnico"/>
+                            <h:outputLabel value="#{tecnicoBean.tecnicoLogado.nome}"
+                                           style="font-family: sans-serif; font-size: 18px"/>
 
-                        <h:outputText value="Tecnico"/>
-                        <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
-                                         style="width: 200px;"
-                                         converter="tecnicoConverter">
-                            <f:selectItem  itemLabel="Selecione" noSelectionOption="true" />
-                            <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
-                                           itemLabel="#{tecnicos.nome}"/>
-                        </p:selectOneMenu>
+                            <h:outputText value="Tecnico"/>
+                            <p:selectOneMenu value="#{vistoriaBean.vistoria.tecnico2}"
+                                             style="width: 200px;"
+                                             converter="tecnicoConverter">
+                                <f:selectItem  itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItems value="#{vistoriaBean.tecnicos}" var="tecnicos"
+                                               itemLabel="#{tecnicos.nome}"/>
+                            </p:selectOneMenu>
 
-                        <p:outputLabel for="dtVistoria" value="Data vistoria"/>
-                        <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
-                                    id="dtVistoria" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                        </p:calendar>
+                            <p:outputLabel for="dtVistoria" value="Data vistoria"/>
+                            <p:calendar value="#{vistoriaBean.vistoria.dataVistoria}" readonly="true" 
+                                        id="dtVistoria" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                            </p:calendar>
 
-                        <h:outputLabel for="dtSolicitacao" value="Data solicitação"/>
-                        <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
-                                    id="dtSolicitacao" pattern="dd/MM/yyyy" mask="true" showOn="button">
-                        </p:calendar>
+                            <h:outputLabel for="dtSolicitacao" value="Data solicitação"/>
+                            <p:calendar value="#{vistoriaBean.vistoria.dataSolicitacao}"
+                                        id="dtSolicitacao" pattern="dd/MM/yyyy" mask="true" showOn="button">
+                            </p:calendar>
 
-                        <h:outputLabel value="Equipamentos" for="equipNaoObrigatorio"/>
-                        <h:panelGroup>
-                            <p:panelGrid columns="2" style="margin-bottom: 5px" id="addEstab">
-                                <p:selectOneMenu value="#{vistoriaBean.equipamentoSelecionado}" style="width: 200px;"
-                                                 converter="equipamentoConverter">
-                                    <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-                                    <f:selectItems value="#{vistoriaBean.equipamentosNaoObrigatorios}" var="equipamentos"
-                                                   itemLabel="#{equipamentos.nome}"/>
-                                </p:selectOneMenu>
-                                <p:commandButton 
-                                    value="Adicionar"
-                                    title="Adicionar Equipamento" 
-                                    action="#{vistoriaBean.adicionarNovaInspecao()}" 
-                                    process="addEstab"
-                                    update="inspEquip-table" 
-                                    icon="ui-icon-plusthick"/>
-                            </p:panelGrid>
-                        </h:panelGroup>
+                            <h:outputLabel value="Equipamentos" for="equipNaoObrigatorio"/>
+                            <h:panelGroup>
+                                <p:panelGrid columns="2" style="margin-bottom: 5px" id="addEstab">
+                                    <p:selectOneMenu value="#{vistoriaBean.equipamentoSelecionado}" style="width: 200px;"
+                                                     converter="equipamentoConverter">
+                                        <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                        <f:selectItems value="#{vistoriaBean.equipamentosNaoObrigatorios}" var="equipamentos"
+                                                       itemLabel="#{equipamentos.nome}"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton 
+                                        value="Adicionar"
+                                        title="Adicionar Equipamento" 
+                                        action="#{vistoriaBean.adicionarNovaInspecao()}" 
+                                        process="addEstab"
+                                        update="inspEquip-table" 
+                                        icon="ui-icon-plusthick"/>
+                                </p:panelGrid>
+                            </h:panelGroup>
 
+                        </p:panelGrid>
+                        <p:panelGrid columns="2">
+                            <h:outputLabel value="Observação"/>
+                            <p:inputTextarea value="#{vistoriaBean.vistoria.observacao}" 
+                                             style="font-family: sans-serif; font-size: 24px"/>
+                            
+                            <h:outputLabel value="Prazo"/>
+                            <p:selectOneRadio value="#{vistoriaBean.vistoria.prazo}">
+                                <f:selectItem itemValue="15" itemLabel="15 Dias"/>
+                                <f:selectItem itemValue="20" itemLabel="20 Dias"/>
+                                <f:selectItem itemValue="30" itemLabel="30 Dias"/>
+                            
+                            </p:selectOneRadio>
+                        </p:panelGrid>
                     </p:panelGrid>
 
 
@@ -167,26 +181,26 @@
                                     itemValue="false"
                                     itemLabel="NÃO"/>
                             </p:selectOneRadio>
-                            <div aling="center">
-                                <p:commandButton 
-                                    id="btnSalvarInsp"
-                                    value="Salvar" 
-                                    icon="ui-icon-disk" 
-                                    process="panelInsp-dialog"
-                                    update="inspEquip-table"
-                                    oncomplete="PF('inpecao-dialog').hide()">
-                                    <p:resetInput target="panelInsp-dialog" />
-                                </p:commandButton>
-
-                                <p:commandButton 
-                                    id="btnCancelarInsp"
-                                    value="Cancelar" 
-                                    icon="ui-icon-close" 
-                                    onclick="PF('inpecao-dialog').hide()">
-                                    <p:resetInput target="panelInsp-dialog" />
-                                </p:commandButton>
-                            </div>
                         </h:panelGrid>
+                        <div aling="center">
+                            <p:commandButton 
+                                id="btnSalvarInsp"
+                                value="Salvar" 
+                                icon="ui-icon-disk" 
+                                process="panelInsp-dialog"
+                                update="inspEquip-table"
+                                oncomplete="PF('inpecao-dialog').hide()">
+                                <p:resetInput target="panelInsp-dialog" />
+                            </p:commandButton>
+
+                            <p:commandButton 
+                                id="btnCancelarInsp"
+                                value="Cancelar" 
+                                icon="ui-icon-close" 
+                                onclick="PF('inpecao-dialog').hide()">
+                                <p:resetInput target="panelInsp-dialog" />
+                            </p:commandButton>
+                        </div>
 
                     </p:dialog>
 

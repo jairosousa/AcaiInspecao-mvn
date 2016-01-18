@@ -8,10 +8,8 @@ package br.com.ufra.dao;
 import br.com.ufra.dao.service.EstabelecimentoDAO;
 import br.com.ufra.dao.service.GenericDAO;
 import br.com.ufra.entidade.Estabelecimento;
-import br.com.ufra.rn.EstabelecimentoRN;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -76,17 +74,17 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
     }
 
     @Override
-    public List<Estabelecimento> estabelecimentosAguardandoVistoriaEPendente() {
+    public List<Estabelecimento> estabelecimentosAguardandoVistoria() {
 
         try {
-            String aguardando = "Aguardando vistoria", pendente = "Pendente";
-            String query = "SELECT e FROM Estabelecimento e WHERE e.status =:aguardando OR e.status =:pendente ";
+            String aguardando = "Aguardando vistoria";
+            String query = "SELECT e FROM Estabelecimento e WHERE e.status =:aguardando";
             Query q = super.getEntityManager().createQuery(query);
-            q.setParameter("aguardando", aguardando).setParameter("pendente", pendente);
+            q.setParameter("aguardando", aguardando);
 
             return (List<Estabelecimento>) q.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro ao obterAguardandoVistoriaEPendente: " + e.toString());
+            System.out.println("Erro ao obterAguardandoVistoria: " + e.toString());
             return null;
         }
 
@@ -107,7 +105,7 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
         }
 
     }
-    
+
     @Override
     public List<Estabelecimento> obterEstabelecimentosPendentes() {
         try {
@@ -123,12 +121,12 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
         }
 
     }
-    
+
     @Override
     public List<Estabelecimento> obterEstabelecimentoVencido() {
         Date data = new Date();
         try {
-            String regular ="";
+            String regular = "";
             String query = "SELECT e FROM Estabelecimento e WHERE e.dataVencimento <:data";
             Query q = super.getEntityManager().createQuery(query);
             q.setParameter("data", data);
@@ -141,4 +139,19 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
 
     }
 
+    public List<Estabelecimento> estabelecimentosAguardandoVistoriaPendente() {
+
+        try {
+            String aguardando = "Aguardando vistoria", pendente = "Pendente";
+            String query = "SELECT e FROM Estabelecimento e WHERE e.status =:aguardando OR e.status =:pendente ";
+            Query q = super.getEntityManager().createQuery(query);
+            q.setParameter("aguardando", aguardando).setParameter("pendente", pendente);
+
+            return (List<Estabelecimento>) q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao obterAguardandoVistoriaEPendente: " + e.toString());
+            return null;
+        }
+
+    }
 }

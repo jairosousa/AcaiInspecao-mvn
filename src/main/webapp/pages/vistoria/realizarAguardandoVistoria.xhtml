@@ -8,10 +8,10 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <f:metadata>
-        <f:viewAction action="#{vistoriaBean.consultarEstabelecimentosVistoriar()}"/>
+        <f:viewAction action="#{vistoriaBean.consultarEstabelecimentosAguardandoVistoria()}"/>
     </f:metadata>
 
-    <ui:define name="titulo">Estabelecimento aguardando vistoria</ui:define>
+    <ui:define name="titulo">Estabelecimento Vistoria Pendente</ui:define>
 
     <ui:define name="corpo">
 
@@ -74,7 +74,7 @@
                         <p:column headerText="Status" style="text-align: center">
                             <h:outputText value="#{estabelecimentoVistoria.status}"/>
                         </p:column>
-
+                        
                     </p:dataTable>
 
                 </h:form>

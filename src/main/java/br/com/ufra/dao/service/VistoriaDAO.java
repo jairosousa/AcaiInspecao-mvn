@@ -18,4 +18,6 @@ public interface VistoriaDAO extends GenericDAO<Vistoria> {
     public List<Vistoria> obterVistoriasComEstabelecimento();
     
     public List<Vistoria> obterVistoriasPorEstabelecimento(Estabelecimento e);
+    
+    public List<Vistoria> obterVistoriasPendentes();
 }

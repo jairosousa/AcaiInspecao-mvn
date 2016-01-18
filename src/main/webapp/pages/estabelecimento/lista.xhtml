@@ -106,52 +106,49 @@
 
                         <p:outputLabel value="Latitude"/>
                         <h:outputText value="#{estabelecimentos.latitude}"/>
-                        
+
                         <p:outputLabel value="Longitude"/>
                         <h:outputText value="#{estabelecimentos.longitude}"/>
 
                     </p:panelGrid>
-                    <p:fieldset legend="Vistorias" toggleable="true">
 
-                        <p:dataTable var="vistorias" value="#{estabelecimentos.vistoriaList}"
-                                     emptyMessage="Estabelecimento não possui vistorias"
-                                     rows="5" paginator="true" id="vistorias" paginatorPosition="bottom"
-                                     sortMode="multiple" style="text-align: center">
+                    <h1>Vistorias Realizadas</h1>
 
-                            <p:column headerText="Data Vistoria">
-                                <h:outputText value="#{vistorias.dataVistoria}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
+                    <p:dataTable var="vistorias" value="#{estabelecimentos.vistoriaList}"
+                                 emptyMessage="Estabelecimento não possui vistorias"
+                                 rows="5" paginator="true" id="vistorias" paginatorPosition="bottom"
+                                 sortMode="multiple" style="text-align: center">
 
-                            <p:column headerText="Data Solicitação">
-                                <h:outputText value="#{vistorias.dataSolicitacao}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
+                        <p:column headerText="Data Vistoria">
+                            <h:outputText value="#{vistorias.dataVistoria}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
 
-                            <p:column headerText="Tecnico">
-                                <h:outputText value="#{vistorias.tecnico1.nome}"/>
-                            </p:column>
+                        <p:column headerText="Data Solicitação">
+                            <h:outputText value="#{vistorias.dataSolicitacao}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
 
-                            <p:column headerText="Tecnico">
-                                <h:outputText value="#{vistorias.tecnico2.nome}"/>
-                            </p:column>
+                        <p:column headerText="Tecnicos">
+                            <h:outputText value="#{vistorias.tecnico1.nome} / "/>
+                            <h:outputText value="#{vistorias.tecnico2.nome}"/>
+                        </p:column>
 
-                            <p:column headerText="Endereço">
-                                <h:outputText value="#{vistorias.estabelecimento.logradouro}"/>
-                            </p:column>
+                        <p:column headerText="Endereço">
+                            <h:outputText value="#{vistorias.estabelecimento.logradouro}"/>
+                        </p:column>
 
-                            <p:column headerText="Bairro">
-                                <h:outputText value="#{vistorias.estabelecimento.bairro}"/>
-                            </p:column>
+                        <p:column headerText="Bairro">
+                            <h:outputText value="#{vistorias.estabelecimento.bairro}"/>
+                        </p:column>
 
-                        </p:dataTable>
-                    </p:fieldset>
+                    </p:dataTable>
 
                 </p:rowExpansion>
 
-            </p:dataTable>  
+            </p:dataTable>
 
         </h:form>
     </ui:define>

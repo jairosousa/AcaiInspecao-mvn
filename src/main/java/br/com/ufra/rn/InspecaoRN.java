@@ -98,4 +98,9 @@ public class InspecaoRN {
         Vistoria vistoria = daoVistoria.obter(Vistoria.class, idv);
         return daoInspecao.obterInspecoesPorVistoria(vistoria);
     }
+
+    public List<Inspecao> obterInspecoesPorVistoria(Vistoria v) {
+        return daoInspecao.obterInspecoesPorVistoria(v);
+    }
+
 }

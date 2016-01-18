@@ -37,7 +37,7 @@ public class EstabelecimentoResource extends Application {
     @Path("all")
     public String obterTodos() {
        try {
-            estabelecimentos = rnEstabelecimento.estabelecimentosAguardandoVistoriaEPendente();
+            estabelecimentos = rnEstabelecimento.obterTodos();
             if (!estabelecimentos.isEmpty()) {
 
                json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));

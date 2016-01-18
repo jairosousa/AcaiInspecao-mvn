@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.ufra.dao;
 
 import br.com.ufra.dao.service.VistoriaDAO;
@@ -28,7 +27,7 @@ public class VistoriaDAOImpl extends GenericDAOImpl<Vistoria> implements Vistori
 //        return session.createQuery("from Vistoria v inner join fetch v.estabelecimento")
 //                .setCacheable(true)
 //                .list();
-        return getEntityManager().createQuery("from Vistoria v inner join fetch v.estabelecimento ",Vistoria.class).getResultList();
+        return getEntityManager().createQuery("from Vistoria v inner join fetch v.estabelecimento ", Vistoria.class).getResultList();
     }
 
     @Override
@@ -37,13 +36,28 @@ public class VistoriaDAOImpl extends GenericDAOImpl<Vistoria> implements Vistori
             String query = "SELECT v FROM Vistoria v WHERE v.estabelecimento =:e";
             Query q = super.getEntityManager().createQuery(query);
             q.setParameter("e", estabelecimento);
-            return (List<Vistoria>)q.getResultList();
+            return (List<Vistoria>) q.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro ao obterVistoriasPorEstabelecimento: "+e.getMessage());
+            System.out.println("Erro ao obterVistoriasPorEstabelecimento: " + e.getMessage());
             return null;
         }
-    
+
     }
 
-   
+    @Override
+    public List<Vistoria> obterVistoriasPendentes() {
+        try {
+            String regular = "false";
+            String query = "SELECT e FROM Vistoria e WHERE e.status =:false";
+            Query q = super.getEntityManager().createQuery(query);
+            q.setParameter("false", regular);
+
+            return (List<Vistoria>) q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao estabelecimento pendentes: " + e.toString());
+            return null;
+        }
+
+    }
+
 }

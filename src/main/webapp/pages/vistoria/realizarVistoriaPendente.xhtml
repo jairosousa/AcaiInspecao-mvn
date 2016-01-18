@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/templates/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:viewAction action="#{vistoriaBean.consultarEstabelecimentosPendenteVistoria()}"/>
+    </f:metadata>
+
+    <ui:define name="titulo">Estabelecimento Vistoria Pendente</ui:define>
+
+    <ui:define name="corpo">
+
+        <div class="tituloPrincipal">
+            <h3>Estabelecimento aguardando vistoria</h3>
+        </div>
+
+        <div class="formulario">
+
+            <h:form id="frm-vistoria">
+
+                <p:growl id="msgs"/>
+
+
+                <p:toolbar id="toolbar">
+
+                    <f:facet name="left">
+
+                        <p:commandButton 
+                            icon="ui-icon-disk" value="vistoriar"
+                            action="#{vistoriaBean.abrirVistoria()}">
+                            <f:param name="id" value="#{vistoriaBean.estabelecimentoSelecionado.id}"/>
+                        </p:commandButton>
+                    </f:facet>
+
+                </p:toolbar>
+
+
+                <p:dataTable value="#{vistoriaBean.estabelecimentos}"
+                             var="estabelecimentoVistoria" emptyMessage="Nenhum Estabelecimento para ser vistoriado" rows="7"
+                             paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                             id="vistoria-table"
+                             selection="#{vistoriaBean.estabelecimentoSelecionado}"
+                             selectionMode="single" rowKey="#{estabelecimentoVistoria.id}">
+
+                    <p:ajax event="rowSelect" update=":frm-vistoria:toolbar" />
+                    <p:ajax event="rowUnselect" update=":frm-vistoria:toolbar" />
+
+
+                    <p:column headerText="Nome Fantasia">
+                        <h:outputText value="#{estabelecimentoVistoria.nomeFantasia}"/>
+                    </p:column>
+
+                    <p:column headerText="Contato">
+                        <h:outputText value="#{estabelecimentoVistoria.nomeContato}"/>
+                    </p:column>
+
+                    <p:column headerText="Telefone" style="text-align: center">
+                        <h:outputText value="#{estabelecimentoVistoria.telefone}"/>
+                    </p:column>
+
+                    <p:column headerText="Endereço">
+                        <h:outputText value="#{estabelecimentoVistoria.logradouro}, #{estabelecimentoVistoria.numero}"/>
+                    </p:column>
+
+                    <p:column headerText="Bairro" style="text-align: center">
+                        <h:outputText value="#{estabelecimentoVistoria.bairro}"/>
+                    </p:column>
+
+                    <p:column headerText="Status" style="text-align: center">
+                        <h:outputText value="#{estabelecimentoVistoria.status}"/>
+                    </p:column>
+
+                    <p:column headerText="" style="text-align: center">
+                        <p:commandButton value="Consulta Vistorias" icon="ui-icon-document"
+                                         process="@this" update=":frm-vistoria:vistoriaEstabelecimento-dialog"
+                                         oncomplete="PF('vistoriaEstabelecimento').show()">
+
+                            <f:setPropertyActionListener
+                                target="#{vistoriaBean.estabelecimentoVistoria}"
+                                value="#{estabelecimentoVistoria}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:dialog header="Vistorias estabelecimentos" widgetVar="vistoriaEstabelecimento"
+                          id="vistoriaEstabelecimento-dialog" resizable="false" modal="true"
+                          closeOnEscape="true">
+
+                    <f:metadata>
+                        <f:viewAction action="#{vistoriaBean.vistoriasEstabelecimento}"/>
+                    </f:metadata>
+
+                    <p:messages id="msgs-dialog" />
+
+                    <p:dataTable value="#{vistoriaBean.vistoriasEstabelecimento}"
+                                 var="vistoria" emptyMessage="Nenhuma vistoria para o estabelecimento" rows="7"
+                                 paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                                 id="vistoriaEsta-table">
+
+                        <p:column headerText="Data Vistoria" style="text-align: center">
+                            <h:outputText value="#{vistoria.dataVistoria}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Observação" style="text-align: center">
+                            <h:outputText value="#{vistoria.observacao}"/>
+                        </p:column>
+
+                        <p:column headerText="Tecnicos" style="text-align: center">
+                            <h:outputText value="#{vistoria.tecnico1.nome} / "/>
+                            <h:outputText value="#{vistoria.tecnico2.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Prazo" style="text-align: center">
+                            <h:outputText value="#{vistoria.prazo}"/>
+                        </p:column>
+
+                        <p:column headerText="Data prevista para proxima vistoria" style="text-align: center">
+                            <h:outputText >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="" style="text-align: center">
+                            <p:commandButton value="Consulta" icon="ui-icon-document"
+                                             process="@this" update=":frm-vistoria:InspecaoEstabelecimento-dialog"
+                                             oncomplete="PF('inspecaoEstabelecimento').show()">
+                                <f:setPropertyActionListener
+                                    value="#{vistoria}"
+                                    target="#{vistoriaBean.vistoriaInspecao}"/>
+                            </p:commandButton>
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                </p:dialog>
+
+
+                <p:dialog header="Inspecões equipamentos" widgetVar="inspecaoEstabelecimento"
+                          id="InspecaoEstabelecimento-dialog" resizable="false" modal="true"
+                          closeOnEscape="true">
+
+                    <f:metadata>
+                        <f:viewAction action="#{vistoriaBean.inspecoesEquipamentos}"/>
+                    </f:metadata>
+
+                    <p:dataTable value="#{vistoriaBean.inspecoesEquipamentos}"
+                                 var="inspecao" emptyMessage="Nenhuma inspecao para o estabelecimento" rows="7"
+                                 paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                                 id="inspecaoEquioamento-table">
+
+                        <p:column headerText="Equipamento" style="text-align: center">
+                            <h:outputText value="#{inspecao.equipamento.nome}"/>
+                        </p:column>
+                        <p:column headerText="Material" style="text-align: center">
+                            <h:outputText value="#{inspecao.equipamento.material}"/>
+                        </p:column>
+                        <p:column headerText="Status" style="text-align: center">
+                            <h:outputText value="#{inspecao.equipamento.status}"/>
+                        </p:column>
+                        <p:column headerText="Observação" style="text-align: center">
+                            <h:outputText value="#{inspecao.observacao}"/>
+                        </p:column>
+                        <p:column headerText="Apto" style="text-align: center">
+                            <h:outputText value="#{inspecao.apto ? 'SIM' : 'NÃO'}"/>
+                        </p:column>
+                        <p:column headerText="Data inspeção" style="text-align: center">
+                            <h:outputText value="#{inspecao.dataInsp}">
+                                <f:convertDateTime pattern="dd/MM/yyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:dialog>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -73,11 +73,16 @@
 
                         <p:submenu label="Vistorias">
                             <p:menuitem value="Aguardando vistoria"
-                                        action="/pages/vistoria/realizarVistoria?faces-redirect=true"/>
+                                        action="/pages/vistoria/realizarAguardandoVistoria?faces-redirect=true"/>
 
-                            <p:menuitem value="Realizadas"/>
-
-                            <p:menuitem value="Pendentes"/>
+                            <p:menuitem value="Pendentes"
+                                        action="/pages/vistoria/realizarVistoriaPendente?faces-redirect=true"/>
+                            
+                            <p:menuitem value="Vencidas"
+                                        action="/pages/vistoria/realizarVistoriaVencida?faces-redirect=true"/>
+                            
+                            <p:menuitem value="Realizadas"
+                                        action="/pages/vistoria/vistoriaRealizadas?faces-redirect=true"/>
 
                         </p:submenu>
                     </p:submenu>
