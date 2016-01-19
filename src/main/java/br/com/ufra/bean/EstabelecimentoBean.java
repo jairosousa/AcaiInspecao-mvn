@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.model.map.DefaultMapModel;
@@ -41,7 +42,7 @@ public class EstabelecimentoBean implements Serializable {
 
     private Estabelecimento estabelecimento;
     private EstabelecimentoRN RN = new EstabelecimentoRN();
-    
+
     private List<Estabelecimento> estabelecimentos;
     private List<Estabelecimento> estabelecimentosRegulares = new ArrayList<>();
     private List<Estabelecimento> estabelecimentosPendentes = new ArrayList<>();
@@ -102,27 +103,28 @@ public class EstabelecimentoBean implements Serializable {
     public String salvar() {
 
         if (RN.salvar(this.estabelecimento)) {
+            consultar();
             FacesMessage fm = null;
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
+            return "lista";
+
         } else {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "Erro no Cadastro!");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
-
+            return "lista";
         }
     }
 
-    public String excluir() {
+    public void excluir() {
         if (RN.excluir(estabelecimento)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro foi excluído com exito");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
+            consultar();
         } else {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "O cadastro não foi excluído!!!");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "lista.xhtml";
+            consultar();
         }
     }
 
@@ -143,7 +145,7 @@ public class EstabelecimentoBean implements Serializable {
         System.out.println("estabelecimento id: " + id);
         return "/pages/estabelecimento/formulario?faces-redirect=true";
     }
-    
+
     public String editarStatus() {
         Integer id = Integer.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);

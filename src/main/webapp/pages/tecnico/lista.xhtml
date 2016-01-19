@@ -25,11 +25,12 @@
                         </f:facet>
                     </p:toolbar>
 
-                    <p:dataTable var="tecnicos" value="#{tecnicoBean.tecnicos}"
+                    <p:dataTable id="tecnico-table"
+                                 var="tecnicos" value="#{tecnicoBean.tecnicos}"
                                  sortMode="multiple" rows="5" paginator="true"
-                                 id="tabelaTecnicos" style="text-align: center">
+                                 style="text-align: center">
 
-                        <p:column headerText="Matricula">
+                                 <p:column headerText="Matricula">
                             <h:outputText value="#{tecnicos.matricula}"/>
                         </p:column>
 
@@ -57,7 +58,7 @@
                                                  icon="ui-icon-trash"
                                                  action="#{tecnicoBean.excluir()}" 
                                                  onclick="if (!confirm('Confirma a exclusão do tecnico #{tecnicos.nome}?'))
-                                                                 return false;">
+                                                             return false;">
 
                                     <f:setPropertyActionListener
                                         target="#{tecnicoBean.tecnico}"

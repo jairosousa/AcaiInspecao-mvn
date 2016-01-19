@@ -49,10 +49,11 @@
                                 target="#{equipamentoBean.equipamentoEdicao}" />
                         </p:commandButton>
 
-                        <p:commandButton icon="ui-icon-trash" title="Excluir"
-                                         action="#{equipamentoBean.excluir}" process="@this"
-                                         update="equipamento-table msgs toolbar"
-                                         disabled="#{equipamentoBean.equipamentoSelecionado==null}">
+                        <p:commandButton
+                            icon="ui-icon-trash" title="Excluir"
+                            action="#{equipamentoBean.excluir}" process="@this"
+                            update="equipamento-table msgs toolbar"
+                            disabled="#{equipamentoBean.equipamentoSelecionado==null }  ">
                             <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
                                        message="Tem certeza que deseja excluir o equipamento?" />
                         </p:commandButton>
@@ -60,12 +61,12 @@
                     </f:facet>
                 </p:toolbar>
 
-                <p:dataTable value="#{equipamentoBean.equipamentos}"
-                             var="equipamentos" emptyMessage="Nenhum Equipamento Cadastrado" rows="5"
-                             paginator="true" paginatorPosition="bottom" style="margin-top:5px"
-                             id="equipamento-table"
-                             selection="#{equipamentoBean.equipamentoSelecionado}"
-                             selectionMode="single" rowKey="#{equipamentos.id}">
+                <p:dataTable  id="equipamento-table"
+                              value="#{equipamentoBean.equipamentos}"
+                              var="equipamentos" emptyMessage="Nenhum Equipamento Cadastrado" rows="5"
+                              paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                              selection="#{equipamentoBean.equipamentoSelecionado}"
+                              selectionMode="single" rowKey="#{equipamentos.id}">
 
                     <p:ajax event="rowSelect" update=":frm-equipamento:toolbar" />
                     <p:ajax event="rowUnselect" update=":frm-equipamento:toolbar" />

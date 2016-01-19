@@ -211,7 +211,7 @@ public class VistoriaBean implements Serializable {
     public void consultarEstabelecimentosAguardandoVistoria() {
         estabelecimentos = getEstabelecimentosAguardandoVistoria();
     }
-    
+
     public List<Estabelecimento> getEstabelecimentosVencidos() {
         if (!FacesContext.getCurrentInstance().isPostback()) {
             return RN_ESTABELECIMENTO.obterEstabelecimentoVencido();
@@ -275,14 +275,14 @@ public class VistoriaBean implements Serializable {
         definirStatusEstabelecimentoEVistoriaApt(this.inspecoes);
         if (RN_INSPECAO.salvarInspecaoApartirInspecoes(this.vistoria, this.inspecoes)) {
             FacesMessage fm = null;
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cadastro feito com Sucesso");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  "Cadastro feito com Sucesso","");
             FacesContext.getCurrentInstance().addMessage(null, fm);
             vistoria = new Vistoria();
-            return "vistoriaRealizadas?faces-redirect=true";
+            return "/index.xhtml";
         } else {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "Erro no Cadastro!");
             FacesContext.getCurrentInstance().addMessage(null, fm);
-            return "vistoriaRealizadas?faces-redirect=true";
+            return "/index.xhtml";
 
         }
     }
@@ -300,9 +300,17 @@ public class VistoriaBean implements Serializable {
     }
 
     public String abrirVistoria() {
-        Integer id = Integer.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
-        return "vistoriar?faces-redirect=true";
+
+        if (this.estabelecimentoSelecionado == null) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selecione um estabelecimento para vistoriar!",null);
+            FacesContext.getCurrentInstance().addMessage(null, fm);
+            return null;
+        } else {
+            Integer id = Integer.valueOf(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", id);
+            return "vistoriar?faces-redirect=true.xhtml";
+        }
+
     }
 
 }

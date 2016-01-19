@@ -90,3 +90,19 @@ a{
     color: #333;
 }
 
+.statusReg{
+    border-radius: 3px; 
+    font-weight: bold;
+    background-color: #e5fff7;
+}
+.statusAguard{
+    border-radius: 3px; 
+    font-weight: bold;
+    background-color: #ffe5e5;
+}
+.statusPendente{
+    border-radius: 3px; 
+    font-weight: bold;
+    background-color: #fff5e5;
+}
+

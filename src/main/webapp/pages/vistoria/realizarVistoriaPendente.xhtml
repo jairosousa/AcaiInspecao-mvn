@@ -72,7 +72,11 @@
                     </p:column>
 
                     <p:column headerText="Status" style="text-align: center">
-                        <h:outputText value="#{estabelecimentoVistoria.status}"/>
+                        <h:outputText value="#{estabelecimentoVistoria.status}"
+                                      style="padding: 4px; border-radius: 3px; color: #FFFFFF;  font-weight: bold;
+                                      background-color: ${estabelecimentoVistoria.status == 'Aguardando vistoria' ? '#e62e00' : 
+                                                      estabelecimentoVistoria.status == 'Pendente' ? '#ff9933' : 
+                                                      estabelecimentoVistoria.status == 'Regular' ? '#00802b' : '#804000'}"/>
                     </p:column>
 
                     <p:column headerText="" style="text-align: center">

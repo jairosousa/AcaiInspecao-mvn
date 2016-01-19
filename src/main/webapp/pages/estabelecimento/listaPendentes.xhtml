@@ -23,7 +23,7 @@
 
 
             <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentosPendentes}"
-                         rows="5" paginator="true" id="estab" paginatorPosition="bottom"
+                         rows="10" paginator="true" id="estab" paginatorPosition="bottom"
                          sortMode="multiple" style="text-align: center">
 
                 <p:column style="width: 16px">
@@ -43,7 +43,11 @@
                 </p:column>
 
                 <p:column headerText="Status">
-                    <h:outputText value="#{estabelecimentos.status}"/>
+                    <h:outputText value="#{estabelecimentos.status}" 
+                                  style="padding: 4px; border-radius: 3px; color: #FFFFFF;  font-weight: bold;
+                                  background-color: ${estabelecimentos.status == 'Aguardando vistoria' ? '#e62e00' : 
+                                                      estabelecimentos.status == 'Pendente' ? '#ff9933' : 
+                                                      estabelecimentos.status == 'Regular' ? '#00802b' : '#804000'}"/>
                 </p:column>
 
                 <p:column headerText="Operações" >

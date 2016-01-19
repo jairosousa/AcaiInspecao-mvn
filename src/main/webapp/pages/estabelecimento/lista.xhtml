@@ -15,18 +15,21 @@
             <h3>Estabelecimentos</h3>
         </div>
 
-        <h:form id="listaEstabelecimento">
+        <h:form id="frm-estabelecimento">
             <p:growl
                 id="growl"
                 showDetail="true"
                 sticky="false"/>
 
 
-            <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
-                         rows="5" paginator="true" id="estab" paginatorPosition="bottom"
-                         sortMode="multiple" style="text-align: center">
+            <p:dataTable  id="estabelecimento-table" 
+                          var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
+                          rows="10" paginator="true" paginatorPosition="bottom"
+                          sortMode="multiple" style="text-align: center"
+                          rowStyleClass="#{estabelecimentos.status=='Regular'  ?  'statusReg' : 
+                                           estabelecimentos.status=='Aguardando vistoria'  ?  'statusAguard' : 'statusPendente'}">
 
-                <p:column style="width: 16px">
+                <p:column style="width: 36px">
                     <p:rowToggler/>
                 </p:column>
 
@@ -44,8 +47,11 @@
 
                 <p:column headerText="Status">
                     <h:outputText value="#{estabelecimentos.status}" 
-                                  style="padding: 4px; border-radius: 3px; color: #FFFFFF; font-style: italic;
-                                  background-color: ${estabelecimentos.status == 'Aguardando vistoria' ? 'red' : estabelecimentos.status == 'Pendente' ? 'blue' : 'green'}"/>
+                                  style="padding: 4px; border-radius: 20px; font-weight: bold;
+                                  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                                  background-color: ${estabelecimentos.status == 'Aguardando vistoria' ? '#ffe5e5' : 
+                                                      estabelecimentos.status == 'Pendente' ? '#fff5e5' : 
+                                                      estabelecimentos.status == 'Regular' ? '#e5fff7' : '#804000'}"/>
                 </p:column>
 
                 <p:column headerText="Operações" >
@@ -57,14 +63,19 @@
                         </p:commandButton>
 
                         <p:commandButton
-                            ajax="false"
+                            title="Excluir"
                             icon="ui-icon-trash"
                             action="#{estabelecimentoBean.excluir()}"
-                            onclick="if (!confirm('Confirma a exclusão do estabelecimento #{estabelecimentos.nomeFantasia}?'))
-                                        return false;">
+                            process="@this"
+                            update="estabelecimento-table :frm-estabelecimento:growl">
+
+                            <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+                                       message="Tem certeza que deseja excluir o estabelecimento?" />
+
                             <f:setPropertyActionListener
                                 target="#{estabelecimentoBean.estabelecimento}"
                                 value="#{estabelecimentos}"/>
+
                         </p:commandButton>
 
                     </div>
