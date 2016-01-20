@@ -14,32 +14,31 @@
         <div class="tituloPrincipal">
             <h3>Cadastro de Estabelecimentos</h3>
         </div>
-        
 
 
-            <h:form id="formularioEstabelecimento">
 
-                <p:growl
-                    id="growl"
-                    showDetail="true"
-                    sticky="false"/>
+        <h:form id="formularioEstabelecimento" class="form-horizontal">
 
+            <p:growl
+                id="growl"
+                showDetail="true"
+                sticky="false"/>
 
-                <ui:include src="toobarFormulario.xhtml"/>
+            <h:inputHidden value="#{estabelecimentoBean.estabelecimento.id}"/>
+            <br />
+            <ui:include src="dadosEstabelecimentos.xhtml"/>
+            <br />
+            <ui:include src="dadosContato.xhtml"/>
+            <br />
+            <ui:include src="dadosEndereco.xhtml"/>
+            <br />
+            <ui:include src="dadosAcesso.xhtml"/>
+            <br />
+            <ui:include src="localizacao.xhtml"/>
 
-                <h:inputHidden value="#{estabelecimentoBean.estabelecimento.id}"/>
-                <br />
-                <ui:include src="dadosEstabelecimentos.xhtml"/>
-                <br />
-                <ui:include src="dadosContato.xhtml"/>
-                <br />
-                <ui:include src="dadosEndereco.xhtml"/>
-                <br />
-                <ui:include src="dadosAcesso.xhtml"/>
-                <br />
-                <ui:include src="localizacao.xhtml"/>
-
-            </h:form>
+            <ui:include src="toobarFormulario.xhtml"/>
+            
+        </h:form>
     </ui:define>
 
 </ui:composition>

@@ -26,6 +26,7 @@
                           var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentos}"
                           rows="10" paginator="true" paginatorPosition="bottom"
                           sortMode="multiple" style="text-align: center"
+                          emptyMessage="Não há estabelecimentos cadastrados"
                           rowStyleClass="#{estabelecimentos.status=='Regular'  ?  'statusReg' : 
                                            estabelecimentos.status=='Aguardando vistoria'  ?  'statusAguard' : 'statusPendente'}">
 
