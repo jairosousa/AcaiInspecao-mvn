@@ -7,57 +7,80 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-
     <ui:composition>
 
-        <p:fieldset legend="Dados do Contato" toggleable="true">
+        <div class="container">
 
-            <h:panelGrid id="dadoContato" columns="2" columnClasses="grid">
+            <div class="panel panel-primary">
 
-                <h:panelGrid columns="2">
+                <div class="panel-heading">
+                    Dados do Contato
+                </div>
 
-                    <p:outputLabel value="Nome" for="nomecontato"/>
-                    <p:inputText id="nomecontato" size="50"
-                                 value="#{estabelecimentoBean.estabelecimento.nomeContato}"
-                                 rendered="true" label="Contato">
-                        <f:validateLength maximum="50" minimum="2"/>
-                    </p:inputText>
+                <div class="panel-body">
 
-                    <h:outputLabel value="Email" for="email"/>
+                    <form class="form-horizontal" role="form">
 
-                    <h:panelGroup>
-                        <p:inputText id="email"
-                                     label="E-Mail"
-                                     value="#{estabelecimentoBean.estabelecimento.email}"
-                                     size="50" maxlength="50" required="true"
-                                     validatorMessage="E-mail invalido">
-                            <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
-                        </p:inputText>
-                        <h:message for="email"/>
-                    </h:panelGroup>
+                        <div class="form-group">
+                            <p:outputLabel value="Nome" for="nomeContato" class="control-label col-sm-2"/>
+                            <div class="col-sm-10">
+                                <p:inputText id="nomeContato" 
+                                             size="50" class="form-control"
+                                             value="#{estabelecimentoBean.estabelecimento.nomeContato}"
+                                             placeholder="Nome Contato"
+                                             rendered="true" label="Contato">
+                                    <f:validateLength maximum="50" minimum="2"/>
+                                </p:inputText>
+                            </div>
+                        </div>
 
-                </h:panelGrid>
+                        <div class="form-group">
+                            <h:outputLabel value="Email" for="email" class="control-label col-sm-2"/>
+                            <div class="col-sm-10">
+                                <h:panelGroup>
+                                    <p:inputText id="email"
+                                                 label="E-Mail"
+                                                 class="form-control"
+                                                 value="#{estabelecimentoBean.estabelecimento.email}"
+                                                 size="50" maxlength="50" required="true"
+                                                 placeholder="Email"
+                                                 validatorMessage="E-mail invalido">
+                                        <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+                                    </p:inputText>
+                                    <h:message for="email"/>
+                                </h:panelGroup>
+                            </div>
+                        </div>
 
-                <h:panelGrid columns="4">
-                    <h:outputLabel value="CPF" for="cpf"/>
-                    <p:inputMask id="cpf"
-                                 value="#{estabelecimentoBean.estabelecimento.cpf}"
-                                 label="cpf" mask="999.999.999-99" rendered="true"
-                                 requiredMessage="É necessário informar o cpf"/>
+                        <div class="form-group">
+                            <h:outputLabel value="RG" for="rg" class="control-label col-sm-2"/>
+                            <div class="col-sm-10">
+                                <p:inputText id="rg" 
+                                             type="numeric"
+                                             value="#{estabelecimentoBean.estabelecimento.rg}"
+                                             placeholder="RG"
+                                             label="rg">
+                                    <f:validateLength maximum="11" minimum="2"/>
+                                </p:inputText>
+                            </div>
+                        </div>
 
-                    <h:outputLabel value="RG" for="rg"/>
-                    <p:inputText type="number" id="rg" value="#{estabelecimentoBean.estabelecimento.rg}"
-                                 label="rg">
-                        <f:validateLength maximum="11" minimum="2"/>
-                    </p:inputText>
+                        <div class="form-group">
+                            <h:outputLabel value="Telefone" for="telefone" class="control-label col-sm-2"/>
+                            <div class="col-sm-10">
+                                <p:inputMask id="telefone"
+                                             value="#{estabelecimentoBean.estabelecimento.telefone}"
+                                             placeholder="Telefone"
+                                             label="telefone" mask="(99)9 9999-9999"/>
+                            </div>
+                        </div>
 
-                    <h:outputLabel value="Telefone" for="telefone"/>
-                    <p:inputMask id="telefone" value="#{estabelecimentoBean.estabelecimento.telefone}"
-                                 label="telefone" mask="(99) 9999-9999"/>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-                </h:panelGrid>
-            </h:panelGrid>
-        </p:fieldset>
+
 
     </ui:composition>
 
