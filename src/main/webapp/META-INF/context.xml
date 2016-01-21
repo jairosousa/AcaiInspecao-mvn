@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/AcaiInspecao-mvn"/>
+<Context antiJARLocking="true" path="/AcaiInspecao-mvn">
+         <Resource auth="Container"
+    name="jdbc/acai_inspecao"
+    global="jdbc/acai_inspecao"
+    driverClassName="com.mysql.jdbc.Driver"
+    maxActive="100"
+    maxIdle="20"
+    maxWait="10000"
+    minIdle="5"
+    username="root"
+    password="root"
+    type="javax.sql.DataSource"
+    url="jdbc:mysql://localhost:3306/acaipde"
+    validationQuery="SELECT 1"/>
+</Context>
