@@ -41,18 +41,16 @@ public class TecnicoResource extends Application{
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String logar(@QueryParam("m1") String mat1, @QueryParam("m2") String mat2) throws JSONException{
+    public String logar(@QueryParam("m") String matricula, @QueryParam("s") String senha) throws JSONException{
            // String json;
         try {
-            
-            System.out.println("mat1: " + mat1);
-            System.out.println("mat2: " + mat2);
+           
 
-            tecnicos = new ArrayList<>();
-            tecnicos = rnTecnico.obterTecnicosPorMatricula(mat1, mat2);
+            tecnico = new Tecnico();
+            tecnico = rnTecnico.obterPorMatriculaSenha(matricula, senha);
              
-            if (tecnicos.size() == 2){
-               return gson.toJson(TecnicoConverter.toTecnicosPOJO(tecnicos));
+            if (tecnico != null){
+               return gson.toJson(TecnicoConverter.toTecnicoPOJO(tecnico));
             } else {
               return null;
             }

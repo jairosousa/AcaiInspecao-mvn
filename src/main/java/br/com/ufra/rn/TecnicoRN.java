@@ -89,4 +89,8 @@ public class TecnicoRN {
     public List<Tecnico> obterTecnicosPorMatricula(String mat1, String mat2) {
         return dao.obterTecnicosPorMatricula(mat1, mat2);
     }
+    
+    public Tecnico obterPorMatriculaSenha(String matricula, String senha){
+        return dao.obterPorMatriculaSenha(matricula, senha);
+    }
 }

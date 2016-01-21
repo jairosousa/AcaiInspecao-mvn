@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/AcaiInspecao-mvn">
-         <Resource auth="Container"
+    
+    
+             <Resource auth="Container"
     name="jdbc/acai_inspecao"
     global="jdbc/acai_inspecao"
     driverClassName="com.mysql.jdbc.Driver"
@@ -13,4 +15,6 @@
     type="javax.sql.DataSource"
     url="jdbc:mysql://localhost:3306/acaipde"
     validationQuery="SELECT 1"/>
+             
+             
 </Context>

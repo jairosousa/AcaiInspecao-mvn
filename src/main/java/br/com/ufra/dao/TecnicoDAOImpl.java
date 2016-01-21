@@ -8,6 +8,7 @@ package br.com.ufra.dao;
 import br.com.ufra.dao.service.GenericDAO;
 import br.com.ufra.dao.service.TecnicoDAO;
 import br.com.ufra.entidade.Tecnico;
+import br.com.ufra.spring.LoginSpring;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,6 +38,18 @@ public class TecnicoDAOImpl extends GenericDAOImpl<Tecnico> implements TecnicoDA
         String query = "SELECT t FROM Tecnico t WHERE t.email = :email";
         Query q = super.getEntityManager().createQuery(query);
         q.setParameter("email", email);
+        try {
+            return (Tecnico) q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    @Override
+    public Tecnico obterPorMatriculaSenha(String matricula, String senha) {
+        String senhaEncode = LoginSpring.encode(senha);
+        String query = "SELECT t FROM Tecnico t WHERE t.matricula = :matricula AND t.senha= :senha";
+        Query q = super.getEntityManager().createQuery(query);
+        q.setParameter("matricula", matricula).setParameter("senha", senhaEncode);
         try {
             return (Tecnico) q.getSingleResult();
         } catch (Exception e) {

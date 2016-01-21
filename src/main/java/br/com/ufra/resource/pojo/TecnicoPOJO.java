@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class TecnicoPOJO implements Serializable{
     private Integer id;
-    private String matricula;
+    private String nome;
 
     public Integer getId() {
         return id;
@@ -17,13 +17,15 @@ public class TecnicoPOJO implements Serializable{
         this.id = id;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public String getNome() {
+        return nome;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
+
+
 
     
 
