@@ -14,16 +14,26 @@
     box-shadow: 5px 4px 10px #333, -5px -5px 10px #ccc;
 }
 
+.panel-primary{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px;
+    background: #ffffff;
+    box-shadow: 5px 4px 10px #333, -5px -5px 10px #ccc;
+}
+
 .tituloPrincipal{
     text-transform: uppercase;
+    border-radius: 5px;
     padding: 1px;
-    background-color: #610631;
-    color: #FFFFFF;
-    font-size: 13px;
+    background-color:#337ab7;
+    color: #ffffff;
+    font-size: 10px;
 }
 
 .tituloPrincipal h3{
     margin-left: 5px;
+    font-size: 18px;
 }
 
 #login-dialog{
@@ -60,14 +70,14 @@ body{
 header{
     padding: 0px;
     margin-bottom: 20px;
-    height: 85px;
-    background-color: #610631;
+    height: 51px;
     color: #fff;
     box-shadow: 0px 2px 2px #ccc
 }
 
 #conteudo{
     padding: 0px 5px;
+    margin-top: 5em;
 }
 
 footer{
@@ -79,7 +89,7 @@ footer{
 }
 
 h1{
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
     padding: 0px;
     margin: 0px;
@@ -106,3 +116,20 @@ a{
     background-color: #fff5e5;
 }
 
+#h1banner{
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+    float: left;
+    font-size: 25px;
+}
+
+.clearfix{
+    float: right;
+    color: #ccc;
+    margin-top: 10px;
+}
+.navbar{
+    margin-bottom: 15px;
+}

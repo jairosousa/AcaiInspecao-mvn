@@ -1,94 +1,96 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 
-    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-        <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Endereço
+        </div>
 
-            <div class="panel panel-primary">
+        <div class="panel-body">
 
-                <div class="panel-heading">
-                    Endereço
+            <div class="form-group">
+                <p:outputLabel value="Logradouro" for="logradouro" class="control-label col-sm-2"/>
+                <div class="col-sm-10">
+                    <p:inputText id="logradouro" class="form-control" placeholder="Logradouro"
+                                 value="#{estabelecimentoBean.estabelecimento.logradouro}"
+                                 size="50" label="logradouro">
+                    </p:inputText>
                 </div>
+            </div>
 
-                <div class="panel-body">
-
-                        <div class="form-group">
-                            <p:outputLabel value="Logradouro" for="logradouro" class="control-label col-sm-2"/>
-                            <div class="col-sm-10">
-                                <p:inputText id="logradouro" class="form-control" placeholder="Logradouro"
-                                             value="#{estabelecimentoBean.estabelecimento.logradouro}"
-                                             size="50" label="logradouro">
-                                </p:inputText>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <p:outputLabel value="Complemento" for="complemento" class="control-label col-sm-2"/>
-                            <div class="col-sm-10">
-                                <p:inputText id="complemento" size="50" 
-                                             class="form-control"
-                                             placeholder="Complemento"
-                                             value="#{estabelecimentoBean.estabelecimento.complemento}"
-                                             label="complemento" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <h:outputLabel value="Número" for="numero" class="control-label col-sm-2"/>
-                            <div class="col-sm-10">
-                                <p:inputText id="numero" 
-                                             value="#{estabelecimentoBean.estabelecimento.numero}"
-                                             placeholder="Número"
-                                             label="numero" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <p:outputLabel for="cep" value="CEP"  class="control-label col-sm-2"/>
-                            <div class="col-sm-10">
-                                <p:inputMask id="cep" 
-                                             placeholder="CEP"
-                                             value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <h:outputLabel value="Bairro" for="bairro" class="control-label col-sm-2"/>
-                            <div class="col-sm-10">
-                                <p:selectOneMenu id="bairro" 
-                                                 value="#{estabelecimentoBean.estabelecimento.bairro}">
-                                    <f:selectItems value="#{estabelecimentoBean.bairros}"/>
-                                </p:selectOneMenu>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <h:outputLabel value="Cidade" for="cidade" class="control-label col-sm-2"/>
-                            <div class="col-sm-10">
-                                <p:inputText 
-                                    id="cidade" value="#{estabelecimentoBean.estabelecimento.cidade}"
-                                    placeholder="Cidade"
-                                    label="cidade" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <h:outputLabel value="UF" for="uf" class="control-label col-sm-2"/>
-                            <div class="col-sm-10">
-                                <p:inputText id="uf"
-                                             value="#{estabelecimentoBean.estabelecimento.uf}"
-                                             placeholder="Estado"
-                                             label="uf" />
-                            </div>
-                        </div>
+            <div class="form-group">
+                <p:outputLabel value="Complemento" for="complemento" class="control-label col-sm-2"/>
+                <div class="col-sm-10">
+                    <p:inputText id="complemento" size="50" 
+                                 class="form-control"
+                                 placeholder="Complemento"
+                                 value="#{estabelecimentoBean.estabelecimento.complemento}"
+                                 label="complemento" />
                 </div>
+            </div>
 
+            <div class="form-group">
+                <h:outputLabel value="Número" for="numero" class="control-label col-sm-2"/>
+                <div class="col-sm-3">
+                    <p:inputText id="numero" 
+                                 class="form-control"
+                                 value="#{estabelecimentoBean.estabelecimento.numero}"
+                                 placeholder="Número"
+                                 label="numero" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p:outputLabel for="cep" value="CEP"  class="control-label col-sm-2"/>
+                <div class="col-sm-3">
+                    <p:inputMask id="cep" 
+                                 class="form-control"
+                                 placeholder="CEP"
+                                 value="#{estabelecimentoBean.estabelecimento.cep}" mask="99999-999" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="Bairro" for="bairro" class="control-label col-sm-2"/>
+                <div class="col-sm-3">
+                    <h:selectOneMenu id="bairro" 
+                                     class="form-control"
+                                     value="#{estabelecimentoBean.estabelecimento.bairro}">
+                        <f:selectItems value="#{estabelecimentoBean.bairros}"/>
+                    </h:selectOneMenu>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="Cidade" for="cidade" class="control-label col-sm-2"/>
+                <div class="col-sm-3">
+                    <p:inputText 
+                        id="cidade" 
+                        class="form-control"
+                        value="#{estabelecimentoBean.estabelecimento.cidade}"
+                        placeholder="Cidade"
+                        label="cidade" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="UF" for="uf" class="control-label col-sm-2"/>
+                <div class="col-sm-3">
+                    <p:inputText id="uf"
+                                 value="#{estabelecimentoBean.estabelecimento.uf}"
+                                 class="form-control"
+                                 placeholder="Estado"
+                                 label="uf" />
+                </div>
             </div>
         </div>
-    </ui:composition>
+    </div>
+
+</ui:composition>
 

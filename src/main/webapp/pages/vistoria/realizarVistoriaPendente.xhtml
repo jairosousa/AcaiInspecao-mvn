@@ -15,8 +15,10 @@
 
     <ui:define name="corpo">
 
-        <div class="tituloPrincipal">
-            <h3>Estabelecimento aguardando vistoria</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Estabelecimento vistoria pendente
+            </div>
         </div>
 
         <div class="formulario">
@@ -75,8 +77,8 @@
                         <h:outputText value="#{estabelecimentoVistoria.status}"
                                       style="padding: 4px; border-radius: 3px; color: #FFFFFF;  font-weight: bold;
                                       background-color: ${estabelecimentoVistoria.status == 'Aguardando vistoria' ? '#e62e00' : 
-                                                      estabelecimentoVistoria.status == 'Pendente' ? '#ff9933' : 
-                                                      estabelecimentoVistoria.status == 'Regular' ? '#00802b' : '#804000'}"/>
+                                                          estabelecimentoVistoria.status == 'Pendente' ? '#ff9933' : 
+                                                          estabelecimentoVistoria.status == 'Regular' ? '#00802b' : '#804000'}"/>
                     </p:column>
 
                     <p:column headerText="" style="text-align: center">

@@ -11,8 +11,10 @@
 
     <ui:define name="corpo">
 
-        <div class="tituloPrincipal">
-            <h3>Estabelecimentos Regulares</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Estabelecimentos Regulares
+            </div>
         </div>
 
         <h:form id="listaEstabelecimento">
@@ -110,7 +112,7 @@
 
                         <p:outputLabel value="Latitude"/>
                         <h:outputText value="#{estabelecimentos.latitude}"/>
-                        
+
                         <p:outputLabel value="Longitude"/>
                         <h:outputText value="#{estabelecimentos.longitude}"/>
 

@@ -7,52 +7,48 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-    <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Dados de Acesso
+        </div>
 
-        <div class="panel panel-primary">
+        <div class="panel-body">
 
-            <div class="panel-heading">
-                Dados de Acesso
+
+            <div class="form-group">
+                <h:outputLabel for="dataCad" value="Data Cadastro"  class="control-label col-sm-2"/>
+                <div class="col-sm-10">
+                    <p:calendar 
+                        id="dataCad" 
+                        value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
+                        pattern="dd/MM/yyyy" mask="true" showOn="button">
+                        <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                    </p:calendar>
+                </div>
             </div>
 
-            <div class="panel-body">
+            <div class="form-group">
+                <h:outputLabel for="dataLic" value="Data Licença" class="control-label col-sm-2"/>
+                <div class="col-sm-10">
+                    <p:calendar 
+                        id="dataLic" 
+                        value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
+                        pattern="dd/MM/yyyy" mask="true" showOn="button">
+                        <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
+                        <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="dataVenc growl" />
+                    </p:calendar>
+                </div>
+            </div>
 
-
-                    <div class="form-group">
-                        <h:outputLabel for="dataCad" value="Data Cadastro"  class="control-label col-sm-2"/>
-                        <div class="col-sm-10">
-                            <p:calendar 
-                                id="dataCad" 
-                                value="#{estabelecimentoBean.estabelecimento.dataCadastro}"
-                                pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                            </p:calendar>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel for="dataLic" value="Data Licença" class="control-label col-sm-2"/>
-                        <div class="col-sm-10">
-                            <p:calendar 
-                                id="dataLic" 
-                                value="#{estabelecimentoBean.estabelecimento.dataLicenca}"
-                                pattern="dd/MM/yyyy" mask="true" showOn="button">
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.onDateSelect}" update="growl" />
-                                <p:ajax event="dateSelect" listener="#{estabelecimentoBean.atualizaDataVencimento()}" update="dataVenc growl" />
-                            </p:calendar>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel for="dataVenc" value="Data Vencimento" class="control-label col-sm-2"/>
-                        <div class="col-sm-10">
-                            <p:calendar 
-                                id="dataVenc" 
-                                value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
-                                pattern="dd/MM/yyyy" mask="true" >
-                            </p:calendar>
-                        </div>
-                    </div>
+            <div class="form-group">
+                <h:outputLabel for="dataVenc" value="Data Vencimento" class="control-label col-sm-2"/>
+                <div class="col-sm-10">
+                    <p:calendar 
+                        id="dataVenc" 
+                        value="#{estabelecimentoBean.estabelecimento.dataVencimento}"
+                        pattern="dd/MM/yyyy" mask="true" >
+                    </p:calendar>
+                </div>
             </div>
         </div>
     </div>

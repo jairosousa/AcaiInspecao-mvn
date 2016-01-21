@@ -10,9 +10,10 @@
     <ui:define name="titulo">Consulta Estabelecimentos</ui:define>
 
     <ui:define name="corpo">
-
-        <div class="tituloPrincipal">
-            <h3>Estabelecimentos</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Estabelecimentos
+            </div>
         </div>
 
         <h:form id="frm-estabelecimento">
@@ -57,28 +58,28 @@
 
                 <p:column headerText="Operações" >
                     <div align="center">
-                        <p:commandButton
-                            icon="ui-icon-pencil"
-                            action="#{estabelecimentoBean.editar()}">
-                            <f:param name="id" value="#{estabelecimentos.id}"/>
-                        </p:commandButton>
+                                <p:commandButton
+                                    title="Editar"
+                                    icon="ui-icon-pencil"
+                                    action="#{estabelecimentoBean.editar()}">
+                                    <f:param name="id" value="#{estabelecimentos.id}"/>
+                                </p:commandButton>
 
-                        <p:commandButton
-                            title="Excluir"
-                            icon="ui-icon-trash"
-                            action="#{estabelecimentoBean.excluir()}"
-                            process="@this"
-                            update="estabelecimento-table :frm-estabelecimento:growl">
+                                <p:commandButton
+                                    title="Excluir"
+                                    icon="ui-icon-trash"
+                                    action="#{estabelecimentoBean.excluir()}"
+                                    process="@this"
+                                    update="estabelecimento-table :frm-estabelecimento:growl">
 
-                            <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
-                                       message="Tem certeza que deseja excluir o estabelecimento?" />
+                                    <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+                                               message="Tem certeza que deseja excluir o estabelecimento?" />
 
-                            <f:setPropertyActionListener
-                                target="#{estabelecimentoBean.estabelecimento}"
-                                value="#{estabelecimentos}"/>
+                                    <f:setPropertyActionListener
+                                        target="#{estabelecimentoBean.estabelecimento}"
+                                        value="#{estabelecimentos}"/>
 
-                        </p:commandButton>
-
+                                </p:commandButton>
                     </div>
                 </p:column>
 

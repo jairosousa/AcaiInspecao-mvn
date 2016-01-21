@@ -63,6 +63,6 @@ public class LoginSpring implements UserDetailsService {
     }
 
     public static void main(String[] args) {
-        System.out.println(encode("123"));
+        System.out.println(encode("jnssls"));
     }
 }

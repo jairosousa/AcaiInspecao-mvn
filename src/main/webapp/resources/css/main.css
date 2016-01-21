@@ -67,10 +67,11 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
     font-weight: normal;
+    background-color: #d7e7f4;
 }
 
 .panel {
-    background-color: #f5f5f5;
+    background-color: #337ab7;
     width: 300px;
     height:380px;
     margin: 7% auto;

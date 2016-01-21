@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
         <meta charset="UTF-8" />
         <link rel="shortcut icon" type="image/x-icon" href="#{resource['imagens/acaipde.png']}"/>
@@ -18,109 +19,36 @@
     </h:head>
 
     <h:body>
-        <p:ajaxStatus styleClass="ajax-status">
-            <f:facet name="start">
-                <h:graphicImage style="float: top" library="imagens" name="loading.gif"/>
-            </f:facet>
-            <f:facet name="complete">
-                <h:outputText value=""/>
-            </f:facet>
-        </p:ajaxStatus>
+        <div class="navbar-wrapper">
+            <div class="container">
+                <section>
 
-        <header>
-            <h:graphicImage library="imagens" name="logobanner_1.png" />
-            <div style="float: right; margin-right: 24px;margin-top: 60px">
-                <h:form>
-                    <h:outputFormat id="bemVindo" style="font-family: sans-serif; font-size: 12px;"
-                                    value="Seja bem vindo(a) {0}, ao sistema de Fiscalização do Açaí PDE.">
-                        <f:param value="#{tecnicoBean.tecnicoLogado.nome}"/>
-                    </h:outputFormat>
+                    <ui:include src="/templates/menu.xhtml"/>
+                    <nav class="navbar navbar-header  navbar-fixed-top" ></nav>
 
-                    <h:outputLink  value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
-                        <p:graphicImage library="imagens" name="logout.png" 
-                                        height="20" width="20"
-                                        title="Sair"/>
-                    </h:outputLink> 
-                </h:form>
-            </div>
+                    <div id="conteudo">
+                        <ui:insert name="corpo" />
+                    </div>
 
-        </header>
+                    <ui:include src="/templates/footer.xhtml"/>
 
-        <div id="menu">
-            <h:form>
-                <p:menubar style="margin-top: -20px; margin-bottom: 9px">
-                    <p:submenu label="Cadastros">
-                        <p:menuitem value="Equipamento"
-                                    action="/pages/equipamento/equipamentos?faces-redirect=true"/>
+                    <h:form>
+                        <p:confirmDialog global="true">
+                            <div align="center">
+                                <p:commandButton value="Não" type="button"
+                                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 
-                        <p:menuitem value="Estabelecimentos"
-                                    action="/pages/estabelecimento/formulario?faces-redirect=true"/>
+                                <p:commandButton value="Sim" type="button"
+                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            </div>
+                        </p:confirmDialog>
+                    </h:form>
+                    <h:outputScript library="js" name="bootstrap.min.js"/>
+                    <h:outputScript library="js" name="jquery-2.1.4.min.js"/>
 
-                        <p:submenu label="Vistorias">
-                            <p:menuitem value="Aguardando vistoria"
-                                        action="/pages/vistoria/realizarAguardandoVistoria?faces-redirect=true"/>
-
-                            <p:menuitem value="Pendentes"
-                                        action="/pages/vistoria/realizarVistoriaPendente?faces-redirect=true"/>
-
-                            <p:menuitem value="Vencidas"
-                                        action="/pages/vistoria/realizarVistoriaVencida?faces-redirect=true"/>
-
-
-                        </p:submenu>
-
-
-                    </p:submenu>
-
-                    <p:submenu label="Consulta">
-                        <p:submenu label="Estabelecimentos">
-                            <p:menuitem value="Todos"
-                                        action="/pages/estabelecimento/lista?faces-redirect=true"/>
-                            <p:menuitem value="Licença Regulares"
-                                        action="/pages/estabelecimento/listaRegulares?faces-redirect=true"/>
-                            <p:menuitem value="Licença Pendentes"
-                                        action="/pages/estabelecimento/listaPendentes?faces-redirect=true"/>
-                            <p:menuitem value="Licença vencida"
-                                        action="/pages/estabelecimento/listaVencidos?faces-redirect=true"/>
-
-                        </p:submenu>
-
-                        <p:submenu label="Vistorias">
-                            <p:menuitem value="Realizadas"
-                                        action="/pages/vistoria/vistoriaRealizadas?faces-redirect=true"/>
-                        </p:submenu>
-                    </p:submenu>
-                </p:menubar>
-            </h:form>
-        </div>
-
-        <div id="conteudo">
-            <div class="pagina">
-                <ui:insert name="corpo" />
+                </section>
             </div>
         </div>
-
-        <footer style="text-align: center;"> 
-            <h:graphicImage library="imagens" name="acaipde.png" height="40" width="40"/>
-
-            <p><a href="https://portalnew.ufra.edu.br/">Açai Paidégua</a>
-
-                Copyright 2015 Todos os direitos reservados, All rights reserved.</p>
-        </footer>
-
-        <h:form>
-            <p:confirmDialog global="true">
-                <div align="center">
-                    <p:commandButton value="Não" type="button"
-                                     styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-
-                    <p:commandButton value="Sim" type="button"
-                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                </div>
-            </p:confirmDialog>
-        </h:form>
-        <h:outputScript library="js" name="bootstrap.min.js"/>
-        <h:outputScript library="js" name="jquery-2.1.4.min.js"/>
     </h:body>
 </html>
 

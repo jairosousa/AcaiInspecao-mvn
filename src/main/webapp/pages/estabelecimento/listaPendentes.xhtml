@@ -7,12 +7,14 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Consulta Estabelecimentos Regulares</ui:define>
+    <ui:define name="titulo">Consulta Estabelecimentos Pendentes</ui:define>
 
     <ui:define name="corpo">
 
-        <div class="tituloPrincipal">
-            <h3>Estabelecimentos Regulares</h3>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            Estabelecimentos Pendentes
+        </div>
         </div>
 
         <h:form id="listaEstabelecimento">
@@ -26,7 +28,7 @@
                          rows="10" paginator="true" id="estab" paginatorPosition="bottom"
                          sortMode="multiple" style="text-align: center">
 
-                <p:column style="width: 16px">
+                <p:column style="width: 36px">
                     <p:rowToggler/>
                 </p:column>
 
@@ -110,7 +112,7 @@
 
                         <p:outputLabel value="Latitude"/>
                         <h:outputText value="#{estabelecimentos.latitude}"/>
-                        
+
                         <p:outputLabel value="Longitude"/>
                         <h:outputText value="#{estabelecimentos.longitude}"/>
 

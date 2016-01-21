@@ -7,49 +7,44 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Dados do Estabelecimento
+        </div>
 
-        <div class="panel panel-primary">
+        <div class="panel-body">
 
-            <div class="panel-heading">
-                Dados do Estabelecimento
+            <div class="form-group">
+                <p:outputLabel value="Razão Social" for="razaosocial" class="control-label col-sm-2"/>
+                <div class="col-sm-10">
+                    <p:inputText id="razaosocial" size="50" class="form-control" 
+                                 value="#{estabelecimentoBean.estabelecimento.razaoSocial}"
+                                 rendered="true" label="Razão Social" placeholder="Razão Social">
+                        <f:validateLength maximum="100" minimum="2"/>
+                    </p:inputText>
+                </div>
             </div>
 
-            <div class="panel-body">
-
-                    <div class="form-group">
-                        <p:outputLabel value="Razão Social" for="razaosocial" class="control-label col-sm-2"/>
-                        <div class="col-sm-10">
-                            <p:inputText id="razaosocial" size="50" class="form-control" 
-                                         value="#{estabelecimentoBean.estabelecimento.razaoSocial}"
-                                         rendered="true" label="Razão Social" placeholder="Razão Social">
-                                <f:validateLength maximum="100" minimum="2"/>
-                            </p:inputText>
-                        </div>
-                    </div>
-
-                    <div class="form-group" >
-                        <h:outputLabel value="Nome Fantasia" for="nomefantasia" class="control-label col-sm-2" />
-                        <div class="col-sm-10">
-                            <p:inputText id="nomefantasia" size="50" class="form-control" style="margin-top: 5px"
-                                         value="#{estabelecimentoBean.estabelecimento.nomeFantasia}"
-                                         rendered="true" label="Nome" placeholder="Nome Fantasia">
-                                <f:validateLength maximum="100" minimum="2"/>
-                            </p:inputText>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <p:outputLabel value="CNPJ" for="cnpj" class="control-label col-sm-2" />
-                        <div class="col-sm-3" style="margin-top: 5px">
-                            <p:inputMask id="cnpj" size="30" class="form-control" 
-                                         value="#{estabelecimentoBean.estabelecimento.cnpj}"
-                                         mask="99.999.999/9999-99" placeholder="CNPJ"/>
-                        </div>
-                    </div>
-
+            <div class="form-group" >
+                <h:outputLabel value="Nome Fantasia" for="nomefantasia" class="control-label col-sm-2" />
+                <div class="col-sm-10">
+                    <p:inputText id="nomefantasia" size="50" class="form-control" style="margin-top: 5px"
+                                 value="#{estabelecimentoBean.estabelecimento.nomeFantasia}"
+                                 rendered="true" label="Nome" placeholder="Nome Fantasia">
+                        <f:validateLength maximum="100" minimum="2"/>
+                    </p:inputText>
+                </div>
             </div>
+
+            <div class="form-group">
+                <p:outputLabel value="CNPJ" for="cnpj" class="control-label col-sm-2" />
+                <div class="col-sm-3" style="margin-top: 5px">
+                    <p:inputMask id="cnpj" size="30" class="form-control" 
+                                 value="#{estabelecimentoBean.estabelecimento.cnpj}"
+                                 mask="99.999.999/9999-99" placeholder="CNPJ"/>
+                </div>
+            </div>
+
         </div>
     </div>
-
 </ui:composition>

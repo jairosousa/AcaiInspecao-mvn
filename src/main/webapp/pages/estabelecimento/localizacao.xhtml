@@ -8,65 +8,60 @@
     xmlns:p="http://primefaces.org/ui">
 
 
-    <div class="container">
-
-        <div class="panel panel-primary">
-
+<div class="panel panel-default">
             <div class="panel-heading">
                 Localização
             </div>
 
             <div class="panel-body">
 
-                    <div class="form-group">
-                        <h:outputLabel value="Latitude" class="control-label col-sm-2"/>
-                        <div class="col-sm-10">
-                            <p:inputText id="latitude" size="50"
-                                         placeholder="Latitude"
-                                         disabled="true"
-                                         value="#{estabelecimentoBean.estabelecimento.latitude}"/>
-                        </div>
+                <div class="form-group">
+                    <h:outputLabel value="Latitude" class="control-label col-sm-2"/>
+                    <div class="col-sm-2">
+                        <p:inputText id="latitude" size="50"
+                                     placeholder="Latitude"
+                                     class="form-control"
+                                     value="#{estabelecimentoBean.estabelecimento.latitude}"/>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <h:outputLabel value="Longitude" class="control-label col-sm-2"/>
-                        <div class="col-sm-10">
-                            <p:inputText id="longitude" size="50"
-                                         placeholder="Longitude"
-                                         disabled="true"
-                                         value="#{estabelecimentoBean.estabelecimento.longitude}"/>
-                        </div>
+                <div class="form-group">
+                    <h:outputLabel value="Longitude" class="control-label col-sm-2"/>
+                    <div class="col-sm-2">
+                        <p:inputText id="longitude" size="50"
+                                     placeholder="Longitude"
+                                     class="form-control"
+                                     value="#{estabelecimentoBean.estabelecimento.longitude}"/>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <p:commandButton id="opemMapa" 
-                                             class="btn btn-primary"
-                                             value="Obter Coordenadas" 
-                                             action="#{estabelecimentoBean.obterCoordenadas()}"
-                                             update="latitude longitude geoGmap"/>
-                            <h:outputLink id="openDialogLink" value="javascript:void(0)" onclick="PF('dlg').show();">
-                                <h:graphicImage library="imagens" name="Maps.png" title="Ver no Mapa"/>
-                            </h:outputLink>
-                        </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <p:commandButton id="opemMapa" 
+                                         class="btn btn-primary"
+                                         value="Obter Coordenadas" 
+                                         action="#{estabelecimentoBean.obterCoordenadas()}"
+                                         update="latitude longitude geoGmap"/>
+                        <h:outputLink id="openDialogLink" value="javascript:void(0)" onclick="PF('dlg').show();">
+                            <h:graphicImage library="imagens" name="Maps.png" title="Ver no Mapa"/>
+                        </h:outputLink>
                     </div>
+                </div>
 
-                    <p:dialog id="picture" widgetVar="dlg" header="Localização" 
-                              resizable="false" showEffect="clip" hideEffect="clip"
-                              height="400" width="500"
-                              minimizable="true" maximizable="true">
+                <p:dialog id="picture" widgetVar="dlg" header="Localização" 
+                          resizable="false" showEffect="clip" hideEffect="clip"
+                          height="400" width="500"
+                          minimizable="true" maximizable="true">
 
-                        <p:gmap id="geoGmap" 
-                                center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
-                                zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" 
-                                style="width:100%;height:400px">
-                            <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
-                        </p:gmap>
+                    <p:gmap id="geoGmap" 
+                            center="#{estabelecimentoBean.estabelecimento.latitude},#{estabelecimentoBean.estabelecimento.longitude}"
+                            zoom="16" type="ROADMAP" model="#{estabelecimentoBean.draggableModel}" 
+                            style="width:100%;height:400px">
+                        <p:ajax event="markerDrag" listener="#{estabelecimentoBean.onMarkerDrag}" update="@form" />
+                    </p:gmap>
 
-                    </p:dialog>  
+                </p:dialog>  
             </div>
-        </div>
-    </div>
-
+</div>
 
 </ui:composition>

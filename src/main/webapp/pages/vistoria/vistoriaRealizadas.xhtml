@@ -14,57 +14,58 @@
     <ui:define name="titulo">Vistorias Realizadas</ui:define>
 
     <ui:define name="corpo">
-
-            <div class="tituloPrincipal">
-                <h3>Vistorias Realizadas</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Vistorias Realizadas
             </div>
+        </div>
 
-            <div class="formulario">
+        <div class="formulario">
 
-                <h:form id="frm-vistoria">
+            <h:form id="frm-vistoria">
 
-                    <p:growl id="msgs"/>
+                <p:growl id="msgs"/>
 
 
-                    <p:dataTable value="#{vistoriaBean.vistorias}"
-                                 var="estabelecimentoVistoria" emptyMessage="Nenhum Estabelecimento para ser vistoriado" rows="7"
-                                 paginator="true" paginatorPosition="bottom" style="margin-top:5px"
-                                 id="vistoria-table"
-                                 selection="#{vistoriaBean.estabelecimentoSelecionado}"
-                                 selectionMode="single" rowKey="#{estabelecimentoVistoria.id}">
+                <p:dataTable value="#{vistoriaBean.vistorias}"
+                             var="estabelecimentoVistoria" emptyMessage="Nenhum Estabelecimento para ser vistoriado" rows="7"
+                             paginator="true" paginatorPosition="bottom" style="margin-top:5px"
+                             id="vistoria-table"
+                             selection="#{vistoriaBean.estabelecimentoSelecionado}"
+                             selectionMode="single" rowKey="#{estabelecimentoVistoria.id}">
 
-                        <p:column headerText="Nome Fantasia">
-                            <h:outputText value="#{estabelecimentoVistoria.estabelecimento.nomeFantasia}"/>
-                        </p:column>
+                    <p:column headerText="Nome Fantasia">
+                        <h:outputText value="#{estabelecimentoVistoria.estabelecimento.nomeFantasia}"/>
+                    </p:column>
 
-                        <p:column headerText="Contato">
-                            <h:outputText value="#{estabelecimentoVistoria.estabelecimento.nomeContato}"/>
-                        </p:column>
+                    <p:column headerText="Contato">
+                        <h:outputText value="#{estabelecimentoVistoria.estabelecimento.nomeContato}"/>
+                    </p:column>
 
-                        <p:column headerText="Telefone" style="text-align: center">
-                            <h:outputText value="#{estabelecimentoVistoria.estabelecimento.telefone}"/>
-                        </p:column>
+                    <p:column headerText="Telefone" style="text-align: center">
+                        <h:outputText value="#{estabelecimentoVistoria.estabelecimento.telefone}"/>
+                    </p:column>
 
-                        <p:column headerText="Endereço">
-                            <h:outputText value="#{estabelecimentoVistoria.estabelecimento.logradouro}, #{estabelecimentoVistoria.estabelecimento.numero}"/>
-                        </p:column>
+                    <p:column headerText="Endereço">
+                        <h:outputText value="#{estabelecimentoVistoria.estabelecimento.logradouro}, #{estabelecimentoVistoria.estabelecimento.numero}"/>
+                    </p:column>
 
-                        <p:column headerText="Bairro" style="text-align: center">
-                            <h:outputText value="#{estabelecimentoVistoria.estabelecimento.bairro}"/>
-                        </p:column>
+                    <p:column headerText="Bairro" style="text-align: center">
+                        <h:outputText value="#{estabelecimentoVistoria.estabelecimento.bairro}"/>
+                    </p:column>
 
-                        <p:column headerText="Status" style="text-align: center">
-                            <h:outputText value="#{estabelecimentoVistoria.estabelecimento.status}" 
-                                          style="padding: 4px; border-radius: 3px; color: #FFFFFF;  font-weight: bold;
-                                  background-color: ${estabelecimentoVistoria.estabelecimento.status == 'Aguardando vistoria' ? '#e62e00' : 
-                                                      estabelecimentoVistoria.estabelecimento.status == 'Pendente' ? '#ff9933' : 
-                                                      estabelecimentoVistoria.estabelecimento.status == 'Regular' ? '#00802b' : '#804000'}"/>
-                            
-                        </p:column>
-                        
-                    </p:dataTable>
+                    <p:column headerText="Status" style="text-align: center">
+                        <h:outputText value="#{estabelecimentoVistoria.estabelecimento.status}" 
+                                      style="padding: 4px; border-radius: 3px; color: #FFFFFF;  font-weight: bold;
+                                      background-color: ${estabelecimentoVistoria.estabelecimento.status == 'Aguardando vistoria' ? '#e62e00' : 
+                                                          estabelecimentoVistoria.estabelecimento.status == 'Pendente' ? '#ff9933' : 
+                                                          estabelecimentoVistoria.estabelecimento.status == 'Regular' ? '#00802b' : '#804000'}"/>
 
-                </h:form>
-            </div>
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>
