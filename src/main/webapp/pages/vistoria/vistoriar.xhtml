@@ -41,7 +41,7 @@
 
                     </p:toolbar>
 
-                    <p:panelGrid columns="2">
+                    <p:panelGrid columns="2" layout="grid">
                         <p:panelGrid columns="2">
 
                             <p:outputLabel value="Estabelecimento"/>
@@ -95,13 +95,13 @@
                             <h:outputLabel value="Observação"/>
                             <p:inputTextarea value="#{vistoriaBean.vistoria.observacao}" 
                                              style="font-family: sans-serif; font-size: 24px"/>
-                            
+
                             <h:outputLabel value="Prazo"/>
                             <p:selectOneRadio value="#{vistoriaBean.vistoria.prazo}">
                                 <f:selectItem itemValue="15" itemLabel="15 Dias"/>
                                 <f:selectItem itemValue="20" itemLabel="20 Dias"/>
                                 <f:selectItem itemValue="30" itemLabel="30 Dias"/>
-                            
+
                             </p:selectOneRadio>
                         </p:panelGrid>
                     </p:panelGrid>
@@ -110,6 +110,7 @@
 
                     <p:dataTable 
                         id="inspEquip-table"
+                        reflow="true"
                         value="#{vistoriaBean.inspecoes}" 
                         var="inspEquipamento" emptyMessage="Nenhum equipamento para ser inspecionado" rows="7"
                         paginator="true" paginatorPosition="bottom" style="margin-top:5px">

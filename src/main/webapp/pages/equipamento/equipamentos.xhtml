@@ -51,9 +51,10 @@
 
                     <p:commandButton
                         icon="ui-icon-trash" title="Excluir"
-                        action="#{equipamentoBean.excluir}" process="@this"
+                        process="@this"
                         update="equipamento-table msgs toolbar"
-                        disabled="#{equipamentoBean.equipamentoSelecionado==null }  ">
+                        disabled="#{equipamentoBean.equipamentoSelecionado==null }"
+                        action="#{equipamentoBean.excluir}" >
                         <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
                                    message="Tem certeza que deseja excluir o equipamento?" />
                     </p:commandButton>
@@ -62,6 +63,7 @@
             </p:toolbar>
 
             <p:dataTable  id="equipamento-table"
+                          reflow="true"
                           value="#{equipamentoBean.equipamentos}"
                           var="equipamentos" emptyMessage="Nenhum Equipamento Cadastrado" rows="5"
                           paginator="true" paginatorPosition="bottom" style="margin-top:5px"
@@ -89,48 +91,51 @@
 
             </p:dataTable>
 
-
-
-            <p:dialog header="Novo Equipamento" widgetVar="edicaoEquipamentoDialog"
-                      id="equipamento-dialog" resizable="false" 
-                      closeOnEscape="true">
+            <p:dialog  id="equipamento-dialog"  modal="true"
+                       header="Novo Equipamento" widgetVar="edicaoEquipamentoDialog"
+                       resizable="false" 
+                       closeOnEscape="true" >
 
                 <p:messages id="msgs-dialog" />
                 <p:defaultCommand target="salvar-button" scope="equipamento-dialog" />
 
-                <h:panelGrid columns="2" id="painel-dialog">
+                <div class="ui-fluid">
 
-                    <p:outputLabel value="Nome" for="nome" />
-                    <p:inputText id="nome" size="60" maxlength="40"
-                                 value="#{equipamentoBean.equipamentoEdicao.nome}" />
+                    <p:panelGrid columns="2" id="painel-dialog"
+                                 styleClass="ui-panelgrid-blank">
 
-                    <p:outputLabel value="Descricao" for="descricao" />
-                    <p:inputTextarea id="descricao" maxlength="120" rows="2" cols="33"
-                                     value="#{equipamentoBean.equipamentoEdicao.descricao}" />
+                        <p:outputLabel value="Nome" for="nome" />
+                        <p:inputText id="nome" size="60" maxlength="40"
+                                     value="#{equipamentoBean.equipamentoEdicao.nome}" />
 
-                    <p:outputLabel for="status" value="Status" />
-                    <p:selectOneRadio id="status" value="#{equipamentoBean.equipamentoEdicao.status}">
-                        <f:selectItem itemLabel="Obrigatorio" itemValue="Obrigatorio"/>
-                        <f:selectItem itemLabel="Não obrigatorio" itemValue="Não obrigatorio" />
-                    </p:selectOneRadio>
+                        <p:outputLabel value="Descricao" for="descricao" />
+                        <p:inputTextarea id="descricao" maxlength="120" rows="2" cols="33"
+                                         value="#{equipamentoBean.equipamentoEdicao.descricao}" />
 
-                    <p:outputLabel for="material" value="Material" />
-                    <p:selectOneMenu id="material" value="#{equipamentoBean.equipamentoEdicao.material}">
-                        <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-                        <f:selectItem itemLabel="Aço Inox" itemValue="Aço Inox" />
-                        <f:selectItem itemLabel="Aluminio" itemValue="Aluminio" />
-                        <f:selectItem itemLabel="Plastico" itemValue="Plastico" />
-                        <f:selectItem itemLabel="Madeira" itemValue="Madeira" />
-                        <f:selectItem itemLabel="Latex" itemValue="Latex" />
-                        <f:selectItem itemLabel="Pano" itemValue="Pano" />
-                    </p:selectOneMenu>
+                        <p:outputLabel for="status" value="Status" />
+                        <p:selectOneRadio id="status" value="#{equipamentoBean.equipamentoEdicao.status}">
+                            <f:selectItem itemLabel="Obrigatorio" itemValue="Obrigatorio"/>
+                            <f:selectItem itemLabel="Não obrigatorio" itemValue="Não obrigatorio" />
+                        </p:selectOneRadio>
 
-                    <p:outputLabel />
-                    <p:commandButton value="Salvar" id="salvar-button"
-                                     action="#{equipamentoBean.salvar}" process="equipamento-dialog"
-                                     update="msgs-dialog painel-dialog"
-                                     oncomplete="if(!args.validationFailed)PF('edicaoEquipamentoDialog').hide()" />
-                </h:panelGrid>
+                        <p:outputLabel for="material" value="Material" />
+                        <p:selectOneMenu id="material" value="#{equipamentoBean.equipamentoEdicao.material}">
+                            <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Aço Inox" itemValue="Aço Inox" />
+                            <f:selectItem itemLabel="Aluminio" itemValue="Aluminio" />
+                            <f:selectItem itemLabel="Plastico" itemValue="Plastico" />
+                            <f:selectItem itemLabel="Madeira" itemValue="Madeira" />
+                            <f:selectItem itemLabel="Latex" itemValue="Latex" />
+                            <f:selectItem itemLabel="Pano" itemValue="Pano" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel />
+                        <p:commandButton value="Salvar" id="salvar-button"
+                                         action="#{equipamentoBean.salvar}" process="equipamento-dialog"
+                                         update="msgs-dialog painel-dialog"
+                                         oncomplete="if(!args.validationFailed)PF('edicaoEquipamentoDialog').hide()" />
+                    </p:panelGrid>
+                </div>
             </p:dialog>
         </h:form>
 

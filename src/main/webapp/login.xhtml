@@ -5,6 +5,8 @@
 
     <h:head>
         <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width"/>
         <link rel="shortcut icon" type="image/x-icon" href="#{resource['imagens/acaipde.png']}"/>
         <title>Açai Inspeção</title>
         <h:outputStylesheet library="css" name="main.css"/>
@@ -17,7 +19,7 @@
 
         <div class="panel">
             <div class="imag">
-                    <h:graphicImage  library="imagens" name="acaipde.png" height="70" width="70"/>
+                <h:graphicImage  library="imagens" name="acaipde.png" height="70" width="70"/>
             </div>
             <div id="login">
                 <form id="form_login" action="#{request.contextPath}/j_spring_security_check"

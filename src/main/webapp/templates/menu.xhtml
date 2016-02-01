@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,59 +5,76 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <div class="container">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Açaí Inspeção</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><h:link value="Home" outcome="/pages/estabelecimento/lista?faces-redirect=true"/></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastros
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><h:link value="Equipamentos" outcome="/pages/equipamento/equipamentos?faces-redirect=true"/></li>
-                        <li><h:link value="Estabelecimentos" outcome="/pages/estabelecimento/formulario?faces-redirect=true"/></li>
-                        <li class="divider" role="separator"></li>
-                        <li class="dropdown-header">Vistorias</li>
-                        <li><h:link value="Aguardando vistoria" outcome="/pages/vistoria/realizarAguardandoVistoria?faces-redirect=true"/></li>
-                        <li><h:link value="Pendentes" outcome="/pages/vistoria/realizarVistoriaPendente?faces-redirect=true"/></li>
-                        <li><h:link value="Vencidas" outcome="/pages/vistoria/realizarVistoriaVencida?faces-redirect=true"/></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Consultas
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">Estabelecimentos</li>
-                        <li><h:link value="Todos" outcome="/pages/estabelecimento/lista?faces-redirect=true"/></li>
-                        <li><h:link value="Licença Regulares" outcome="/pages/estabelecimento/listaRegulares?faces-redirect=true"/></li>
-                        <li><h:link value="Licença Pendentes" outcome="/pages/estabelecimento/listaPendentes?faces-redirect=true"/></li>
-                        <li class="divider" role="separator"></li>
-                        <li class="dropdown-header">Vistorias</li>
-                        <li><h:link value="Realizadas" outcome="/pages/vistoria/vistoriaRealizadas?faces-redirect=true"/></li>
-                    </ul>
-                </li>
-            </ul>
-            <h:form>
-                <div class="clearfix">
-                    <h:outputFormat 
-                        class="panel-title aw-titulo-panel"
-                        value="usuario: {0}">
-                        <f:param value="#{tecnicoBean.tecnicoLogado.nome}"/>
-                    </h:outputFormat>
-
-                    <h:outputLink  
-                        class="btn btn-link aw-link-panel"
-                        value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
-                        <p:graphicImage library="imagens" name="exit_blue.png" 
-                                        height="20" width="20"
-                                        title="Sair"/>
-                    </h:outputLink> 
+        <!-- Static navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Açaí Inspeção</a>
                 </div>
-            </h:form>
-        </div>
-    </nav>
+
+                <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><h:link value="Home" outcome="/pages/estabelecimento/lista?faces-redirect=true"/></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastros
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><h:link value="Equipamentos" outcome="/pages/equipamento/equipamentos?faces-redirect=true"/></li>
+                                <li><h:link value="Estabelecimentos" outcome="/pages/estabelecimento/formulario?faces-redirect=true"/></li>
+                                <li class="divider" role="separator"></li>
+                                <li class="dropdown-header">Vistorias</li>
+                                <li><h:link value="Aguardando vistoria" outcome="/pages/vistoria/realizarAguardandoVistoria?faces-redirect=true"/></li>
+                                <li><h:link value="Pendentes" outcome="/pages/vistoria/realizarVistoriaPendente?faces-redirect=true"/></li>
+                                <li><h:link value="Vencidas" outcome="/pages/vistoria/realizarVistoriaVencida?faces-redirect=true"/></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Consultas
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Estabelecimentos</li>
+                                <li><h:link value="Todos" outcome="/pages/estabelecimento/lista?faces-redirect=true"/></li>
+                                <li><h:link value="Licença Regulares" outcome="/pages/estabelecimento/listaRegulares?faces-redirect=true"/></li>
+                                <li><h:link value="Licença Pendentes" outcome="/pages/estabelecimento/listaPendentes?faces-redirect=true"/></li>
+                                <li class="divider" role="separator"></li>
+                                <li class="dropdown-header">Vistorias</li>
+                                <li><h:link value="Realizadas" outcome="/pages/vistoria/vistoriaRealizadas?faces-redirect=true"/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <h:form>
+                            <div class="clearfix">
+                                <h:outputFormat 
+                                    class="panel-title aw-titulo-panel"
+                                    value="usuario: {0}">
+                                    <f:param value="#{tecnicoBean.tecnicoLogado.nome}"/>
+                                </h:outputFormat>
+
+                                <h:outputLink  
+                                    class="btn btn-link aw-link-panel"
+                                    value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                                    <p:graphicImage library="imagens" name="exit_blue.png" 
+                                                    height="20" width="20"
+                                                    title="Sair"/>
+                                </h:outputLink> 
+                            </div>
+                        </h:form>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </nav>
+
+    </div>
+
+
 </html>
 

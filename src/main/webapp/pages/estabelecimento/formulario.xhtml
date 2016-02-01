@@ -11,26 +11,25 @@
 
     <ui:define name="corpo">
 
-
         <h:form id="formularioEstabelecimento" class="form-horizontal">
-
             <p:growl
                 id="growl"
                 showDetail="true"
                 sticky="false"/>
-                <h:inputHidden value="#{estabelecimentoBean.estabelecimento.id}"/>
-                <br />
-                <ui:include src="dadosEstabelecimentos.xhtml"/>
-                <br />
-                <ui:include src="dadosContato.xhtml"/>
-                <br />
-                <ui:include src="dadosEndereco.xhtml"/>
-                <br />
-                <ui:include src="dadosAcesso.xhtml"/>
-                <br />
-                <ui:include src="localizacao.xhtml"/>
 
-                <ui:include src="toobarFormulario.xhtml"/>
+            <h:inputHidden value="#{estabelecimentoBean.estabelecimento.id}"/>
+            <br />
+            <ui:include src="dadosEstabelecimentos.xhtml"/>
+            <br />
+            <ui:include src="dadosContato.xhtml"/>
+            <br />
+            <ui:include src="dadosEndereco.xhtml"/>
+            <br />
+            <ui:include src="dadosAcesso.xhtml"/>
+            <br />
+            <ui:include src="localizacao.xhtml"/>
+
+            <ui:include src="toobarFormulario.xhtml"/>
         </h:form>
     </ui:define>
 

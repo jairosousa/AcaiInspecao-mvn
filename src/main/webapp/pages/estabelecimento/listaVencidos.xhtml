@@ -23,6 +23,7 @@
 
 
             <p:dataTable id="estab" var="estabelecimentos" 
+                         id="estab"
                          value="#{estabelecimentoBean.estabelecimentosVencida}"
                          emptyMessage="Não há estabelecimento com licença vencida."
                          rows="10" paginator="true"  paginatorPosition="bottom"
@@ -56,7 +57,7 @@
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:outputText>
                 </p:column>
-                
+
                 <p:column headerText="Data Vencimento">
                     <h:outputText value="#{estabelecimentos.dataVencimento}">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>

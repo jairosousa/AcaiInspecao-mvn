@@ -24,8 +24,10 @@
                 sticky="false"/>
 
 
-            <p:dataTable var="estabelecimentos" value="#{estabelecimentoBean.estabelecimentosRegulares}"
-                         rows="10" paginator="true" id="estab" paginatorPosition="bottom"
+            <p:dataTable id="estab" var="estabelecimentos" 
+                         reflow="true"
+                         value="#{estabelecimentoBean.estabelecimentosRegulares}"
+                         rows="10" paginator="true" paginatorPosition="bottom"
                          sortMode="multiple" style="text-align: center">
 
                 <p:column style="width: 36px">
