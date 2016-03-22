@@ -59,6 +59,146 @@ public class EstabelecimentoResource extends Application {
         }
 
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("aguardandoVistoria")
+    public String aguardandoVistoria() {
+       try {
+            estabelecimentos = rnEstabelecimento.obterEstabelecimentosAguardandoVistoria();
+            if (!estabelecimentos.isEmpty()) {
+
+               json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+                System.out.println("consultando a lista"+json);
+                return gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+            } else {
+                mensagem.setMensagemServToClient("A lista está vazia!");
+                json = gson.toJson(mensagem);
+                System.out.println(json);
+                return json;
+            }
+        } catch (Exception e) {
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
+            json = gson.toJson(mensagem);
+
+            System.out.println(json);
+
+            return json;
+        }
+
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("regular")
+    public String regular() {
+       try {
+            estabelecimentos = rnEstabelecimento.obterEstabelecimentosRegulares();
+            if (!estabelecimentos.isEmpty()) {
+
+               json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+                System.out.println("consultando a lista"+json);
+                return gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+            } else {
+                mensagem.setMensagemServToClient("A lista está vazia!");
+                json = gson.toJson(mensagem);
+                System.out.println(json);
+                return json;
+            }
+        } catch (Exception e) {
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
+            json = gson.toJson(mensagem);
+
+            System.out.println(json);
+
+            return json;
+        }
+
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("pendente")
+    public String pendente() {
+       try {
+            estabelecimentos = rnEstabelecimento.obterEstabelecimentosPendentes();
+            if (!estabelecimentos.isEmpty()) {
+
+               json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+                System.out.println("consultando a lista"+json);
+                return gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+            } else {
+                mensagem.setMensagemServToClient("A lista está vazia!");
+                json = gson.toJson(mensagem);
+                System.out.println(json);
+                return json;
+            }
+        } catch (Exception e) {
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
+            json = gson.toJson(mensagem);
+
+            System.out.println(json);
+
+            return json;
+        }
+
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("licencaVencida")
+    public String licencaVencida() {
+       try {
+            estabelecimentos = rnEstabelecimento.obterEstabelecimentoVencido();
+            if (!estabelecimentos.isEmpty()) {
+
+               json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+                System.out.println("consultando a lista"+json);
+                return gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+            } else {
+                mensagem.setMensagemServToClient("A lista está vazia!");
+                json = gson.toJson(mensagem);
+                System.out.println(json);
+                return json;
+            }
+        } catch (Exception e) {
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
+            json = gson.toJson(mensagem);
+
+            System.out.println(json);
+
+            return json;
+        }
+
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("aguardandoPendente")
+    public String aguardandoVistoriaPendente() {
+       try {
+            estabelecimentos = rnEstabelecimento.obterEstabelecimentosAguardandoVistoriaPendente();
+            if (!estabelecimentos.isEmpty()) {
+
+               json = gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+                System.out.println("consultando a lista"+json);
+                return gson.toJson(EstabelecimentoConverter.toEstabelecimentosPOJO(estabelecimentos));
+            } else {
+                mensagem.setMensagemServToClient("A lista está vazia!");
+                json = gson.toJson(mensagem);
+                System.out.println(json);
+                return json;
+            }
+        } catch (Exception e) {
+            mensagem.setMensagemServToClient("Erro ao obter todos: " + e.getMessage());
+            json = gson.toJson(mensagem);
+
+            System.out.println(json);
+
+            return json;
+        }
+
+    }
 
     
 }
