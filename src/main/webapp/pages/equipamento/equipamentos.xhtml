@@ -118,17 +118,21 @@
                             <f:selectItem itemLabel="Não obrigatorio" itemValue="Não obrigatorio" />
                         </p:selectOneRadio>
 
-                        <p:outputLabel for="material" value="Material" />
-                        <p:selectOneMenu id="material" value="#{equipamentoBean.equipamentoEdicao.material}">
-                            <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Aço Inox" itemValue="Aço Inox" />
-                            <f:selectItem itemLabel="Aluminio" itemValue="Aluminio" />
-                            <f:selectItem itemLabel="Plastico" itemValue="Plastico" />
-                            <f:selectItem itemLabel="Madeira" itemValue="Madeira" />
-                            <f:selectItem itemLabel="Latex" itemValue="Latex" />
-                            <f:selectItem itemLabel="Pano" itemValue="Pano" />
-                        </p:selectOneMenu>
-
+                        <div class="form-group"> 
+                            <p:outputLabel for="material" value="Material" />
+                            <div class="col-sm-4">
+                                <p:selectOneMenu id="material" class="form-control"
+                                                 value="#{equipamentoBean.equipamentoEdicao.material}">
+                                    <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Aço Inox" itemValue="Aço Inox" />
+                                    <f:selectItem itemLabel="Aluminio" itemValue="Aluminio" />
+                                    <f:selectItem itemLabel="Plastico" itemValue="Plastico" />
+                                    <f:selectItem itemLabel="Madeira" itemValue="Madeira" />
+                                    <f:selectItem itemLabel="Latex" itemValue="Latex" />
+                                    <f:selectItem itemLabel="Pano" itemValue="Pano" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
                         <p:outputLabel />
                         <p:commandButton value="Salvar" id="salvar-button"
                                          action="#{equipamentoBean.salvar}" process="equipamento-dialog"

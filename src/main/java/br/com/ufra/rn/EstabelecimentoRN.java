@@ -50,7 +50,7 @@ public class EstabelecimentoRN implements Serializable {
         return dao.estabelecimentosAguardandoVistoria();
     }
     public List<Estabelecimento> obterEstabelecimentosAguardandoVistoriaPendente() {
-        return dao.obterEstabelecimentosAguardandoVistoriaPendente();
+        return dao.obterEstabelecimentosPendentes();
     }
     
 

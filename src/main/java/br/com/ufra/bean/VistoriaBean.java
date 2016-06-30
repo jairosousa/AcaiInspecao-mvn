@@ -202,7 +202,7 @@ public class VistoriaBean implements Serializable {
 
     public List<Estabelecimento> getEstabelecimentosAguardandoVistoria() {
         if (!FacesContext.getCurrentInstance().isPostback()) {
-            return RN_ESTABELECIMENTO.estabelecimentosAguardandoVistoria();
+            return RN_ESTABELECIMENTO.obterEstabelecimentosAguardandoVistoria();
         } else {
             return null;
         }

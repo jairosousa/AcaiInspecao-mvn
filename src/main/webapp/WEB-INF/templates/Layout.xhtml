@@ -26,14 +26,14 @@
             <div class="container">
                 <section>
 
-                    <ui:include src="/templates/menu.xhtml"/>
+                    <ui:include src="/WEB-INF//templates/menu.xhtml"/>
                     
 
                     <div id="conteudo">
                         <ui:insert name="corpo" />
                     </div>
 
-                    <ui:include src="/templates/footer.xhtml"/>
+                    <ui:include src="/WEB-INF/templates/footer.xhtml"/>
 
                     <h:form>
                         <p:confirmDialog global="true">
@@ -46,6 +46,7 @@
                             </div>
                         </p:confirmDialog>
                     </h:form>
+                    
                     <h:outputScript library="js" name="bootstrap.min.js"/>
                     <h:outputScript library="js" name="jquery-2.1.4.min.js"/>
 
