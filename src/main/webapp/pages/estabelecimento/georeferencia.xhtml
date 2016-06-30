@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Consulta Estabelecimentos</ui:define>
+
+    <ui:define name="corpo">
+        <h:form id="frm">
+            <p:growl id="growl" showDetail="true" />
+            
+            <p:gmap id="gmap" center="-1.2912627,-48.468732" zoom="13" type="RODMAP" model="#{geoConsulta.mapModel}" style="width:100%;height:500px">              
+                <p:ajax event="markerDrag" listener="#{geoConsulta.onMarkerDrag}" update="growl" />
+
+            </p:gmap>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

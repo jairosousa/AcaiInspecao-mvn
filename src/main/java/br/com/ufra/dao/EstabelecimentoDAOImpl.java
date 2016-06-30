@@ -8,6 +8,7 @@ package br.com.ufra.dao;
 import br.com.ufra.dao.service.EstabelecimentoDAO;
 import br.com.ufra.dao.service.GenericDAO;
 import br.com.ufra.entidade.Estabelecimento;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
@@ -23,8 +24,9 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author Jairo
  */
-public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> implements EstabelecimentoDAO {
+public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> implements EstabelecimentoDAO, Serializable {
 
+    private static final long serialVersionUID = 1L;
     private EntityManager em;
     private final GenericDAO<Estabelecimento> dao = FabricaDAO.criarGenericDAO();
 
@@ -153,5 +155,11 @@ public class EstabelecimentoDAOImpl extends GenericDAOImpl<Estabelecimento> impl
             return null;
         }
 
+    }
+
+    public Estabelecimento obterPorNome(String nome) {
+        String query = "Estabelecimento.findByNome";
+        Query q = super.getEntityManager().createNamedQuery(query);
+        return (Estabelecimento) q.setParameter("nome", nome).getSingleResult();
     }
 }

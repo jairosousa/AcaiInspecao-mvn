@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -33,26 +35,26 @@ public class EstabelecimentoRN implements Serializable {
     public List<Estabelecimento> obterTodos() {
         return dao.obterTodos(Estabelecimento.class);
     }
-    
-    public List<Estabelecimento> obterEstabelecimentosRegulares(){
+
+    public List<Estabelecimento> obterEstabelecimentosRegulares() {
         return dao.obterEstabelecimentosRegulares();
     }
-    
-    public List<Estabelecimento> obterEstabelecimentosPendentes(){
+
+    public List<Estabelecimento> obterEstabelecimentosPendentes() {
         return dao.obterEstabelecimentosPendentes();
     }
-    
-    public List<Estabelecimento> obterEstabelecimentoVencido(){
+
+    public List<Estabelecimento> obterEstabelecimentoVencido() {
         return dao.obterEstabelecimentoVencido();
     }
 
     public List<Estabelecimento> obterEstabelecimentosAguardandoVistoria() {
         return dao.estabelecimentosAguardandoVistoria();
     }
+
     public List<Estabelecimento> obterEstabelecimentosAguardandoVistoriaPendente() {
         return dao.obterEstabelecimentosPendentes();
     }
-    
 
     public List<Estabelecimento> obterEstabelecimento(String busca) {
         if (busca == null || busca.length() < 3) {
@@ -104,4 +106,7 @@ public class EstabelecimentoRN implements Serializable {
         }
     }
 
+    public Estabelecimento obterPorNome(String nome) {
+        return dao.obterPorNome(nome);
+    }
 }
