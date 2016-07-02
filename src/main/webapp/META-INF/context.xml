@@ -9,7 +9,7 @@
                  maxWait="10000"
                  minIdle="5"
                  username="root"
-                 password="bpmlab"
+                 password="jnssls"
                  type="javax.sql.DataSource"
                  url="jdbc:mysql://localhost:3306/acaipde"
                  validationQuery="SELECT 1"/>

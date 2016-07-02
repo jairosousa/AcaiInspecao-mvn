@@ -36,39 +36,40 @@ public class GeoConsulta implements Serializable {
     private Marker marker;
 
     private List<Estabelecimento> estabelecimentos = new ArrayList<>();
+    private List<LatLng> coordenadas = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         mapModel = new DefaultMapModel();
-        
+
         double lat = 0, lon = 0;
 
         estabelecimentos = RN.obterTodos();
-        for (Estabelecimento estabelecimento : estabelecimentos) {
-            System.out.println("Estabelecimento: " + estabelecimento.getNomeFantasia());
-
-            lat = Double.parseDouble(estabelecimento.getLatitude());
-            lon = Double.parseDouble(estabelecimento.getLongitude());
-        }
-
-        System.out.println("Lat: " + lat);
-        System.out.println("Lon: " + lon);
 
         //Shared coordinates
         LatLng coord1 = new LatLng(lat, lon);
+
+        for (int i = 0; i < estabelecimentos.size(); i++) {
+            coordenadas.add(new LatLng(Double.parseDouble(estabelecimentos.get(i).getLatitude()), Double.parseDouble(estabelecimentos.get(i).getLongitude())));
+
+        }
+        
+        for (int j = 0; j < estabelecimentos.size(); j++) {
+            mapModel.addOverlay(new Marker(coordenadas.get(j), estabelecimentos.get(j).getNomeFantasia()));
+        }
 
 //        LatLng coord2 = new LatLng(Double.parseDouble(estabelecimentos.get(1).getLatitude()), Double.parseDouble(estabelecimentos.get(1).getLongitude()));
 //        LatLng coord3 = new LatLng(Double.parseDouble(estabelecimentos.get(2).getLatitude()), Double.parseDouble(estabelecimentos.get(2).getLongitude()));
 //        LatLng coord4 = new LatLng(Double.parseDouble(estabelecimentos.get(3).getLatitude()), Double.parseDouble(estabelecimentos.get(3).getLongitude()));
         //Draggable
-        mapModel.addOverlay(new Marker(coord1, "Konyaalti"));
+//        mapModel.addOverlay(new Marker(coord1, "Konyaalti"));
 //        mapModel.addOverlay(new Marker(coord2, "Ataturk Parki"));
 //        mapModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
 //        mapModel.addOverlay(new Marker(coord4, "Kaleici"));
 
-        for (Marker premarker : mapModel.getMarkers()) {
-            premarker.setDraggable(true);
-        }
+//        for (Marker premarker : mapModel.getMarkers()) {
+//            premarker.setDraggable(true);
+//        }
     }
 
     public MapModel getMapModel() {
@@ -77,6 +78,10 @@ public class GeoConsulta implements Serializable {
 
     public Marker getMarker() {
         return marker;
+    }
+
+    public List<LatLng> getCoordenadas() {
+        return coordenadas;
     }
 
     public List<Estabelecimento> getEstabelecimentos() {
